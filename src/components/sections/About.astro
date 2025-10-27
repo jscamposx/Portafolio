@@ -1,0 +1,39 @@
+---
+// Datos About (biografía consolidada)
+const about = {
+  heading: 'Sobre mí',
+  paragraphs: [
+    'Me llamo Jesús pero muchos me llaman JSC. Empecé en la curiosidad por la web muy joven, copiando fragmentos de código, adaptándolos y rompiéndolos para entenderlos. Hoy aplico esa misma curiosidad para unir diseño y front‑end.',
+    'Algunos logros incluyen ayudar a equipos a profesionalizar su capa visual y de interacción, impulsar el uso de sistemas de diseño ligeros y acelerar ciclos de validación reduciendo discusiones abstractas en favor de prototipos tangibles.',
+    'Actualmente combino diseño de producto, accesibilidad y arquitectura front‑end para crear interfaces con intención. Mi objetivo: que cada detalle —micro‑interacciones, jerarquía visual, performance— acerque a usuarios y negocio a resultados claros.'
+  ],
+  image: {
+    src: '/avatar.jpg',
+    alt: 'Retrato de Jesús Campos'
+  }
+};
+---
+<section id="sobre-mi" class="relative mt-16 sm:mt-24 scroll-mt-40 px-4 sm:px-0" aria-labelledby="sobre-mi-heading" transition:animate="fade">
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-10">
+    <div class="flex-1 max-w-2xl">
+      <div class="space-y-3 sm:space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">Sobre mí</p>
+        <h2 id="sobre-mi-heading" class="text-2xl font-semibold sm:text-4xl">{about.heading}</h2>
+      </div>
+      <div class="mt-6 sm:mt-8 space-y-4 sm:space-y-6 text-[var(--color-text)] text-sm sm:text-base leading-relaxed [&>p>strong]:font-semibold [&>p>strong]:text-[var(--color-text)] [&>p>em]:italic font-light">
+        {about.paragraphs.map(p => <p>{p}</p>)}
+      </div>
+    </div>
+    <figure class="shrink-0 self-start md:self-center order-first md:order-last">
+      <img
+        src={about.image.src}
+        alt={about.image.alt}
+        width="300"
+        height="300"
+        class="object-cover w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 aspect-square rounded-2xl p-[3px] bg-[linear-gradient(140deg,rgba(192,132,252,0.3),rgba(31,22,48,0.55))] ring-1 ring-[rgba(192,132,252,0.35)] shadow-[0_4px_24px_-6px_rgba(0,0,0,0.6)] -rotate-2 hover:rotate-0 transition-transform duration-500 mx-auto md:mx-0"
+        style="object-position:50% 50%"
+        loading="lazy"
+      />
+    </figure>
+  </div>
+</section>

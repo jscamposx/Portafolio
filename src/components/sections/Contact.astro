@@ -1,0 +1,100 @@
+---
+// Datos inline (Contact)
+const eyebrow = 'Contacto';
+const title = '¿Construimos algo juntos?';
+const description = 'Agenda una llamada para revisar tu producto, un rediseño o la próxima iteración de tu plataforma.';
+const primaryAction = { label: 'Cuéntame de tu proyecto', href: 'mailto:jscamposx@gmail.com' };
+const secondaryAction = { label: 'Reservar 30 minutos', href: 'https://cal.com/jscamposx/30min', external: true };
+---
+<section id="contacto" class="space-y-8 pt-16" transition:animate="fade">
+  <header class="space-y-4">
+    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">{eyebrow}</p>
+    <h2 class="text-3xl font-semibold sm:text-4xl">{title}</h2>
+    <p class="max-w-2xl text-base text-[var(--color-text-muted)]">{description}</p>
+  </header>
+  <div class="mx-auto max-w-xl space-y-8">
+    <div class="space-y-6">
+      <form id="contact-form" class="group relative space-y-6 p-6 rounded-3xl border border-[var(--color-border)] bg-[rgba(19,11,30,0.85)] backdrop-blur-md shadow-[0_25px_70px_-40px_rgba(0,0,0,0.7)]" novalidate>
+        <div class="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 group-focus-within:opacity-100 transition-opacity duration-500" style="background: radial-gradient(circle at 25% 15%, rgba(192,132,252,0.18), transparent 70%);"></div>
+        <div class="space-y-4">
+          <div class="flex flex-col gap-2">
+            <label for="name" class="text-sm font-medium tracking-wide text-[var(--color-text)]">Nombre</label>
+            <input id="name" name="name" type="text" required autocomplete="name" placeholder="Tu nombre" class="peer rounded-xl border border-[var(--color-border)] bg-[rgba(29,17,45,0.65)] px-4 py-3 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)]/60 outline-none focus:border-[rgba(192,132,252,0.6)] focus:ring-2 focus:ring-[rgba(192,132,252,0.35)] transition" />
+            <p class="invisible peer-invalid:visible text-[11px] font-medium uppercase tracking-wider text-[var(--color-accent)]">Requerido</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="email" class="text-sm font-medium tracking-wide text-[var(--color-text)]">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" placeholder="tucorreo@ejemplo.com" class="peer rounded-xl border border-[var(--color-border)] bg-[rgba(29,17,45,0.65)] px-4 py-3 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)]/60 outline-none focus:border-[rgba(192,132,252,0.6)] focus:ring-2 focus:ring-[rgba(192,132,252,0.35)] transition" />
+            <p class="invisible peer-invalid:visible text-[11px] font-medium uppercase tracking-wider text-[var(--color-accent)]">Email inválido</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="subject" class="text-sm font-medium tracking-wide text-[var(--color-text)]">Asunto</label>
+            <input id="subject" name="subject" type="text" required placeholder="Tema principal" class="peer rounded-xl border border-[var(--color-border)] bg-[rgba(29,17,45,0.65)] px-4 py-3 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)]/60 outline-none focus:border-[rgba(192,132,252,0.6)] focus:ring-2 focus:ring-[rgba(192,132,252,0.35)] transition" />
+            <p class="invisible peer-invalid:visible text-[11px] font-medium uppercase tracking-wider text-[var(--color-accent)]">Requerido</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="message" class="text-sm font-medium tracking-wide text-[var(--color-text)]">Mensaje</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Cuéntame un poco del contexto, objetivos y plazos..." class="peer resize-y min-h-[160px] rounded-xl border border-[var(--color-border)] bg-[rgba(29,17,45,0.65)] px-4 py-3 text-sm leading-relaxed text-[var(--color-text)] placeholder:text-[var(--color-text-muted)]/60 outline-none focus:border-[rgba(192,132,252,0.6)] focus:ring-2 focus:ring-[rgba(192,132,252,0.35)] transition"></textarea>
+            <p class="invisible peer-invalid:visible text-[11px] font-medium uppercase tracking-wider text-[var(--color-accent)]">Requerido</p>
+          </div>
+          <div class="flex items-start gap-3 pt-2">
+            <input id="consent" name="consent" type="checkbox" required class="mt-1 h-4 w-4 rounded border border-[var(--color-border)] bg-[rgba(29,17,45,0.65)] text-[var(--color-accent)] focus:ring-[var(--color-accent)] focus:ring-offset-0" />
+            <label for="consent" class="text-[12px] leading-relaxed text-[var(--color-text-muted)]">Acepto ser contactado y que mi información sea tratada para responder a esta consulta.</label>
+          </div>
+        </div>
+        <div class="pt-4 flex flex-wrap gap-3 items-center">
+          <button type="submit" class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#130b1e] transition active:scale-[.97] hover:-translate-y-0.5 hover:bg-[var(--color-accent-strong)] disabled:opacity-60 disabled:pointer-events-none">
+            <span class="submit-text">Enviar</span>
+            <span class="hidden submit-spinner size-4 animate-spin rounded-full border-2 border-[#130b1e] border-r-transparent"></span>
+          </button>
+          <button type="reset" class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-5 py-2.5 text-xs font-semibold tracking-wide text-[var(--color-text-muted)] transition hover:text-[var(--color-text)] hover:border-[rgba(192,132,252,0.45)] active:scale-[.97]">Limpiar</button>
+          <p class="form-status text-[12px] font-medium text-[var(--color-text-muted)]"></p>
+        </div>
+      </form>
+      <p class="text-xs text-[var(--color-text-muted)]/70 leading-relaxed max-w-sm">También puedes escribirme directo a <a class="underline decoration-dotted underline-offset-4 hover:text-[var(--color-accent)]" href={primaryAction.href}>jscamposx@gmail.com</a> o reservar una llamada.</p>
+    </div>
+  </div>
+
+  <script>
+    if (typeof window !== 'undefined') {
+      const form = document.getElementById('contact-form') as HTMLFormElement | null;
+      if (form) {
+        const statusEl = form.querySelector('.form-status') as HTMLElement | null;
+        const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+        const spinner = form.querySelector('.submit-spinner') as HTMLElement | null;
+        const submitText = form.querySelector('.submit-text') as HTMLElement | null;
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+          if (submitBtn) submitBtn.disabled = true;
+          if (spinner) spinner.classList.remove('hidden');
+          if (submitText) submitText.textContent = 'Enviando...';
+          if (statusEl) statusEl.textContent = '';
+
+          // Simulación de envío (sustituir por fetch a tu backend / servicio)
+          try {
+            await new Promise(r => setTimeout(r, 900));
+            if (statusEl) {
+              statusEl.textContent = 'Mensaje enviado. Gracias, te responderé pronto.';
+              statusEl.classList.remove('text-[var(--color-accent)]');
+              statusEl.classList.add('text-[var(--color-accent)]');
+            }
+            form.reset();
+          } catch (err) {
+            if (statusEl) {
+              statusEl.textContent = 'Error al enviar. Intenta de nuevo.';
+              statusEl.classList.add('text-[var(--color-accent)]');
+            }
+          } finally {
+            if (submitBtn) submitBtn.disabled = false;
+            if (spinner) spinner.classList.add('hidden');
+            if (submitText) submitText.textContent = 'Enviar';
+          }
+        });
+      }
+    }
+  </script>
+</section>

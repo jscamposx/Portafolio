@@ -1,0 +1,103 @@
+---
+// Datos inline (Hero)
+const hero = {
+  avatar: { initials: 'JC', alt: 'Iniciales de Jesús Campos' },
+  availability: { text: 'Disponible para colaborar', href: 'https://www.linkedin.com/in/jscamposx' },
+  title: 'Hey, soy Jesús Campos',
+  description: {
+    leading: '+3 años de experiencia.',
+    highlight: 'Diseño de producto y desarrollador back-end',
+    // Emoji bandera corregido (antes presentaba mojibake)
+    trailing: ' de Durango, México 🇲🇽. Especializado en crear experiencias web únicas.'
+  },
+  actions: [
+    { label: 'Contáctame', href: 'mailto:jscamposx@gmail.com', icon: 'mail' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jscamposx', icon: 'linkedin', external: true }
+  ]
+};
+---
+<section id="hero" class="pt-4 sm:pt-8 px-4 sm:px-0" transition:animate="fade">
+  <div class="max-w-xl">
+  <div class="flex flex-col sm:flex-row gap-4 mb-6">
+      <div class="size-14 sm:size-16 rounded-full bg-[var(--color-accent)] flex items-center justify-center font-semibold text-[1.2rem] sm:text-[1.4rem] text-[#130b1e] select-none" aria-label={hero.avatar.alt} role="img">
+        {hero.avatar.initials}
+      </div>
+      <a
+        class="flex items-center transition md:justify-center md:hover:scale-105"
+        href={hero.availability.href}
+        target="_blank"
+        rel="noopener"
+      >
+        <div class="flex items-center">
+          <span class="relative inline-flex overflow-hidden rounded-full p-[1px]">
+            <span class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#51E4B8_0%,#21554E_50%,#51E4B8_100%)]"></span>
+            <div class="badge-availability">
+              {hero.availability.text}
+            </div>
+          </span>
+        </div>
+      </a>
+    </div>
+    <h1 class="text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-5xl">{hero.title}</h1>
+    <p class="mt-4 sm:mt-6 text-base sm:text-xl leading-relaxed text-[var(--color-text-muted)] [&>strong]:text-[var(--color-accent)] [&>strong]:font-semibold">
+      {hero.description.leading}
+      {hero.description.leading && ' '}
+      <strong>{hero.description.highlight}</strong>
+      {hero.description.trailing}
+    </p>
+    <nav class="flex flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8">
+      {hero.actions.map((action) => (
+        <a
+          href={action.href}
+          target={action.external ? '_blank' : undefined}
+          rel={action.external ? 'noopener noreferrer' : undefined}
+          role="link"
+          class="inline-flex items-center justify-center gap-2 px-5 py-2 text-sm font-medium rounded-full transition group max-w-fit focus:outline-none focus-visible:outline-none ring-1 ring-inset ring-[rgba(192,132,252,0.35)] bg-[rgba(192,132,252,0.12)] text-[var(--color-text)] hover:bg-[rgba(192,132,252,0.22)] hover:ring-[rgba(192,132,252,0.55)] active:scale-[.97]"
+        >
+          {action.icon === 'mail' && (
+            <svg
+              class="size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M12 18h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v7.5"></path>
+              <path d="M3 6l9 6l9 -6"></path>
+              <path d="M15 18h6"></path>
+              <path d="M18 15l3 3l-3 3"></path>
+            </svg>
+          )}
+          {action.icon === 'linkedin' && (
+            <svg
+              class="size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+              <path d="M8 11l0 5"></path>
+              <path d="M8 8l0 .01"></path>
+              <path d="M12 16l0 -5"></path>
+              <path d="M16 16v-3a2 2 0 0 0 -4 0"></path>
+            </svg>
+          )}
+          {action.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</section>

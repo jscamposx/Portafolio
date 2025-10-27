@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/projects';
+
+// Datos inline
+const siteName = 'Jesús Campos';
+const pageTitle = `Proyectos | ${siteName}`;
+const pageDescription = `${siteName} comparte casos de estudio y proyectos recientes.`;
+---
+
+<Layout title={pageTitle} description={pageDescription} showNav={false}>
+  <section class="space-y-10">
+    <!-- Botón de volver -->
+    <div class="flex items-center gap-4">
+      <a 
+        href="/" 
+        class="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition group"
+      >
+        <svg class="size-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Volver al inicio
+      </a>
+    </div>
+
+    <header class="space-y-4">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">Portafolio</p>
+      <h1 class="text-3xl font-semibold sm:text-4xl">Casos de estudio seleccionados</h1>
+      <p class="max-w-2xl text-base text-[var(--color-text-muted)] sm:text-lg">
+        Experiencias digitales pensadas de forma integral: investigación, diseño de interacción y desarrollo
+        front-end listo para producción.
+      </p>
+    </header>
+    <div class="grid gap-6">
+      {projects.map((project) => (
+        <a
+          href={`/proyectos/${project.slug}/?ref=list`}
+          class="block transition-opacity hover:opacity-90 scroll-mt-32"
+          id={project.slug}
+          transition:animate="fade"
+        >
+          <ProjectCard
+            project={project}
+            compact
+            isWrappedInLink={true}
+            href={`/proyectos/${project.slug}/?ref=list`}
+          />
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

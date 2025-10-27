@@ -1,0 +1,71 @@
+---
+export interface TechnologyCallout {
+  title: string;
+  description: string;
+  items: { label: string; description: string }[];
+}
+
+export interface TechnologyGroup {
+  title: string;
+  description: string;
+  items: string[];
+}
+
+export interface TechnologiesProps {
+  eyebrow: string;
+  title: string;
+  description: string;
+  callout: TechnologyCallout;
+  groups: TechnologyGroup[];
+}
+
+const { eyebrow, title, description, callout, groups } = Astro.props as TechnologiesProps;
+---
+<section id="tecnologias" class="space-y-10 pt-16">
+  <header class="space-y-4">
+    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">{eyebrow}</p>
+    <h2 class="text-3xl font-semibold sm:text-4xl">{title}</h2>
+    <p class="max-w-3xl text-base text-[var(--color-text-muted)] sm:text-lg">{description}</p>
+  </header>
+
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+    <article class="relative overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[rgba(19,11,30,0.9)] p-6 sm:p-8">
+      <div class="absolute inset-0 bg-gradient-to-br from-[rgba(192,132,252,0.18)] via-transparent to-[rgba(29,17,45,0.85)]" aria-hidden="true"></div>
+      <div class="relative space-y-5">
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">{callout.title}</p>
+          <p class="text-base text-[var(--color-text-muted)] sm:text-lg">{callout.description}</p>
+        </div>
+        <ul class="space-y-4">
+          {callout.items.map((item) => (
+            <li class="flex items-start gap-4 rounded-2xl border border-[rgba(192,132,252,0.15)] bg-[rgba(255,255,255,0.03)] p-4 text-sm" transition:animate="fade">
+              <span class="mt-1 h-2 w-2 rounded-full bg-[var(--color-accent)]"></span>
+              <div class="space-y-1">
+                <p class="text-sm font-semibold text-white">{item.label}</p>
+                <p class="text-[var(--color-text-muted)]">{item.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      {groups.map((group) => (
+        <article class="flex h-full flex-col justify-between gap-5 rounded-3xl border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-6 transition hover:-translate-y-1 hover:border-[rgba(192,132,252,0.4)]">
+          <div class="space-y-3">
+            <h3 class="text-xl font-semibold text-white">{group.title}</h3>
+            <p class="text-sm text-[var(--color-text-muted)]">{group.description}</p>
+          </div>
+          <ul class="flex flex-wrap gap-2">
+            {group.items.map((item) => (
+              <li class="rounded-full border border-[rgba(192,132,252,0.25)] bg-[rgba(19,11,30,0.85)] px-3 py-1 text-xs font-medium uppercase tracking-wide text-[var(--color-text)]">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

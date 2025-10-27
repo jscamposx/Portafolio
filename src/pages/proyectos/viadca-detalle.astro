@@ -1,0 +1,554 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const metaTitle = 'Viadca - Plataforma de Gestión de Viajes | Jesús Campos';
+const metaDescription = 'Dashboard completo para crear y gestionar paquetes de viaje, con control de usuarios, mayoristas, monitor de actividad y landing page optimizada.';
+---
+
+<Layout title={metaTitle} description={metaDescription} showNav={false}>
+  <article class="space-y-16">
+    <!-- Botón de volver -->
+    <div class="flex items-center gap-4">
+      <a 
+        href="/" 
+        class="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition group"
+      >
+        <svg class="size-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Volver al inicio
+      </a>
+    </div>
+
+    <!-- Header del Proyecto -->
+    <header
+      class="relative overflow-hidden rounded-3xl border border-[var(--color-border)] surface-card p-8 sm:p-12"
+      style="--project-accent: #2563eb;"
+    >
+      <div class="relative space-y-8">
+        <!-- Tecnologías -->
+        <div class="flex flex-wrap items-center gap-2 text-[11px] font-medium tracking-wide">
+          {['React', 'NestJS', 'AWS', 'Tailwind CSS'].map((tech) => (
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(37,99,235,0.12)] ring-1 ring-[rgba(37,99,235,0.35)] text-[var(--color-text)] transition hover:bg-[rgba(37,99,235,0.22)]">
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <!-- Título y Descripción -->
+        <div class="space-y-4">
+          <h1 class="text-4xl font-semibold sm:text-5xl">Viadca</h1>
+          <p class="max-w-3xl text-base text-[var(--color-text-muted)] sm:text-lg">
+            Landing y dashboard para crear y gestionar paquetes de viaje, optimizando planificación y operación en una plataforma moderna y escalable.
+          </p>
+        </div>
+
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-3">
+          {['Dashboard', 'Gestión de viajes', 'Plataforma SaaS', 'E-commerce'].map((tag) => (
+            <span class="rounded-full border border-[var(--color-border)] surface-pill px-4 py-2 text-xs font-medium uppercase tracking-wide text-[var(--color-text)]">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <!-- Imagen Principal -->
+        <div class="relative overflow-hidden rounded-2xl border border-[var(--color-border)] image-frame">
+          <img
+            class="aspect-video w-full object-cover"
+            src="/Proyectos/card-proyecto1.avif"
+            alt="Dashboard principal de Viadca"
+            loading="eager"
+          />
+        </div>
+
+        <!-- Enlaces -->
+        <div class="flex flex-wrap gap-4">
+          <a
+            class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] surface-pill px-5 py-3 text-sm font-semibold text-[var(--color-text)] backdrop-blur transition hover:-translate-y-0.5 hover:border-[rgba(37,99,235,0.45)]"
+            href="https://www.viadca.app/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Ver sitio
+            <span aria-hidden="true">→</span>
+          </a>
+          <a
+            class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] surface-pill px-5 py-3 text-sm font-semibold text-[var(--color-text)] backdrop-blur transition hover:-translate-y-0.5 hover:border-[rgba(37,99,235,0.45)]"
+            href="https://github.com/jscamposx/viadca-backv1"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Repositorio Backend
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sección: El Reto -->
+    <section class="space-y-6">
+      <div class="space-y-3 rounded-2xl border border-[var(--color-border)] surface-card p-6">
+        <h2 class="text-2xl font-semibold text-white">El Reto</h2>
+        <p class="text-base text-[var(--color-text-muted)] leading-relaxed">
+          Las agencias de viajes necesitaban una plataforma integral que permitiera gestionar todo el ciclo de vida de los paquetes turísticos: desde la creación y cotización hasta la venta final, con múltiples niveles de usuarios (administradores, mayoristas, agentes) y una experiencia optimizada tanto para la operación interna como para la venta al cliente final.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sección: Dashboard Administrativo -->
+    <section class="space-y-6">
+      <div class="space-y-6 rounded-2xl border border-[var(--color-border)] surface-card p-6 sm:p-8">
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold text-white">Dashboard Administrativo</h2>
+          <p class="text-base text-[var(--color-text-muted)] leading-relaxed">
+            Desarrollé un dashboard completo con múltiples módulos especializados para gestión integral de la plataforma.
+          </p>
+        </div>
+
+        <!-- Grid de Características -->
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Control de Usuarios -->
+          <div class="space-y-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+            <div class="flex items-center gap-2">
+              <svg class="size-5 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+              </svg>
+              <h3 class="font-semibold text-white">Control de Usuarios</h3>
+            </div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Sistema de roles y permisos granular para administradores, mayoristas y agentes.
+            </p>
+          </div>
+
+          <!-- Gestión de Paquetes -->
+          <div class="space-y-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+            <div class="flex items-center gap-2">
+              <svg class="size-5 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+              </svg>
+              <h3 class="font-semibold text-white">Gestión de Paquetes</h3>
+            </div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Creación y edición completa de paquetes con itinerarios, destinos, precios y disponibilidad.
+            </p>
+          </div>
+
+          <!-- Sistema de Mayoristas -->
+          <div class="space-y-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+            <div class="flex items-center gap-2">
+              <svg class="size-5 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+              </svg>
+              <h3 class="font-semibold text-white">Sistema de Mayoristas</h3>
+            </div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Distribución B2B con precios diferenciados y gestión de partners.
+            </p>
+          </div>
+
+          <!-- Papelera -->
+          <div class="space-y-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+            <div class="flex items-center gap-2">
+              <svg class="size-5 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+              <h3 class="font-semibold text-white">Papelera</h3>
+            </div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Recuperación segura de datos eliminados con historial completo.
+            </p>
+          </div>
+
+          <!-- Monitor de Actividad -->
+          <div class="space-y-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+            <div class="flex items-center gap-2">
+              <svg class="size-5 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+              <h3 class="font-semibold text-white">Monitor</h3>
+            </div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Métricas en tiempo real de ventas, reservas y comportamiento de usuarios.
+            </p>
+          </div>
+
+          <!-- Configuración del Sitio -->
+          <div class="space-y-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+            <div class="flex items-center gap-2">
+              <svg class="size-5 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <h3 class="font-semibold text-white">Configuración</h3>
+            </div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Personalización completa del sitio, marca y optimización SEO.
+            </p>
+          </div>
+        </div>
+
+        <!-- Espacio para imagen del Dashboard -->
+        <div class="space-y-3">
+          <h3 class="text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">Vista del Dashboard</h3>
+          <div class="relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-surface)] to-[rgba(37,99,235,0.05)]">
+            <!-- Placeholder para imagen del dashboard -->
+            <div class="flex aspect-video items-center justify-center p-12">
+              <div class="text-center space-y-3">
+                <svg class="mx-auto size-16 text-[var(--color-border)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <p class="text-sm text-[var(--color-text-muted)]">Espacio reservado para captura del dashboard</p>
+                <p class="text-xs text-[var(--color-text-muted)]">Agregar imagen: <code class="px-2 py-1 rounded bg-[var(--color-surface)] border border-[var(--color-border)]">/Proyectos/viadca/dashboard-principal.avif</code></p>
+              </div>
+            </div>
+            <!-- Descomentar cuando agregues la imagen:
+            <img
+              class="w-full object-cover"
+              src="/Proyectos/viadca/dashboard-principal.avif"
+              alt="Vista completa del dashboard de Viadca"
+              loading="lazy"
+            />
+            -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección: Landing Page -->
+    <section class="space-y-6">
+      <div class="space-y-6 rounded-2xl border border-[var(--color-border)] surface-card p-6 sm:p-8">
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold text-white">Landing Page</h2>
+          <p class="text-base text-[var(--color-text-muted)] leading-relaxed">
+            Diseñé e implementé una landing page moderna y atractiva que sirve como punto de entrada para los clientes finales.
+          </p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="space-y-2">
+            <h3 class="font-semibold text-white">Características principales</h3>
+            <ul class="space-y-2 text-sm text-[var(--color-text-muted)]">
+              <li class="flex items-start gap-2">
+                <svg class="size-5 shrink-0 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Presentación de paquetes destacados
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="size-5 shrink-0 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Sistema de búsqueda y filtrado
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="size-5 shrink-0 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Integración con sistema de reservas
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="size-5 shrink-0 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Optimización SEO avanzada
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="size-5 shrink-0 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Diseño responsive para todos los dispositivos
+              </li>
+            </ul>
+          </div>
+
+          <!-- Espacio para imagen de la landing -->
+          <div class="space-y-3">
+            <div class="relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-surface)] to-[rgba(37,99,235,0.05)]">
+              <div class="flex aspect-[4/3] items-center justify-center p-8">
+                <div class="text-center space-y-2">
+                  <svg class="mx-auto size-12 text-[var(--color-border)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                  <p class="text-xs text-[var(--color-text-muted)]">Landing Page</p>
+                </div>
+              </div>
+              <!-- Descomentar cuando agregues la imagen:
+              <img
+                class="w-full object-cover"
+                src="/Proyectos/viadca/landing-hero.avif"
+                alt="Landing page de Viadca"
+                loading="lazy"
+              />
+              -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección: Arquitectura Técnica -->
+    <section class="space-y-6">
+      <div class="space-y-6 rounded-2xl border border-[var(--color-border)] surface-card p-6 sm:p-8">
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold text-white">Arquitectura Técnica</h2>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <!-- Frontend -->
+          <div class="space-y-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+            <div class="flex items-center gap-3">
+              <div class="flex size-10 items-center justify-center rounded-lg bg-[rgba(37,99,235,0.12)] ring-1 ring-[rgba(37,99,235,0.35)]">
+                <svg class="size-5 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-white">Frontend</h3>
+            </div>
+            <ul class="space-y-2 text-sm text-[var(--color-text-muted)]">
+              <li>• React con componentes reutilizables</li>
+              <li>• Tailwind CSS para diseño moderno</li>
+              <li>• Interfaz reactiva y responsive</li>
+              <li>• Optimización de rendimiento</li>
+            </ul>
+          </div>
+
+          <!-- Backend -->
+          <div class="space-y-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+            <div class="flex items-center gap-3">
+              <div class="flex size-10 items-center justify-center rounded-lg bg-[rgba(37,99,235,0.12)] ring-1 ring-[rgba(37,99,235,0.35)]">
+                <svg class="size-5 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-white">Backend</h3>
+            </div>
+            <ul class="space-y-2 text-sm text-[var(--color-text-muted)]">
+              <li>• NestJS con arquitectura modular</li>
+              <li>• APIs RESTful documentadas</li>
+              <li>• Sistema de autenticación por roles</li>
+              <li>• Base de datos optimizada</li>
+            </ul>
+          </div>
+
+          <!-- Infraestructura -->
+          <div class="space-y-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+            <div class="flex items-center gap-3">
+              <div class="flex size-10 items-center justify-center rounded-lg bg-[rgba(37,99,235,0.12)] ring-1 ring-[rgba(37,99,235,0.35)]">
+                <svg class="size-5 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-white">Infraestructura</h3>
+            </div>
+            <ul class="space-y-2 text-sm text-[var(--color-text-muted)]">
+              <li>• Desplegado en AWS</li>
+              <li>• Servicios cloud escalables</li>
+              <li>• Alta disponibilidad</li>
+              <li>• Monitoreo y logging</li>
+            </ul>
+          </div>
+
+          <!-- Seguridad -->
+          <div class="space-y-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+            <div class="flex items-center gap-3">
+              <div class="flex size-10 items-center justify-center rounded-lg bg-[rgba(37,99,235,0.12)] ring-1 ring-[rgba(37,99,235,0.35)]">
+                <svg class="size-5 text-[#2563eb]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-white">Seguridad</h3>
+            </div>
+            <ul class="space-y-2 text-sm text-[var(--color-text-muted)]">
+              <li>• Autenticación JWT</li>
+              <li>• Roles y permisos granulares</li>
+              <li>• Validación de datos</li>
+              <li>• Encriptación de información sensible</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección: Impacto -->
+    <section class="space-y-6">
+      <div class="space-y-6 rounded-2xl border border-[var(--color-border)] surface-card p-6 sm:p-8 bg-gradient-to-br from-[var(--color-surface)] to-[rgba(37,99,235,0.05)]">
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold text-white">Impacto y Resultados</h2>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="space-y-2 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-5">
+            <div class="text-3xl font-bold text-[#2563eb]">100%</div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Centralización de operaciones en una sola plataforma
+            </p>
+          </div>
+
+          <div class="space-y-2 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-5">
+            <div class="text-3xl font-bold text-[#2563eb]">-60%</div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Reducción en tiempo de creación de paquetes
+            </p>
+          </div>
+
+          <div class="space-y-2 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-5">
+            <div class="text-3xl font-bold text-[#2563eb]">B2B</div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Sistema completo de distribución mayorista
+            </p>
+          </div>
+
+          <div class="space-y-2 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-5">
+            <div class="text-3xl font-bold text-[#2563eb]">SEO</div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Optimización completa para buscadores
+            </p>
+          </div>
+
+          <div class="space-y-2 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-5">
+            <div class="text-3xl font-bold text-[#2563eb]">24/7</div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Monitoreo en tiempo real de métricas clave
+            </p>
+          </div>
+
+          <div class="space-y-2 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-5">
+            <div class="text-3xl font-bold text-[#2563eb]">Cloud</div>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Escalabilidad automática en AWS
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galería de imágenes (espacio para agregar más capturas) -->
+    <section class="space-y-6">
+      <div class="space-y-6 rounded-2xl border border-[var(--color-border)] surface-card p-6 sm:p-8">
+        <h2 class="text-2xl font-semibold text-white">Galería del Proyecto</h2>
+        <p class="text-sm text-[var(--color-text-muted)]">
+          Espacios reservados para capturas de pantalla adicionales del dashboard y landing page.
+        </p>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Espacio 1: Usuarios -->
+          <div class="space-y-2">
+            <div class="relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-surface)] to-[rgba(37,99,235,0.05)]">
+              <div class="flex aspect-video items-center justify-center p-6">
+                <div class="text-center space-y-2">
+                  <svg class="mx-auto size-10 text-[var(--color-border)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                  </svg>
+                  <p class="text-xs text-[var(--color-text-muted)]">Control de Usuarios</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-[var(--color-text-muted)]">dashboard-usuarios.avif</p>
+          </div>
+
+          <!-- Espacio 2: Paquetes -->
+          <div class="space-y-2">
+            <div class="relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-surface)] to-[rgba(37,99,235,0.05)]">
+              <div class="flex aspect-video items-center justify-center p-6">
+                <div class="text-center space-y-2">
+                  <svg class="mx-auto size-10 text-[var(--color-border)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                  </svg>
+                  <p class="text-xs text-[var(--color-text-muted)]">Gestión de Paquetes</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-[var(--color-text-muted)]">dashboard-paquetes.avif</p>
+          </div>
+
+          <!-- Espacio 3: Mayoristas -->
+          <div class="space-y-2">
+            <div class="relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-surface)] to-[rgba(37,99,235,0.05)]">
+              <div class="flex aspect-video items-center justify-center p-6">
+                <div class="text-center space-y-2">
+                  <svg class="mx-auto size-10 text-[var(--color-border)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                  </svg>
+                  <p class="text-xs text-[var(--color-text-muted)]">Sistema de Mayoristas</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-[var(--color-text-muted)]">dashboard-mayoristas.avif</p>
+          </div>
+
+          <!-- Espacio 4: Monitor -->
+          <div class="space-y-2">
+            <div class="relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-surface)] to-[rgba(37,99,235,0.05)]">
+              <div class="flex aspect-video items-center justify-center p-6">
+                <div class="text-center space-y-2">
+                  <svg class="mx-auto size-10 text-[var(--color-border)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                  </svg>
+                  <p class="text-xs text-[var(--color-text-muted)]">Monitor de Actividad</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-[var(--color-text-muted)]">dashboard-monitor.avif</p>
+          </div>
+
+          <!-- Espacio 5: Configuración -->
+          <div class="space-y-2">
+            <div class="relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-surface)] to-[rgba(37,99,235,0.05)]">
+              <div class="flex aspect-video items-center justify-center p-6">
+                <div class="text-center space-y-2">
+                  <svg class="mx-auto size-10 text-[var(--color-border)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <p class="text-xs text-[var(--color-text-muted)]">Configuración del Sitio</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-[var(--color-text-muted)]">dashboard-config.avif</p>
+          </div>
+
+          <!-- Espacio 6: Landing Mobile -->
+          <div class="space-y-2">
+            <div class="relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-surface)] to-[rgba(37,99,235,0.05)]">
+              <div class="flex aspect-video items-center justify-center p-6">
+                <div class="text-center space-y-2">
+                  <svg class="mx-auto size-10 text-[var(--color-border)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                  </svg>
+                  <p class="text-xs text-[var(--color-text-muted)]">Vista Mobile</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-[var(--color-text-muted)]">landing-mobile.avif</p>
+          </div>
+        </div>
+
+        <!-- Instrucciones -->
+        <div class="rounded-xl border border-[rgba(37,99,235,0.35)] bg-[rgba(37,99,235,0.05)] p-4">
+          <p class="text-sm text-[var(--color-text-muted)]">
+            💡 <strong>Para agregar tus imágenes:</strong> Coloca las capturas de pantalla en la carpeta 
+            <code class="px-2 py-1 rounded bg-[var(--color-surface)] border border-[var(--color-border)]">/public/Proyectos/viadca/</code> 
+            con los nombres sugeridos, y luego descomenta las secciones de imágenes en este archivo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navegación -->
+    <nav class="flex flex-wrap gap-4" aria-label="Navegación">
+      <a 
+        class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-6 py-3 text-sm font-semibold text-[var(--color-text)] transition hover:-translate-y-0.5 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]" 
+        href="/#proyectos"
+      >
+        ← Volver al inicio
+      </a>
+      <a 
+        class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-strong)]" 
+        href="/proyectos/"
+      >
+        Ver más proyectos →
+      </a>
+    </nav>
+  </article>
+</Layout>

@@ -1,0 +1,93 @@
+---
+import ReactIcon from '../../public/icons/React.astro';
+import NestJSIcon from '../../public/icons/NestJS.astro';
+import AWSIcon from '../../public/icons/AWS.astro';
+import TailwindIcon from '../../public/icons/Tailwind.astro';
+import TypeScriptIcon from '../../public/icons/TypeScript.astro';
+import AstroIcon from '../../public/icons/Astro.astro';
+import NodeJSIcon from '../../public/icons/NodeJS.astro';
+import PHPIcon from '../../public/icons/PHP.astro';
+import SassIcon from '../../public/icons/Sass.astro';
+import HTMLIcon from '../../public/icons/HTML.astro';
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+
+// Mapeo de tecnologías a sus componentes de iconos
+const techConfig: Record<string, { Component: any; color: string; displayName: string }> = {
+  'react': {
+    Component: ReactIcon,
+    color: '#61DAFB',
+    displayName: 'React'
+  },
+  'nestjs': {
+    Component: NestJSIcon,
+    color: '#E0234E',
+    displayName: 'NestJS'
+  },
+  'aws': {
+    Component: AWSIcon,
+    color: '#FF9900',
+    displayName: 'AWS'
+  },
+  'tailwindcss': {
+    Component: TailwindIcon,
+    color: '#06B6D4',
+    displayName: 'Tailwind CSS'
+  },
+  'typescript': {
+    Component: TypeScriptIcon,
+    color: '#3178C6',
+    displayName: 'TypeScript'
+  },
+  'astro': {
+    Component: AstroIcon,
+    color: '#FF5D01',
+    displayName: 'Astro'
+  },
+  'nodejs': {
+    Component: NodeJSIcon,
+    color: '#339933',
+    displayName: 'Node.js'
+  },
+  'php': {
+    Component: PHPIcon,
+    color: '#6181B6',
+    displayName: 'PHP'
+  },
+  'sass': {
+    Component: SassIcon,
+    color: '#CC6699',
+    displayName: 'Sass'
+  },
+  'html': {
+    Component: HTMLIcon,
+    color: '#E34F26',
+    displayName: 'HTML'
+  }
+};
+
+// Normalizar el nombre de la tecnología para buscar en el config
+const normalizedName = name.toLowerCase().replace(/\s+/g, '');
+const tech = techConfig[normalizedName] || techConfig[name.toLowerCase()];
+
+// Si no encontramos la tecnología, usar valores por defecto
+const Icon = tech?.Component;
+const color = tech?.color || 'var(--color-accent)';
+const displayName = tech?.displayName || name;
+---
+
+<span 
+  class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-accent)] transition-all duration-300 hover:shadow-[0_0_12px_rgba(var(--accent-rgb),0.15)] group"
+>
+  {Icon && (
+    <Icon 
+      class="w-4 h-4 transition-transform duration-300 group-hover:scale-110" 
+      aria-hidden="true"
+    />
+  )}
+  <span class="text-[11px] font-medium tracking-wide">{displayName}</span>
+</span>

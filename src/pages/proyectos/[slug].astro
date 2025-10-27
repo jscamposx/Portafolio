@@ -1,0 +1,137 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { projects } from '../../data/projects';
+
+// Datos inline
+const siteName = 'Jesús Campos';
+
+const getProjectBySlug = (slug: string) => projects.find(p => p.slug === slug);
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug } }));
+}
+
+const slug = Astro.params.slug ?? '';
+
+if (!slug) {
+  return Astro.redirect('/proyectos');
+}
+
+const project = getProjectBySlug(slug);
+
+if (!project) {
+  return Astro.redirect('/proyectos');
+}
+
+const metaTitle = `${project.title} | ${siteName}`;
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+
+// Detectar de dónde viene el usuario
+const referer = Astro.url.searchParams.get('ref');
+const section = Astro.url.searchParams.get('section');
+
+let backUrl = '/';
+let backLabel = 'Volver al inicio';
+
+if (referer === 'list') {
+  backUrl = `/proyectos/#${project.slug}`;
+  backLabel = 'Volver a proyectos';
+} else if (referer === 'home' && section) {
+  backUrl = `/#${section}`;
+  backLabel = 'Volver al inicio';
+}
+---
+
+<Layout title={metaTitle} description={project.description} showNav={false}>
+  <article class="space-y-16">
+    <!-- Botón de volver dinámico -->
+    <div class="flex items-center gap-4">
+      <a 
+        href={backUrl}
+        class="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition group"
+      >
+        <svg class="size-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        {backLabel}
+      </a>
+    </div>
+
+    <header
+	class="relative overflow-hidden rounded-3xl border border-[var(--color-border)] surface-card p-8 sm:p-12"
+      style={`--project-accent: ${project.accent};`}
+      transition:name={`project-card-${project.slug}`}
+    >
+  <!-- Overlay radial removido para evitar cualquier tinte de color sobre el header -->
+      <div class="relative space-y-8">
+        {project.technologies && project.technologies.length > 0 && (
+          <div class="flex flex-wrap items-center gap-2 text-[11px] font-medium tracking-wide">
+            {project.technologies.map((tech) => (
+              <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(192,132,252,0.12)] ring-1 ring-[rgba(192,132,252,0.35)] text-[var(--color-text)] transition hover:bg-[rgba(192,132,252,0.22)] hover:ring-[rgba(192,132,252,0.55)]">
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
+        <div class="space-y-4">
+          <h1 class="text-4xl font-semibold sm:text-5xl" transition:name={`project-title-${project.slug}`}>{project.title}</h1>
+          <p class="max-w-3xl text-base text-[var(--color-text-muted)] sm:text-lg">{project.description}</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          {project.tags.map((tag) => (
+              <span class="rounded-full border border-[var(--color-border)] surface-pill px-4 py-2 text-xs font-medium uppercase tracking-wide text-[var(--color-text)]" transition:name={`project-tag-${project.slug}-${slugify(tag)}`}>
+              {tag}
+            </span>
+          ))}
+        </div>
+  <div class="relative overflow-hidden rounded-2xl border border-[var(--color-border)] image-frame transition-all duration-500" transition:name={`project-image-wrapper-${project.slug}`}>
+          <img
+            class="aspect-video w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.02]"
+            src={project.heroImage}
+            alt={`Mockup del proyecto ${project.title}`}
+            loading="lazy"
+            transition:name={`project-image-${project.slug}`}
+          />
+        </div>
+        <div class="flex flex-wrap gap-4">
+          {project.links.map((link) => (
+            <a
+              class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] surface-pill px-5 py-3 text-sm font-semibold text-[var(--color-text)] backdrop-blur transition hover:-translate-y-0.5 hover:border-[rgba(192,132,252,0.45)]"
+              href={link.url}
+              target="_blank"
+              rel="noreferrer"
+              transition:animate="fade"
+            >
+              {link.label}
+              <span aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </header>
+
+    <section class="space-y-8">
+      {project.sections.map((section) => (
+        <div
+          class="space-y-3 rounded-2xl border border-[var(--color-border)] surface-card p-6 transition hover:-translate-y-0.5"
+          transition:name={`case-section-${slugify(section.heading)}`}
+        >
+          <h2 class="text-xl font-semibold text-white">{section.heading}</h2>
+          <p class="text-base text-[var(--color-text-muted)]">{section.body}</p>
+        </div>
+      ))}
+    </section>
+
+    <nav class="flex flex-wrap gap-4" aria-label="Navegación">
+      <a class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-6 py-3 text-sm font-semibold text-[var(--color-text)] transition hover:-translate-y-0.5 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]" href={backUrl} transition:animate="fade">{backLabel}</a>
+      <a class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-strong)]" href="/proyectos/" transition:animate="fade">Ver más proyectos</a>
+    </nav>
+  </article>
+</Layout>
+

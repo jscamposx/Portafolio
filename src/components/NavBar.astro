@@ -1,0 +1,337 @@
+---
+// Navegación estática inline (se eliminó siteConfig)
+const navLinks = [
+  { label: 'Inicio', href: '/#hero' },
+  { label: 'Experiencia', href: '/#experiencia' },
+  { label: 'Proyectos', href: '/#proyectos' },
+  { label: 'Sobre mí', href: '/#sobre-mi' }
+];
+---
+<header class="fixed top-0 z-50 flex w-full justify-center mt-2 px-4">
+  <nav class="nav-surface flex items-center justify-between md:justify-center rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium gap-1 sm:gap-2 w-full max-w-screen-sm md:max-w-none md:w-auto">
+    <!-- Menú hamburguesa para móvil -->
+    <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 rounded-full hover:bg-[rgba(255,255,255,0.06)] transition text-[var(--color-text-muted)]" aria-label="Menú" type="button">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
+    <!-- Links de navegación -->
+    <div id="nav-links" class="hidden md:flex items-center gap-1">
+      {navLinks.map(link => (
+        <a href={link.href} class="px-2 sm:px-3 py-1.5 sm:py-2 rounded-full nav-link text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[rgba(255,255,255,0.06)] transition whitespace-nowrap">
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Theme toggle -->
+    <div class="relative">
+      <button id="theme-toggle-btn" class="appearance-none border-none flex items-center justify-center rounded-full p-2 hover:scale-110 transition text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-alt)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]" aria-label="Elegir tema" title="Cambiar tema" type="button">
+        <span class="sr-only">Cambiar tema</span>
+        <svg id="light" class="theme-toggle-icon size-4 transition-all" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="scale:0">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+          <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+        </svg>
+        <svg id="dark" class="theme-toggle-icon absolute size-4 transition-all" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="scale:1">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+        </svg>
+        <svg id="system" class="theme-toggle-icon absolute size-4 transition-all" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="scale:0">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z" />
+          <path d="M7 20h10" />
+          <path d="M9 16v4" />
+          <path d="M15 16v4" />
+        </svg>
+      </button>
+      <div id="themes-menu" class="theme-menu hidden absolute top-9 right-0 text-xs p-1 min-w-[8rem] rounded-md border border-[var(--color-border)] bg-[var(--nav-surface-bg)] backdrop-blur-xl shadow-[0_4px_18px_-4px_rgba(0,0,0,0.35)]">
+        <ul class="py-1">
+          <li data-theme-option="light" class="themes-menu-option px-2 py-1.5 rounded-sm cursor-default hover:bg-[var(--color-surface-alt)]">Light</li>
+          <li data-theme-option="dark" class="themes-menu-option px-2 py-1.5 rounded-sm cursor-default hover:bg-[var(--color-surface-alt)]">Dark</li>
+          <li data-theme-option="system" class="themes-menu-option px-2 py-1.5 rounded-sm cursor-default hover:bg-[var(--color-surface-alt)]">System</li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Menú móvil desplegable -->
+  <div id="mobile-menu" class="hidden md:hidden absolute top-16 left-4 right-4 bg-[var(--nav-surface-bg)] backdrop-blur-xl rounded-2xl border border-[var(--color-border)] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] overflow-hidden">
+    <div class="p-4 space-y-2">
+      {navLinks.map(link => (
+        <a href={link.href} class="block px-4 py-3 rounded-lg nav-link text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[rgba(255,255,255,0.06)] transition">
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+if (typeof window !== 'undefined') {
+  // ================== MOBILE MENU ==================
+  const initMobileMenu = () => {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = mobileMenu?.querySelectorAll('a.nav-link');
+
+    if (!mobileMenuBtn || !mobileMenu) return;
+
+    // Toggle menú móvil
+    const oldMobileHandler = (window as any).__mobileMenuHandler;
+    if (oldMobileHandler) {
+      mobileMenuBtn.removeEventListener('click', oldMobileHandler);
+    }
+
+    const mobileHandler = (e: MouseEvent) => {
+      e.stopPropagation();
+      mobileMenu.classList.toggle('hidden');
+    };
+    (window as any).__mobileMenuHandler = mobileHandler;
+    mobileMenuBtn.addEventListener('click', mobileHandler);
+
+    // Cerrar menú al hacer click en un link
+    mobileLinks?.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Cerrar menú al hacer click fuera
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target as Node) && !mobileMenuBtn.contains(e.target as Node)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+  };
+
+  initMobileMenu();
+  document.addEventListener('astro:after-swap', () => { 
+    initMobileMenu();
+  });
+
+  // ================== NAVIGATION ACTIVE STATE ==================
+  // Evitar múltiples inicializaciones solo para la navegación
+  if (!(window as any).__navInit) {
+    (window as any).__navInit = true;
+
+    const STATE = {
+      header: null as HTMLElement | null,
+      hero: null as HTMLElement | null,
+      sections: [] as HTMLElement[],
+      links: [] as HTMLAnchorElement[],
+      current: '',
+      retries: 0,
+    };
+
+  const SECTION_IDS = ['hero','experiencia','proyectos','sobre-mi'];
+
+    const grab = () => {
+      STATE.header = document.querySelector('header');
+      STATE.hero = document.getElementById('hero');
+      STATE.sections = SECTION_IDS.map(id => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+      STATE.links = Array.from(document.querySelectorAll('nav a.nav-link, #mobile-menu a.nav-link')) as HTMLAnchorElement[];
+    };
+
+    const setActive = (id: string) => {
+      if (id === STATE.current) return;
+      STATE.current = id;
+      STATE.links.forEach(a => {
+        const target = a.getAttribute('href')?.split('#')[1];
+        if (target === id) a.classList.add('nav-active'); else a.classList.remove('nav-active');
+      });
+    };
+
+    const updateHeroState = () => {
+      if (!STATE.header) return;
+      if (!STATE.hero) { STATE.header.classList.remove('nav-over-hero'); return; }
+      const r = STATE.hero.getBoundingClientRect();
+      const onHero = r.bottom > 64 && r.top < window.innerHeight * 0.5;
+      STATE.header.classList.toggle('nav-over-hero', onHero);
+    };
+
+    const focusLine = () => window.innerHeight * 0.30;
+
+    const computeActive = () => {
+      if (location.pathname.startsWith('/proyectos')) {
+        // En páginas de proyectos (lista o detalle) marcamos Proyectos
+        setActive('proyectos');
+        return;
+      }
+      const y = focusLine();
+      if (!STATE.sections.length) { setActive(''); return; }
+      const atPageEnd = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 80);
+      if (atPageEnd) { setActive(STATE.sections[STATE.sections.length - 1].id); return; }
+      let winner: { id: string; weight: number } | null = null;
+      for (const sec of STATE.sections) {
+        const r = sec.getBoundingClientRect();
+        if (r.bottom < y) continue;
+        const center = r.top + r.height / 2;
+        const dist = Math.abs(center - y);
+        const weight = 1 / (dist + 1);
+        if (!winner || weight > winner.weight) winner = { id: sec.id, weight };
+      }
+      setActive(winner ? winner.id : '');
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          updateHeroState();
+          computeActive();
+          ticking = false;
+        });
+      }
+    };
+
+    const reinit = (hard = false) => {
+      grab();
+      if (!STATE.header) return; // aún no montó
+      if (hard) STATE.current = '';
+      onScroll();
+    };
+
+    // Eventos núcleo
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => { reinit(); });
+    window.addEventListener('pageshow', (e: any) => { if (e.persisted) reinit(true); });
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) reinit(); });
+    document.addEventListener('astro:after-swap', () => { setTimeout(() => reinit(true), 25); });
+
+    // Retries progresivos (por si imágenes/layout retrasan hero)
+    const scheduleRetries = () => {
+      const delays = [40, 120, 320];
+      delays.forEach(d => setTimeout(() => reinit(), d));
+    };
+
+    grab();
+    reinit(true);
+    scheduleRetries();
+  }
+
+  // ================== THEME TOGGLE ==================
+  // El tema debe reinicializarse en cada carga de página para funcionar con View Transitions
+  const initTheme = () => {
+    const themesMenu = document.getElementById('themes-menu');
+    const toggleBtn = document.getElementById('theme-toggle-btn');
+    const mm = window.matchMedia('(prefers-color-scheme: dark)');
+    let removeMedia: (() => void) | null = null;
+
+    const getThemePreference = (): 'light'|'dark'|'system' => {
+      try { return (localStorage.getItem('theme') as any) || 'system'; } catch { return 'system'; }
+    };
+    const updateIcon = (pref: string) => {
+      document.querySelectorAll('.theme-toggle-icon').forEach(el => {
+        (el as HTMLElement).style.scale = (el.id === pref) ? '1' : '0';
+      });
+      document.querySelectorAll('#themes-menu .themes-menu-option').forEach(opt => {
+        opt.classList.toggle('active', (opt as HTMLElement).dataset.themeOption === pref);
+      });
+    };
+    const applyTheme = () => {
+      if (removeMedia) removeMedia();
+      mm.addEventListener('change', applyTheme, { once: true });
+      removeMedia = () => mm.removeEventListener('change', applyTheme);
+      const pref = getThemePreference();
+      const isDark = pref === 'dark' || (pref === 'system' && mm.matches);
+      document.documentElement.classList.toggle('dark', isDark);
+      document.documentElement.dataset.theme = pref;
+      updateIcon(pref);
+    };
+    applyTheme();
+
+    // Limpiar listeners anteriores si existen
+    const oldClickHandler = (window as any).__themeClickHandler;
+    if (oldClickHandler) {
+      document.removeEventListener('click', oldClickHandler);
+    }
+
+    // Nuevo handler de click global
+    const clickHandler = (e: MouseEvent) => {
+      if (!themesMenu || !toggleBtn) return;
+      if (themesMenu.contains(e.target as Node) || toggleBtn.contains(e.target as Node)) return;
+      themesMenu.classList.add('hidden');
+      themesMenu.classList.remove('open');
+    };
+    (window as any).__themeClickHandler = clickHandler;
+    document.addEventListener('click', clickHandler);
+
+    // Limpiar listeners del botón anteriores
+    const oldToggleBtnHandler = (window as any).__themeToggleBtnHandler;
+    if (oldToggleBtnHandler && toggleBtn) {
+      toggleBtn.removeEventListener('click', oldToggleBtnHandler);
+    }
+
+    // Nuevo handler del botón
+    const toggleBtnHandler = (e: MouseEvent) => {
+      e.stopPropagation();
+      if (!themesMenu) return;
+      const opening = themesMenu.classList.contains('hidden');
+      themesMenu.classList.toggle('hidden');
+      if (opening) {
+        themesMenu.classList.add('open');
+      } else {
+        themesMenu.classList.remove('open');
+      }
+    };
+    (window as any).__themeToggleBtnHandler = toggleBtnHandler;
+    toggleBtn?.addEventListener('click', toggleBtnHandler);
+
+    // Limpiar listeners de opciones de menú anteriores
+    themesMenu?.querySelectorAll('.themes-menu-option').forEach(opt => {
+      const oldHandler = (opt as any).__themeOptionHandler;
+      if (oldHandler) {
+        opt.removeEventListener('click', oldHandler);
+      }
+      
+      const optionHandler = () => {
+        const pref = (opt as HTMLElement).dataset.themeOption as 'light'|'dark'|'system';
+        try { localStorage.setItem('theme', pref); } catch {}
+        applyTheme();
+        themesMenu?.classList.add('hidden');
+        themesMenu?.classList.remove('open');
+      };
+      (opt as any).__themeOptionHandler = optionHandler;
+      opt.addEventListener('click', optionHandler);
+    });
+
+    // Activar transiciones de tema tras primer frame para evitar flash
+    requestAnimationFrame(() => {
+      document.documentElement.classList.remove('pre-theme');
+      document.documentElement.classList.add('theme-transition');
+      // quitar la clase después de un tiempo para no forzar todas las transiciones siempre
+      setTimeout(() => document.documentElement.classList.remove('theme-transition'), 1000);
+    });
+  };
+
+  // Inicializar tema
+  initTheme();
+
+  // Reinicializar tema después de navegaciones
+  document.addEventListener('astro:after-swap', () => { 
+    initTheme();
+  });
+
+  // Atajo teclado: T para ciclar light -> dark -> system
+  if (!(window as any).__themeKeyboardInit) {
+    (window as any).__themeKeyboardInit = true;
+    window.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 't' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const getThemePreference = (): 'light'|'dark'|'system' => {
+          try { return (localStorage.getItem('theme') as any) || 'system'; } catch { return 'system'; }
+        };
+        const order: ('light'|'dark'|'system')[] = ['light','dark','system'];
+        const cur = getThemePreference();
+        const next = order[(order.indexOf(cur) + 1) % order.length];
+        try { localStorage.setItem('theme', next); } catch {}
+        // Re-inicializar tema para aplicar cambios
+        initTheme();
+      }
+    });
+  }
+}
+</script>
+      </button>
