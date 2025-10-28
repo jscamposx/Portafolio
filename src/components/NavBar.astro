@@ -4,7 +4,7 @@ const navLinks = [
   { label: 'Inicio', href: '/#hero' },
   { label: 'Experiencia', href: '/#experiencia' },
   { label: 'Proyectos', href: '/#proyectos' },
-  { label: 'Sobre mí', href: '/#sobre-mi' }
+  { label: 'Contacto', href: '/#contacto' }
 ];
 ---
 <header class="fixed top-0 z-50 flex w-full justify-center mt-2 px-4">
@@ -125,7 +125,7 @@ if (typeof window !== 'undefined') {
       retries: 0,
     };
 
-  const SECTION_IDS = ['hero','experiencia','proyectos','sobre-mi'];
+  const SECTION_IDS = ['hero','experiencia','proyectos','contacto'];
 
     const grab = () => {
       STATE.header = document.querySelector('header');
