@@ -80,7 +80,7 @@ export const projects: Project[] = [
     description: 'Sitio corporativo con storytelling, secciones editables y animaciones sutiles para reforzar la identidad de marca.',
     year: 2023,
     tags: ['Identidad de marca', 'Animación', 'Gestor de contenidos'],
-    heroImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=75',
     accent: '#f97316',
     links: [{ label: 'Ver proyecto', url: 'https://ejemplo.com/lumen' }],
     technologies: ['Astro', 'Tailwind CSS', 'Headless CMS', 'Figma'],

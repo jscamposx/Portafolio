@@ -129,20 +129,14 @@ img[transition\:name] {
 	}
 }
 
-/* Optimizaciones específicas para móvil - Reducir animaciones para mejor rendimiento */
+/* Optimizaciones específicas para móvil - DESHABILITAR transiciones para mejor rendimiento */
 @media (max-width: 768px) {
-	::view-transition-old(project-image),
-	::view-transition-new(project-image) {
-		animation-duration: 0.25s;
-		animation-timing-function: ease-out;
-	}
-	
-	::view-transition-old(project-title),
-	::view-transition-new(project-title),
-	::view-transition-old(project-techs),
-	::view-transition-new(project-techs) {
-		animation-duration: 0.2s;
-		animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	/* Desactivar completamente View Transitions en mobile para navegación instantánea */
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+		animation-duration: 0s !important;
 	}
 	
 	/* Reducir trabajo de GPU en mobile */
