@@ -94,11 +94,37 @@ body {
 	object-fit: cover;
 	width: 100%;
 	height: 100%;
+	/* Evitar glitches visuales */
+	image-rendering: auto;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	/* Forzar que mantenga posición */
+	position: relative;
+}
+
+/* Asegurar que la imagen se mantenga en su lugar durante transición */
+::view-transition-group(project-image) {
+	animation-duration: 0.3s;
+	overflow: hidden;
+	/* Prevenir cambios bruscos de tamaño */
+	contain: layout;
 }
 
 /* Mantener imágenes visibles durante transiciones */
 ::view-transition-image-pair(project-image) {
 	isolation: isolate;
+}
+
+/* Evitar que la imagen salte o se deforme durante la transición */
+::view-transition-group(project-image) {
+	overflow: hidden;
+}
+
+::view-transition-old(project-image),
+::view-transition-new(project-image) {
+	/* Forzar que la imagen mantenga su aspecto durante la transición */
+	mix-blend-mode: normal;
+	display: block;
 }
 
 /* Transiciones suaves para el título y tecnologías */

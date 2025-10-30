@@ -154,20 +154,29 @@ const {
 		
 		// Timeout de emergencia para evitar congelamientos
 		let transitionTimeout: ReturnType<typeof setTimeout> | undefined;
-		document.addEventListener('astro:before-preparation', () => {
-			// Si la transición tarda más de 1 segundo, abortar
+		let pendingNavigationUrl: string | null = null;
+		
+		document.addEventListener('astro:before-preparation', (e: any) => {
+			// Guardar la URL de destino
+			pendingNavigationUrl = e.to?.href || e.newDocument?.location?.href;
+			
+			// Si la transición tarda más de 800ms, navegar directamente
 			transitionTimeout = setTimeout(() => {
-				console.warn('Transición abortada por timeout');
-				window.location.reload();
-			}, 1000);
+				console.warn('Transición lenta detectada, navegando directamente...');
+				if (pendingNavigationUrl) {
+					window.location.href = pendingNavigationUrl;
+				}
+			}, 800);
 		});
 		
 		document.addEventListener('astro:after-swap', () => {
 			clearTimeout(transitionTimeout);
+			pendingNavigationUrl = null;
 		});
 		
 		document.addEventListener('astro:page-load', () => {
 			clearTimeout(transitionTimeout);
+			pendingNavigationUrl = null;
 		});
 		
 		// Reinicializar tema ANTES de que se vea el swap

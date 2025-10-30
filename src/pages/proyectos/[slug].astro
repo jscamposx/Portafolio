@@ -90,14 +90,16 @@ const slugify = (value: string) =>
         ))}
       </div>
       <div class="relative overflow-hidden rounded-2xl border border-[var(--color-border)] image-frame">
-        <img
-          class="aspect-video w-full object-cover"
-          src={project.heroImage}
-          alt={`Mockup del proyecto ${project.title}`}
-          decoding="async"
-          loading="eager"
-          transition:name={`project-image-${project.slug}`}
-        />
+        <div class="relative aspect-video">
+          <img
+            class="absolute inset-0 w-full h-full object-cover"
+            src={project.heroImage}
+            alt={`Mockup del proyecto ${project.title}`}
+            decoding="async"
+            loading="eager"
+            transition:name={`project-image-${project.slug}`}
+          />
+        </div>
       </div>
       <div class="flex flex-wrap gap-4">
           {project.links.map((link) => (
