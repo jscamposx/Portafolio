@@ -50,11 +50,17 @@ self.addEventListener('fetch', (event) => {
       event.respondWith(
         caches.open(IMAGE_CACHE).then((cache) => {
           return cache.match(request).then((cachedResponse) => {
-            const fetchPromise = fetch(request).then((networkResponse) => {
-              cache.put(request, networkResponse.clone());
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+            return fetch(request).then((networkResponse) => {
+              // Clonar ANTES de guardar en caché y retornar
+              if (networkResponse.ok) {
+                const responseClone = networkResponse.clone();
+                cache.put(request, responseClone);
+              }
               return networkResponse;
             });
-            return cachedResponse || fetchPromise;
           });
         })
       );
@@ -74,8 +80,10 @@ self.addEventListener('fetch', (event) => {
           // Solo cachear respuestas exitosas
           if (networkResponse.ok) {
             const cacheName = request.destination === 'image' ? IMAGE_CACHE : STATIC_CACHE;
+            // Clonar ANTES de guardar en caché para evitar que el body sea consumido
+            const responseClone = networkResponse.clone();
             caches.open(cacheName).then((cache) => {
-              cache.put(request, networkResponse.clone());
+              cache.put(request, responseClone);
             });
           }
           return networkResponse;
