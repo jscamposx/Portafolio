@@ -79,11 +79,29 @@ const cta = { label: 'Ver todos los proyectos', href: '/proyectos/' };
 
   <div class="flex justify-end pt-6">
     <a
-      class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-[var(--color-accent)] text-white border border-[var(--color-accent)] hover:bg-[var(--color-accent-strong)] hover:border-[var(--color-accent-strong)] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-accent-chip-ring)] text-sm font-medium transition"
+      class="group/cta inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-strong)] text-white border border-[var(--color-accent)] hover:shadow-lg hover:shadow-[var(--color-accent)]/30 hover:scale-105 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-accent-chip-ring)] text-sm font-bold transition-all duration-300"
       href={cta.href}
+      data-astro-prefetch
+      transition:name="all-projects-cta"
     >
-      {cta.label}
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.5 5H19v10.5m0-10.5-14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>{cta.label}</span>
+      <svg class="size-4 transition-transform duration-300 group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.5 5H19v10.5m0-10.5-14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
   </div>
 </section>
+
+<style>
+  /* Optimización para transiciones de proyectos */
+  @media (min-width: 769px) {
+    article {
+      view-transition-name: none; /* Evitar transiciones individuales pesadas */
+    }
+  }
+  
+  /* En mobile, sin transiciones */
+  @media (max-width: 768px) {
+    article {
+      animation: none !important;
+    }
+  }
+</style>

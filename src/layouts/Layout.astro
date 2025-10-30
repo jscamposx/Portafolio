@@ -155,21 +155,41 @@ const {
 		// Timeout de emergencia para evitar congelamientos
 		let transitionTimeout: ReturnType<typeof setTimeout> | undefined;
 		let pendingNavigationUrl: string | null = null;
+		let transitionStartTime: number = 0;
 		
 		document.addEventListener('astro:before-preparation', (e: any) => {
+			transitionStartTime = performance.now();
+			
 			// Guardar la URL de destino
 			pendingNavigationUrl = e.to?.href || e.newDocument?.location?.href;
 			
-			// Si la transición tarda más de 800ms, navegar directamente
+			// Determinar timeout según el tipo de navegación
+			let timeoutDuration = 800;
+			
+			// Si vamos de home a /proyectos/ o viceversa, dar más tiempo
+			const isProjectsNavigation = 
+				(window.location.pathname === '/' && pendingNavigationUrl?.includes('/proyectos')) ||
+				(window.location.pathname.includes('/proyectos') && pendingNavigationUrl?.endsWith('/'));
+			
+			if (isProjectsNavigation) {
+				timeoutDuration = 1200; // Más tiempo para transiciones complejas
+			}
+			
+			// Si la transición tarda demasiado, navegar directamente
 			transitionTimeout = setTimeout(() => {
-				console.warn('Transición lenta detectada, navegando directamente...');
+				const elapsed = performance.now() - transitionStartTime;
+				console.warn(`Transición lenta detectada (${Math.round(elapsed)}ms), navegando directamente...`);
 				if (pendingNavigationUrl) {
 					window.location.href = pendingNavigationUrl;
 				}
-			}, 800);
+			}, timeoutDuration);
 		});
 		
 		document.addEventListener('astro:after-swap', () => {
+			const elapsed = performance.now() - transitionStartTime;
+			if (elapsed > 500) {
+				console.log(`Transición completada en ${Math.round(elapsed)}ms`);
+			}
 			clearTimeout(transitionTimeout);
 			pendingNavigationUrl = null;
 		});

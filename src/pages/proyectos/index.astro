@@ -16,6 +16,8 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
       <!-- Botón de volver flotante y sticky -->
       <a 
         href="/" 
+        data-astro-prefetch
+        transition:name="back-to-home-button"
         class="group sticky top-6 z-40 inline-flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--nav-surface-bg)] px-5 py-3.5 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] hover:border-[var(--color-accent)]/60 hover:shadow-[0_8px_30px_rgba(192,132,252,0.25)] active:scale-[0.98]"
       >
         <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-surface-alt)] to-transparent group-hover:from-[var(--color-accent)]/10 group-hover:to-[var(--color-accent)]/5 transition-all duration-300">
@@ -40,7 +42,10 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
       </div>
       
       <div class="space-y-4 text-center">
-        <h1 class="text-4xl font-bold sm:text-5xl lg:text-6xl bg-gradient-to-br from-[var(--color-heading)] to-[var(--color-text-muted)] bg-clip-text text-transparent">
+        <h1 
+          class="text-4xl font-bold sm:text-5xl lg:text-6xl bg-gradient-to-br from-[var(--color-heading)] to-[var(--color-text-muted)] bg-clip-text text-transparent"
+          transition:name="all-projects-title"
+        >
           Casos de estudio seleccionados
         </h1>
         <p class="max-w-3xl mx-auto text-base text-[var(--color-text-muted)] sm:text-lg leading-relaxed">
@@ -133,12 +138,21 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
     will-change: transform, opacity;
   }
 
+  /* Optimización para View Transitions */
+  @media (min-width: 769px) {
+    /* Limitar el número de elementos con view-transition-name */
+    .project-card-wrapper:nth-child(n+6) {
+      view-transition-name: none !important;
+    }
+  }
+
   /* Deshabilitar animaciones en mobile para mejor performance */
   @media (max-width: 768px) {
     .project-card-wrapper {
       animation: none;
       opacity: 1;
       transform: none;
+      will-change: auto;
     }
   }
 
