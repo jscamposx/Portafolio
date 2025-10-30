@@ -25,7 +25,6 @@ const cta = { label: 'Ver todos los proyectos', href: '/proyectos/' };
   <article
     class="flex flex-col md:flex-row md:items-start gap-6 sm:gap-10 group scroll-mt-32"
     id={project.slug}
-    transition:name={`project-card-${project.slug}`}
   >
           <div class="w-full md:w-[460px] lg:w-[500px]">
             <div class="relative overflow-hidden rounded-xl border border-[var(--color-border)] transition-transform duration-500 group-hover:-translate-y-1" transition:name={`project-image-wrapper-${project.slug}`}>
@@ -44,11 +43,9 @@ const cta = { label: 'Ver todos los proyectos', href: '/proyectos/' };
             <h3 class="text-xl sm:text-[1.55rem] font-semibold text-white leading-snug" transition:name={`project-title-${project.slug}`}>{project.title}</h3>
             {/* Chips de tecnologías */}
             {techs.length > 0 && (
-              <div class="mt-3 flex flex-wrap items-center gap-2">
+              <div class="mt-3 flex flex-wrap items-center gap-2" transition:name={`project-techs-${project.slug}`}>
                 {techs.map((tech) => (
-                  <span transition:name={`project-tech-${project.slug}-${tech.toLowerCase().replace(/\s+/g, '-')}`}>
-                    <TechChip name={tech} />
-                  </span>
+                  <TechChip name={tech} />
                 ))}
               </div>
             )}
@@ -67,7 +64,7 @@ const cta = { label: 'Ver todos los proyectos', href: '/proyectos/' };
                   Preview
                 </a>
               )}
-              <a href={projectUrl} class="inline-flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium rounded-xl bg-[var(--color-accent)] text-white border border-[var(--color-accent)] hover:bg-[var(--color-accent-strong)] hover:border-[var(--color-accent-strong)] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-accent-chip-ring)] transition" transition:animate="fade">
+              <a href={projectUrl} class="inline-flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium rounded-xl bg-[var(--color-accent)] text-white border border-[var(--color-accent)] hover:bg-[var(--color-accent-strong)] hover:border-[var(--color-accent-strong)] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-accent-chip-ring)] transition">
                 Detalles
                 <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 5H19v10.5m0-10.5-14 14"/></svg>
               </a>
@@ -82,7 +79,6 @@ const cta = { label: 'Ver todos los proyectos', href: '/proyectos/' };
     <a
       class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-[var(--color-accent)] text-white border border-[var(--color-accent)] hover:bg-[var(--color-accent-strong)] hover:border-[var(--color-accent-strong)] focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-accent-chip-ring)] text-sm font-medium transition"
       href={cta.href}
-      transition:animate="fade"
     >
       {cta.label}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.5 5H19v10.5m0-10.5-14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>

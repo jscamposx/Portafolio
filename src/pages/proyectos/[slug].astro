@@ -72,16 +72,11 @@ const slugify = (value: string) =>
     <header
       class="relative space-y-8"
       style={`--project-accent: ${project.accent};`}
-      transition:name={`project-card-${project.slug}`}
     >
       {project.technologies && project.technologies.length > 0 && (
-        <div class="flex flex-wrap items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2" transition:name={`project-techs-${project.slug}`}>
           {project.technologies.map((tech) => (
-            <span 
-              transition:name={`project-tech-${project.slug}-${tech.toLowerCase().replace(/\s+/g, '-')}`}
-            >
-              <TechChip name={tech} />
-            </span>
+            <TechChip name={tech} />
           ))}
         </div>
       )}
@@ -91,7 +86,7 @@ const slugify = (value: string) =>
       </div>
       <div class="flex flex-wrap gap-3">
         {project.tags.map((tag) => (
-            <span class="rounded-full border border-[var(--color-border)] surface-pill px-4 py-2 text-xs font-medium uppercase tracking-wide text-[var(--color-text)]" transition:name={`project-tag-${project.slug}-${slugify(tag)}`}>
+            <span class="rounded-full border border-[var(--color-border)] surface-pill px-4 py-2 text-xs font-medium uppercase tracking-wide text-[var(--color-text)]">
             {tag}
           </span>
         ))}
@@ -112,7 +107,6 @@ const slugify = (value: string) =>
               href={link.url}
               target="_blank"
               rel="noreferrer"
-              transition:animate="fade"
             >
               {link.label}
               <span aria-hidden="true">→</span>
@@ -125,7 +119,6 @@ const slugify = (value: string) =>
       {project.sections.map((section) => (
         <div
           class="space-y-3 rounded-2xl border border-[var(--color-border)] surface-card p-6 transition hover:-translate-y-0.5"
-          transition:name={`case-section-${slugify(section.heading)}`}
         >
           <h2 class="text-xl font-semibold text-white">{section.heading}</h2>
           <p class="text-base text-[var(--color-text-muted)]">{section.body}</p>
