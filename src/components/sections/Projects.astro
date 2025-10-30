@@ -20,7 +20,7 @@ const cta = { label: 'Ver todos los proyectos', href: '/proyectos/' };
       const techs = project.technologies || [];
       const codeLink = project.links?.find(l => /repo|git/i.test(l.label));
       const previewLink = project.links?.find(l => !/repo|git/i.test(l.label));
-      const projectUrl = `/proyectos/${project.slug}/?ref=home&section=${project.slug}`;
+      const projectUrl = `/proyectos/${project.slug}`;
       return (
   <article
     class="flex flex-col md:flex-row md:items-start gap-6 sm:gap-10 group scroll-mt-32"
@@ -46,7 +46,9 @@ const cta = { label: 'Ver todos los proyectos', href: '/proyectos/' };
             {techs.length > 0 && (
               <div class="mt-3 flex flex-wrap items-center gap-2">
                 {techs.map((tech) => (
-                  <TechChip name={tech} />
+                  <span transition:name={`project-tech-${project.slug}-${tech.toLowerCase().replace(/\s+/g, '-')}`}>
+                    <TechChip name={tech} />
+                  </span>
                 ))}
               </div>
             )}

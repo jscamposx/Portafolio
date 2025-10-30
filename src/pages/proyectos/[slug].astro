@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { projects } from '../../data/projects';
+import TechChip from '../../components/TechChip.astro';
 
 // Datos inline
 const siteName = 'Jesús Campos';
@@ -31,35 +32,30 @@ const slugify = (value: string) =>
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
-
-// Detectar de dónde viene el usuario
-const referer = Astro.url.searchParams.get('ref');
-const section = Astro.url.searchParams.get('section');
-
-let backUrl = '/';
-let backLabel = 'Volver al inicio';
-
-if (referer === 'list') {
-  backUrl = `/proyectos/#${project.slug}`;
-  backLabel = 'Volver a proyectos';
-} else if (referer === 'home' && section) {
-  backUrl = `/#${section}`;
-  backLabel = 'Volver al inicio';
-}
 ---
 
 <Layout title={metaTitle} description={project.description} showNav={false}>
   <article class="space-y-16">
-    <!-- Botón de volver dinámico -->
-    <div class="flex items-center gap-4">
+    <!-- Botones de navegación -->
+    <div class="flex items-center gap-3 flex-wrap">
       <a 
-        href={backUrl}
+        href="/#proyectos"
         class="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition group"
       >
         <svg class="size-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
-        {backLabel}
+        Volver a proyectos
+      </a>
+      <span class="text-[var(--color-text-muted)]">·</span>
+      <a 
+        href="/proyectos/"
+        class="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-accent)] hover:text-[var(--color-accent-strong)] transition"
+      >
+        Ver más proyectos
+        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
       </a>
     </div>
 
@@ -71,10 +67,12 @@ if (referer === 'list') {
   <!-- Overlay radial removido para evitar cualquier tinte de color sobre el header -->
       <div class="relative space-y-8">
         {project.technologies && project.technologies.length > 0 && (
-          <div class="flex flex-wrap items-center gap-2 text-[11px] font-medium tracking-wide">
+          <div class="flex flex-wrap items-center gap-2">
             {project.technologies.map((tech) => (
-              <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(192,132,252,0.12)] ring-1 ring-[rgba(192,132,252,0.35)] text-[var(--color-text)] transition hover:bg-[rgba(192,132,252,0.22)] hover:ring-[rgba(192,132,252,0.55)]">
-                {tech}
+              <span 
+                transition:name={`project-tech-${project.slug}-${tech.toLowerCase().replace(/\s+/g, '-')}`}
+              >
+                <TechChip name={tech} />
               </span>
             ))}
           </div>
@@ -127,11 +125,6 @@ if (referer === 'list') {
         </div>
       ))}
     </section>
-
-    <nav class="flex flex-wrap gap-4" aria-label="Navegación">
-      <a class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-6 py-3 text-sm font-semibold text-[var(--color-text)] transition hover:-translate-y-0.5 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]" href={backUrl} transition:animate="fade">{backLabel}</a>
-      <a class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-strong)]" href="/proyectos/" transition:animate="fade">Ver más proyectos</a>
-    </nav>
   </article>
 </Layout>
 

@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import NavBar from '../components/NavBar.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import { ClientRouter } from 'astro:transitions';
 
 // Meta y datos globales inline (simplificado)
 const siteName = 'Jesús Campos';
@@ -33,6 +34,7 @@ const {
 <!doctype html>
 <html lang="es" class="dark pre-theme">
 	<head>
+		<ClientRouter />
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
