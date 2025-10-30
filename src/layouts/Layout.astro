@@ -31,10 +31,17 @@ const {
 	showNav = true,
 	preloadImage
 } = Astro.props as Props;
+
+// Detectar tema del servidor para SSR (evitar parpadeo)
+const getInitialTheme = () => {
+	// En build time, asumimos dark por defecto para evitar flash
+	return 'dark';
+};
+const initialTheme = getInitialTheme();
 ---
 
 <!doctype html>
-<html lang="es" class="dark pre-theme">
+<html lang="es" class={initialTheme}>
 	<head>
 		<ClientRouter />
 		<meta charset="UTF-8" />
@@ -45,16 +52,22 @@ const {
 		<meta name="description" content={description} />
 		{canonical && <link rel="canonical" href={canonical} />}
 		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
-		<script>
-        (() => {
+		<script is:inline>
+        (function() {
           try {
             const pref = localStorage.getItem('theme') || 'system';
             const mq = window.matchMedia('(prefers-color-scheme: dark)');
             const dark = pref === 'dark' || (pref === 'system' && mq.matches);
             const root = document.documentElement;
-            if (dark) root.classList.add('dark'); else root.classList.remove('dark');
+            
+            // Remover todas las clases de tema primero
+            root.classList.remove('dark', 'light');
+            
+            if (dark) {
+              root.classList.add('dark');
+            }
             root.dataset.theme = pref;
-          } catch {}
+          } catch (e) {}
         })();
       </script>
 	</head>
@@ -125,5 +138,23 @@ const {
 		window.queueMicrotask(scrollToHash);
 		window.addEventListener('astro:after-swap', scrollToHash);
 		window.addEventListener('astro:page-load', scrollToHash);
+		
+		// Reinicializar tema ANTES de que se vea el swap
+		document.addEventListener('astro:before-swap', (e) => {
+			try {
+				const pref = localStorage.getItem('theme') || 'system';
+				const mq = window.matchMedia('(prefers-color-scheme: dark)');
+				const dark = pref === 'dark' || (pref === 'system' && mq.matches);
+				
+				// Aplicar tema al nuevo documento antes de mostrarlo
+				if (dark) {
+					e.newDocument.documentElement.classList.add('dark');
+					e.newDocument.documentElement.classList.remove('light');
+				} else {
+					e.newDocument.documentElement.classList.remove('dark');
+				}
+				e.newDocument.documentElement.dataset.theme = pref;
+			} catch (err) {}
+		});
 	</script>
 </html>
