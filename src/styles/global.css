@@ -115,20 +115,53 @@ body {
 	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Optimizaciones específicas para móvil */
+/* Optimizar renderizado de imágenes */
+img[transition\:name] {
+	will-change: transform;
+	content-visibility: auto;
+}
+
+/* Optimizar artículos de proyectos en mobile */
+@media (max-width: 768px) {
+	article {
+		content-visibility: auto;
+		contain-intrinsic-size: auto 500px;
+	}
+}
+
+/* Optimizaciones específicas para móvil - Reducir animaciones para mejor rendimiento */
 @media (max-width: 768px) {
 	::view-transition-old(project-image),
 	::view-transition-new(project-image) {
-		animation-duration: 0.35s;
-		animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+		animation-duration: 0.25s;
+		animation-timing-function: ease-out;
 	}
 	
 	::view-transition-old(project-title),
 	::view-transition-new(project-title),
 	::view-transition-old(project-techs),
 	::view-transition-new(project-techs) {
-		animation-duration: 0.3s;
+		animation-duration: 0.2s;
 		animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	
+	/* Reducir trabajo de GPU en mobile */
+	img[transition\:name] {
+		will-change: auto;
+	}
+	
+	/* Simplificar transiciones hover en mobile */
+	.group:hover img {
+		transform: none !important;
+	}
+}
+
+/* Respetar preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation-duration: 0.01ms !important;
 	}
 }
 

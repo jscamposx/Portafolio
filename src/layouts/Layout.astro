@@ -44,7 +44,7 @@ const {
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		{canonical && <link rel="canonical" href={canonical} />}
-		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" media="(min-width: 768px)" />}
 		<script is:inline>
         (function() {
           try {
