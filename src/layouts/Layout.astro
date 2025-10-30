@@ -163,16 +163,64 @@ const {
 			// Guardar la URL de destino
 			pendingNavigationUrl = e.to?.href || e.newDocument?.location?.href;
 			
+			// Detectar si vamos HACIA /proyectos/ (desde home o desde un proyecto)
+			const currentPath = window.location.pathname;
+			const targetPath = new URL(pendingNavigationUrl || '').pathname;
+			const goingToProjectsList = targetPath === '/proyectos/' || targetPath === '/proyectos';
+			
+			// Si vamos a /proyectos/, CANCELAR todas las transiciones de imágenes de proyectos
+			if (goingToProjectsList && !isMobile) {
+				// Inyectar CSS que oculta/simplifica las transiciones de imágenes
+				const style = document.createElement('style');
+				style.id = 'temp-transition-override';
+				style.textContent = `
+					/* Ocultar completamente las transiciones de imágenes al ir a /proyectos/ */
+					::view-transition-old(root),
+					::view-transition-new(root) {
+						animation-duration: 0.2s !important;
+					}
+					
+					/* Deshabilitar todas las transiciones de elementos de proyecto */
+					::view-transition-old(project-image),
+					::view-transition-new(project-image),
+					::view-transition-old(project-image-wrapper),
+					::view-transition-new(project-image-wrapper),
+					::view-transition-group(project-image),
+					::view-transition-group(project-image-wrapper) {
+						animation: none !important;
+						opacity: 0 !important;
+					}
+					
+					::view-transition-old(project-card),
+					::view-transition-new(project-card),
+					::view-transition-old(project-title),
+					::view-transition-new(project-title),
+					::view-transition-old(project-tag),
+					::view-transition-new(project-tag) {
+						animation-duration: 0.15s !important;
+					}
+					
+					/* Solo animar elementos específicos de navegación */
+					::view-transition-old(all-projects-cta),
+					::view-transition-new(all-projects-cta),
+					::view-transition-old(all-projects-title),
+					::view-transition-new(all-projects-title) {
+						animation-duration: 0.25s !important;
+					}
+				`;
+				document.head.appendChild(style);
+				
+				// Remover el estilo después de la transición
+				setTimeout(() => {
+					document.getElementById('temp-transition-override')?.remove();
+				}, 600);
+			}
+			
 			// Determinar timeout según el tipo de navegación
 			let timeoutDuration = 800;
 			
-			// Si vamos de home a /proyectos/ o viceversa, dar más tiempo
-			const isProjectsNavigation = 
-				(window.location.pathname === '/' && pendingNavigationUrl?.includes('/proyectos')) ||
-				(window.location.pathname.includes('/proyectos') && pendingNavigationUrl?.endsWith('/'));
-			
-			if (isProjectsNavigation) {
-				timeoutDuration = 1200; // Más tiempo para transiciones complejas
+			if (goingToProjectsList) {
+				timeoutDuration = 600; // Reducido porque simplificamos las transiciones
 			}
 			
 			// Si la transición tarda demasiado, navegar directamente

@@ -86,7 +86,7 @@ body {
 /* Optimización de transiciones de imágenes - Más rápidas para evitar congelamientos */
 ::view-transition-old(project-image),
 ::view-transition-new(project-image) {
-	animation-duration: 0.3s;
+	animation-duration: 0.35s;
 	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 	overflow: hidden;
 	backface-visibility: hidden;
@@ -102,7 +102,7 @@ body {
 
 /* Asegurar que la imagen se mantenga en su lugar durante transición */
 ::view-transition-group(project-image) {
-	animation-duration: 0.3s;
+	animation-duration: 0.35s;
 	overflow: hidden;
 	contain: layout;
 }
@@ -119,14 +119,15 @@ body {
 ::view-transition-new(all-projects-title),
 ::view-transition-old(back-to-home-button),
 ::view-transition-new(back-to-home-button) {
-	animation-duration: 0.4s;
+	animation-duration: 0.3s;
 	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Evitar que cards individuales hagan transición (muy pesado) */
+/* Cards individuales con transición muy rápida (solo para /proyectos/ → detalle) */
 ::view-transition-old(project-card),
 ::view-transition-new(project-card) {
-	animation-duration: 0s !important;
+	animation-duration: 0.25s !important;
+	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Transiciones suaves para el título y tecnologías */
@@ -134,7 +135,7 @@ body {
 ::view-transition-new(project-title),
 ::view-transition-old(project-techs),
 ::view-transition-new(project-techs) {
-	animation-duration: 0.25s;
+	animation-duration: 0.3s;
 	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
