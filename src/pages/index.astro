@@ -4,8 +4,23 @@ import Hero from '../components/sections/Hero.astro';
 import ContactSection from '../components/sections/Contact.astro';
 import ExperienceSection from '../components/sections/Experience.astro';
 import ProjectsSection from '../components/sections/Projects.astro';
+import { projects } from '../data/projects';
+
+// Precargar las primeras 2 imágenes de proyectos para LCP
+const firstTwoImages = projects.slice(0, 2).map(p => p.heroImage);
 ---
 <Layout>
+  <Fragment slot="head">
+    {firstTwoImages.map((img, i) => (
+      <link 
+        rel="preload" 
+        as="image" 
+        href={img} 
+        fetchpriority={i === 0 ? "high" : "auto"}
+      />
+    ))}
+  </Fragment>
+  
   <Hero />
   <ExperienceSection />
   <ProjectsSection />

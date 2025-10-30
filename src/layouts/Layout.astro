@@ -45,6 +45,7 @@ const {
 		<meta name="description" content={description} />
 		{canonical && <link rel="canonical" href={canonical} />}
 		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" media="(min-width: 768px)" />}
+		<slot name="head" />
 		<script is:inline>
         (function() {
           try {
@@ -158,5 +159,51 @@ const {
 				newDoc.dataset.theme = pref;
 			} catch (err) {}
 		});
+		
+		// Registrar Service Worker para caché offline
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('/sw.js').catch(() => {
+					// Silenciosamente fallar si no se puede registrar
+				});
+			});
+		}
+		
+		// Prefetch inteligente de páginas de proyectos después de la carga inicial
+		if (window.requestIdleCallback) {
+			window.requestIdleCallback(() => {
+				prefetchProjectPages();
+			});
+		} else {
+			setTimeout(() => {
+				prefetchProjectPages();
+			}, 2000);
+		}
+		
+		function prefetchProjectPages() {
+			// Obtener todos los links a proyectos
+			const projectLinks = document.querySelectorAll('a[href^="/proyectos/"]');
+			
+			projectLinks.forEach((link, index) => {
+				// Usar requestIdleCallback para no bloquear el thread principal
+				const prefetch = () => {
+					const url = link.getAttribute('href');
+					if (!url) return;
+					
+					// Crear un link prefetch
+					const linkEl = document.createElement('link');
+					linkEl.rel = 'prefetch';
+					linkEl.href = url;
+					document.head.appendChild(linkEl);
+				};
+				
+				// Escalonar los prefetch para no saturar
+				if (window.requestIdleCallback) {
+					window.requestIdleCallback(prefetch, { timeout: 2000 + (index * 100) });
+				} else {
+					setTimeout(prefetch, 2000 + (index * 100));
+				}
+			});
+		}
 	</script>
 </html>
