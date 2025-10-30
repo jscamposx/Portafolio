@@ -21,7 +21,7 @@ export const projects: Project[] = [
     year: 2025,
     client: 'Viadca',
     tags: ['Dashboard', 'Gestión de viajes', 'Plataforma SaaS', 'E-commerce'],
-    heroImage: '/Proyectos/card-proyect1.PNG',
+    heroImage: '/Proyectos/card-proyect1.jpg',
     accent: '#2563eb',
     links: [
       { label: 'Ver sitio', url: 'https://www.viadca.app/' },
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     year: 2024,
     client: 'Yola',
     tags: ['E-commerce', 'Restaurante', 'Gestión de contenido', 'Pagos'],
-    heroImage: '/Proyectos/card-proyect2.PNG',
+    heroImage: '/Proyectos/card-proyect2.jpg',
     accent: '#f97316',
     links: [
       { label: 'Ver proyecto', url: 'https://ejemplo.com/yola' }
