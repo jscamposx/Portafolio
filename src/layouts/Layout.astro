@@ -63,14 +63,10 @@ const {
 			</div>
 
 			{showNav && (
-				<div transition:persist="global-nav">
-					<NavBar />
-				</div>
+				<NavBar transition:persist="global-nav" />
 			)}
 			{!showNav && (
-				<div transition:persist="theme-toggle">
-					<ThemeToggle />
-				</div>
+				<ThemeToggle transition:persist="theme-toggle" />
 			)}
 
 			<main class="mx-auto max-w-6xl px-4 sm:px-6 pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-36 lg:pb-24">

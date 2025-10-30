@@ -74,6 +74,30 @@ body {
 ::view-transition-old(root),
 ::view-transition-new(root) {
 	animation: none;
+	mix-blend-mode: normal;
+}
+
+/* Optimización de transiciones de imágenes */
+::view-transition-old(project-image-wrapper),
+::view-transition-new(project-image-wrapper),
+::view-transition-old(project-image),
+::view-transition-new(project-image) {
+	animation-duration: 0.3s;
+	animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Transiciones más rápidas para el título y tecnologías */
+::view-transition-old(project-title),
+::view-transition-new(project-title),
+::view-transition-old(project-techs),
+::view-transition-new(project-techs) {
+	animation-duration: 0.25s;
+	animation-timing-function: ease-out;
+}
+
+/* Prevenir parpadeos durante la transición */
+::view-transition-group(*) {
+	animation-timing-function: ease-in-out;
 }
 
 /* Espacio para anclas bajo navbar fija */

@@ -7,19 +7,12 @@ const navLinks = [
   { label: 'Contacto', href: '/#contacto' }
 ];
 ---
-<header class="fixed top-0 z-50 flex w-full justify-center mt-2 px-4">
-  <nav class="nav-surface flex items-center justify-between md:justify-center rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium gap-1 sm:gap-2 w-full max-w-screen-sm md:max-w-none md:w-auto">
-    <!-- Menú hamburguesa para móvil -->
-    <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 rounded-full hover:bg-[rgba(255,255,255,0.06)] transition text-[var(--color-text-muted)]" aria-label="Menú" type="button">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </button>
-
-    <!-- Links de navegación -->
-    <div id="nav-links" class="hidden md:flex items-center gap-1">
+<header class="fixed top-0 z-50 flex w-full justify-center mt-2 px-4" transition:name="main-header">
+  <nav class="nav-surface flex items-center justify-between rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium gap-2 sm:gap-3 w-full max-w-screen-md">
+    <!-- Links de navegación - Siempre visibles -->
+    <div class="flex items-center gap-1 sm:gap-1.5 flex-1 justify-center">
       {navLinks.map(link => (
-        <a href={link.href} class="px-2 sm:px-3 py-1.5 sm:py-2 rounded-full nav-link text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[rgba(255,255,255,0.06)] transition whitespace-nowrap">
+        <a href={link.href} class="px-2 sm:px-3 py-1.5 sm:py-2 rounded-full nav-link text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[rgba(255,255,255,0.06)] transition whitespace-nowrap text-[10px] sm:text-xs md:text-sm">
           {link.label}
         </a>
       ))}
@@ -55,62 +48,10 @@ const navLinks = [
       </div>
     </div>
   </nav>
-
-  <!-- Menú móvil desplegable -->
-  <div id="mobile-menu" class="hidden md:hidden absolute top-16 left-4 right-4 bg-[var(--nav-surface-bg)] backdrop-blur-xl rounded-2xl border border-[var(--color-border)] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] overflow-hidden">
-    <div class="p-4 space-y-2">
-      {navLinks.map(link => (
-        <a href={link.href} class="block px-4 py-3 rounded-lg nav-link text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[rgba(255,255,255,0.06)] transition">
-          {link.label}
-        </a>
-      ))}
-    </div>
-  </div>
 </header>
 
 <script>
 if (typeof window !== 'undefined') {
-  // ================== MOBILE MENU ==================
-  const initMobileMenu = () => {
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileLinks = mobileMenu?.querySelectorAll('a.nav-link');
-
-    if (!mobileMenuBtn || !mobileMenu) return;
-
-    // Toggle menú móvil
-    const oldMobileHandler = (window as any).__mobileMenuHandler;
-    if (oldMobileHandler) {
-      mobileMenuBtn.removeEventListener('click', oldMobileHandler);
-    }
-
-    const mobileHandler = (e: MouseEvent) => {
-      e.stopPropagation();
-      mobileMenu.classList.toggle('hidden');
-    };
-    (window as any).__mobileMenuHandler = mobileHandler;
-    mobileMenuBtn.addEventListener('click', mobileHandler);
-
-    // Cerrar menú al hacer click en un link
-    mobileLinks?.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-      });
-    });
-
-    // Cerrar menú al hacer click fuera
-    document.addEventListener('click', (e) => {
-      if (!mobileMenu.contains(e.target as Node) && !mobileMenuBtn.contains(e.target as Node)) {
-        mobileMenu.classList.add('hidden');
-      }
-    });
-  };
-
-  initMobileMenu();
-  document.addEventListener('astro:after-swap', () => { 
-    initMobileMenu();
-  });
-
   // ================== NAVIGATION ACTIVE STATE ==================
   // Evitar múltiples inicializaciones solo para la navegación
   if (!(window as any).__navInit) {
@@ -131,7 +72,7 @@ if (typeof window !== 'undefined') {
       STATE.header = document.querySelector('header');
       STATE.hero = document.getElementById('hero');
       STATE.sections = SECTION_IDS.map(id => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
-      STATE.links = Array.from(document.querySelectorAll('nav a.nav-link, #mobile-menu a.nav-link')) as HTMLAnchorElement[];
+      STATE.links = Array.from(document.querySelectorAll('nav a.nav-link')) as HTMLAnchorElement[];
     };
 
     const setActive = (id: string) => {
