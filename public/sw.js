@@ -3,18 +3,20 @@ const CACHE_NAME = 'portafolio-v1';
 const STATIC_CACHE = 'static-v1';
 const IMAGE_CACHE = 'images-v1';
 
-// Recursos críticos para cachear inmediatamente
+// Recursos críticos para cachear inmediatamente (solo en producción)
 const CRITICAL_ASSETS = [
   '/',
-  '/proyectos/',
-  '/styles/global.css'
+  '/proyectos/'
 ];
 
 // Instalar el service worker y cachear recursos críticos
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
-      return cache.addAll(CRITICAL_ASSETS);
+      // Cachear solo si los recursos existen (catch errors en dev)
+      return cache.addAll(CRITICAL_ASSETS).catch((err) => {
+        console.log('[SW] Error cacheando recursos (normal en dev):', err);
+      });
     })
   );
   self.skipWaiting();

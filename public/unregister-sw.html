@@ -1,0 +1,19 @@
+<!-- Script temporal para LIMPIAR Service Worker en desarrollo -->
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((registration) => {
+      registration.unregister();
+      console.log('✅ Service Worker desregistrado (modo dev)');
+    });
+  });
+  
+  // Limpiar todas las cachés
+  caches.keys().then((cacheNames) => {
+    cacheNames.forEach((cacheName) => {
+      caches.delete(cacheName);
+      console.log('✅ Caché eliminada:', cacheName);
+    });
+  });
+}
+</script>

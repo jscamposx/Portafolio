@@ -133,12 +133,42 @@ const {
 		window.addEventListener('astro:after-swap', scrollToHash);
 		window.addEventListener('astro:page-load', scrollToHash);
 		
-		// Deshabilitar View Transitions en mobile para mejor rendimiento
-		if (window.matchMedia('(max-width: 768px)').matches) {
+		// Deshabilitar View Transitions en mobile y conexiones lentas
+		const isMobile = window.matchMedia('(max-width: 768px)').matches;
+		const isSlowConnection = (navigator as any).connection && 
+			((navigator as any).connection.effectiveType === 'slow-2g' || 
+			 (navigator as any).connection.effectiveType === '2g' || 
+			 (navigator as any).connection.effectiveType === '3g');
+		
+		if (isMobile || isSlowConnection) {
+			// Prevenir que las transiciones se ejecuten
 			document.addEventListener('astro:before-preparation', (e) => {
 				e.preventDefault();
+			}, { capture: true });
+			
+			// Fallback: si el evento no funciona, forzar navegación estándar
+			document.addEventListener('astro:page-load', () => {
+				document.documentElement.dataset.astroTransition = 'none';
 			});
 		}
+		
+		// Timeout de emergencia para evitar congelamientos
+		let transitionTimeout: ReturnType<typeof setTimeout> | undefined;
+		document.addEventListener('astro:before-preparation', () => {
+			// Si la transición tarda más de 1 segundo, abortar
+			transitionTimeout = setTimeout(() => {
+				console.warn('Transición abortada por timeout');
+				window.location.reload();
+			}, 1000);
+		});
+		
+		document.addEventListener('astro:after-swap', () => {
+			clearTimeout(transitionTimeout);
+		});
+		
+		document.addEventListener('astro:page-load', () => {
+			clearTimeout(transitionTimeout);
+		});
 		
 		// Reinicializar tema ANTES de que se vea el swap
 		document.addEventListener('astro:before-swap', (e) => {
@@ -160,8 +190,8 @@ const {
 			} catch (err) {}
 		});
 		
-		// Registrar Service Worker para caché offline
-		if ('serviceWorker' in navigator) {
+		// Registrar Service Worker SOLO en producción (no en dev)
+		if ('serviceWorker' in navigator && import.meta.env.PROD) {
 			window.addEventListener('load', () => {
 				navigator.serviceWorker.register('/sw.js').catch(() => {
 					// Silenciosamente fallar si no se puede registrar
@@ -169,15 +199,17 @@ const {
 			});
 		}
 		
-		// Prefetch inteligente de páginas de proyectos después de la carga inicial
-		if (window.requestIdleCallback) {
-			window.requestIdleCallback(() => {
-				prefetchProjectPages();
-			});
-		} else {
-			setTimeout(() => {
-				prefetchProjectPages();
-			}, 2000);
+		// Prefetch inteligente SOLO en producción
+		if (import.meta.env.PROD) {
+			if (window.requestIdleCallback) {
+				window.requestIdleCallback(() => {
+					prefetchProjectPages();
+				});
+			} else {
+				setTimeout(() => {
+					prefetchProjectPages();
+				}, 2000);
+			}
 		}
 		
 		function prefetchProjectPages() {

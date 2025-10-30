@@ -83,10 +83,10 @@ body {
 	background-color: var(--color-bg-primary);
 }
 
-/* Optimización de transiciones de imágenes - Más fluidas */
+/* Optimización de transiciones de imágenes - Más rápidas para evitar congelamientos */
 ::view-transition-old(project-image),
 ::view-transition-new(project-image) {
-	animation-duration: 0.4s;
+	animation-duration: 0.3s;
 	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 	overflow: hidden;
 	backface-visibility: hidden;
@@ -106,7 +106,7 @@ body {
 ::view-transition-new(project-title),
 ::view-transition-old(project-techs),
 ::view-transition-new(project-techs) {
-	animation-duration: 0.35s;
+	animation-duration: 0.25s;
 	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -115,10 +115,17 @@ body {
 	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Optimizar renderizado de imágenes */
+/* Optimizar renderizado de imágenes - Solo preparar GPU cuando sea necesario */
 img[transition\:name] {
-	will-change: transform;
+	will-change: auto;
 	content-visibility: auto;
+}
+
+/* Activar GPU solo durante hover en desktop */
+@media (min-width: 769px) {
+	img[transition\:name]:hover {
+		will-change: transform;
+	}
 }
 
 /* Optimizar artículos de proyectos en mobile */
