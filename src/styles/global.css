@@ -100,6 +100,28 @@ body {
 	animation-timing-function: ease-in-out;
 }
 
+/* Optimizaciones específicas para móvil */
+@media (max-width: 768px) {
+	::view-transition-old(project-image-wrapper),
+	::view-transition-new(project-image-wrapper),
+	::view-transition-old(project-image),
+	::view-transition-new(project-image) {
+		animation-duration: 0.25s;
+	}
+	
+	::view-transition-old(project-title),
+	::view-transition-new(project-title),
+	::view-transition-old(project-techs),
+	::view-transition-new(project-techs) {
+		animation-duration: 0.2s;
+	}
+	
+	/* Reducir complejidad visual en móvil */
+	::view-transition-group(*) {
+		animation-timing-function: ease-out;
+	}
+}
+
 /* Espacio para anclas bajo navbar fija */
 section[id] { scroll-margin-top: 120px; }
 

@@ -8,9 +8,9 @@ const navLinks = [
 ];
 ---
 <header class="fixed top-0 z-50 flex w-full justify-center mt-2 px-4" transition:name="main-header">
-  <nav class="nav-surface flex items-center justify-between rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium gap-2 sm:gap-3 w-full max-w-screen-md">
-    <!-- Links de navegación - Siempre visibles -->
-    <div class="flex items-center gap-1 sm:gap-1.5 flex-1 justify-center">
+  <nav class="nav-surface flex items-center rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium gap-2 sm:gap-3 w-full max-w-screen-sm md:w-auto md:max-w-none">
+    <!-- Links de navegación -->
+    <div class="flex items-center gap-1 sm:gap-1.5 md:gap-2 flex-1 md:flex-none justify-center">
       {navLinks.map(link => (
         <a href={link.href} class="px-2 sm:px-3 py-1.5 sm:py-2 rounded-full nav-link text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[rgba(255,255,255,0.06)] transition whitespace-nowrap text-[10px] sm:text-xs md:text-sm">
           {link.label}
