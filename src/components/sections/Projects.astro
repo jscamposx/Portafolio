@@ -33,6 +33,7 @@ const cta = { label: 'Ver todos los proyectos', href: '/proyectos/' };
                   src={project.heroImage}
                   alt={`Vista previa del proyecto ${project.title}`}
                   class="object-cover object-center w-full h-full transition-transform duration-[1600ms] ease-out group-hover:scale-[1.04]"
+                  decoding="async"
                   fetchpriority="high"
                   transition:name={`project-image-${project.slug}`}
                 />

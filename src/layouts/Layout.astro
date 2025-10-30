@@ -21,13 +21,15 @@ interface Props {
 	description?: string;
 	canonical?: string;
 	showNav?: boolean; // permitir ocultar navbar
+	preloadImage?: string; // imagen para precargar
 }
 
 const {
 	title = defaultMeta.title,
 	description = defaultMeta.description,
 	canonical,
-	showNav = true
+	showNav = true,
+	preloadImage
 } = Astro.props as Props;
 ---
 
@@ -42,6 +44,7 @@ const {
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		{canonical && <link rel="canonical" href={canonical} />}
+		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
 		<script>
         (() => {
           try {
