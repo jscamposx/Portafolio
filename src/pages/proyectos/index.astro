@@ -10,44 +10,144 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
 ---
 
 <Layout title={pageTitle} description={pageDescription} showNav={false}>
-  <section class="space-y-10">
-    <!-- Botón de volver -->
-    <div class="flex items-center gap-4">
+  <section class="space-y-12 sm:space-y-16">
+    <!-- Header mejorado con botón flotante -->
+    <div class="relative">
+      <!-- Botón de volver flotante y sticky -->
       <a 
         href="/" 
-        class="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition group"
+        class="group sticky top-6 z-40 inline-flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--nav-surface-bg)] px-5 py-3.5 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] hover:border-[var(--color-accent)]/60 hover:shadow-[0_8px_30px_rgba(192,132,252,0.25)] active:scale-[0.98]"
       >
-        <svg class="size-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-        Volver al inicio
+        <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-surface-alt)] to-transparent group-hover:from-[var(--color-accent)]/10 group-hover:to-[var(--color-accent)]/5 transition-all duration-300">
+          <svg class="size-5 text-[var(--color-text-muted)] transition-all duration-300 group-hover:text-[var(--color-accent)] group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </div>
+        <span class="text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
+          Volver al inicio
+        </span>
+        <!-- Indicador de interacción -->
+        <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-accent)]/0 via-[var(--color-accent)]/5 to-[var(--color-accent)]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </a>
     </div>
 
-    <header class="space-y-4">
-      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">Portafolio</p>
-      <h1 class="text-3xl font-semibold sm:text-4xl">Casos de estudio seleccionados</h1>
-      <p class="max-w-2xl text-base text-[var(--color-text-muted)] sm:text-lg">
-        Experiencias digitales pensadas de forma integral: investigación, diseño de interacción y desarrollo
-        front-end listo para producción.
-      </p>
+    <!-- Header con animación de entrada -->
+    <header class="space-y-6 sm:space-y-8 animate-fade-in">
+      <div class="flex items-center gap-3">
+        <div class="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent"></div>
+        <p class="text-xs font-bold uppercase tracking-[0.3em] text-[var(--color-accent)]">Portafolio</p>
+        <div class="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent"></div>
+      </div>
+      
+      <div class="space-y-4 text-center">
+        <h1 class="text-4xl font-bold sm:text-5xl lg:text-6xl bg-gradient-to-br from-[var(--color-heading)] to-[var(--color-text-muted)] bg-clip-text text-transparent">
+          Casos de estudio seleccionados
+        </h1>
+        <p class="max-w-3xl mx-auto text-base text-[var(--color-text-muted)] sm:text-lg leading-relaxed">
+          Experiencias digitales pensadas de forma integral: investigación, diseño de interacción y desarrollo
+          front-end listo para producción.
+        </p>
+      </div>
+      
+      <!-- Estadística decorativa -->
+      <div class="flex justify-center gap-8 sm:gap-12 text-center pt-4">
+        <div class="space-y-1">
+          <div class="text-3xl sm:text-4xl font-bold text-[var(--color-accent)]">{projects.length}</div>
+          <div class="text-xs sm:text-sm text-[var(--color-text-muted)] uppercase tracking-wider">Proyectos</div>
+        </div>
+        <div class="w-px bg-gradient-to-b from-transparent via-[var(--color-border)] to-transparent"></div>
+        <div class="space-y-1">
+          <div class="text-3xl sm:text-4xl font-bold text-[var(--color-accent)]">{new Date().getFullYear()}</div>
+          <div class="text-xs sm:text-sm text-[var(--color-text-muted)] uppercase tracking-wider">Actualizado</div>
+        </div>
+      </div>
     </header>
-    <div class="grid gap-6">
-      {projects.map((project) => (
-        <a
-          href={`/proyectos/${project.slug}/?ref=list`}
-          class="block transition-opacity hover:opacity-90 scroll-mt-32"
-          id={project.slug}
-          transition:animate="fade"
+
+    <!-- Grid de proyectos con stagger animation -->
+    <div class="grid gap-8 sm:gap-10">
+      {projects.map((project, index) => (
+        <div 
+          class="project-card-wrapper"
+          style={`animation-delay: ${index * 100}ms`}
         >
-          <ProjectCard
-            project={project}
-            compact
-            isWrappedInLink={true}
-            href={`/proyectos/${project.slug}/?ref=list`}
-          />
-        </a>
+          <a
+            href={`/proyectos/${project.slug}`}
+            class="block group/card"
+            id={project.slug}
+          >
+            <ProjectCard
+              project={project}
+              compact
+              isWrappedInLink={true}
+              href={`/proyectos/${project.slug}`}
+            />
+          </a>
+        </div>
       ))}
+    </div>
+
+    <!-- Footer decorativo -->
+    <div class="pt-12 pb-8">
+      <div class="flex items-center gap-3">
+        <div class="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-[var(--color-border)]"></div>
+        <span class="text-xs text-[var(--color-text-muted)] uppercase tracking-wider">Fin del portafolio</span>
+        <div class="h-px flex-1 bg-gradient-to-l from-transparent via-[var(--color-border)] to-[var(--color-border)]"></div>
+      </div>
     </div>
   </section>
 </Layout>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .project-card-wrapper {
+    animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Optimización de performance */
+  .project-card-wrapper {
+    will-change: transform, opacity;
+  }
+
+  /* Deshabilitar animaciones en mobile para mejor performance */
+  @media (max-width: 768px) {
+    .project-card-wrapper {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .project-card-wrapper {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
