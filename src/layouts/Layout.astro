@@ -31,17 +31,10 @@ const {
 	showNav = true,
 	preloadImage
 } = Astro.props as Props;
-
-// Detectar tema del servidor para SSR (evitar parpadeo)
-const getInitialTheme = () => {
-	// En build time, asumimos dark por defecto para evitar flash
-	return 'dark';
-};
-const initialTheme = getInitialTheme();
 ---
 
 <!doctype html>
-<html lang="es" class={initialTheme}>
+<html lang="es">
 	<head>
 		<ClientRouter />
 		<meta charset="UTF-8" />
@@ -60,11 +53,11 @@ const initialTheme = getInitialTheme();
             const dark = pref === 'dark' || (pref === 'system' && mq.matches);
             const root = document.documentElement;
             
-            // Remover todas las clases de tema primero
-            root.classList.remove('dark', 'light');
-            
+            // Aplicar clase de tema inmediatamente
             if (dark) {
               root.classList.add('dark');
+            } else {
+              root.classList.add('light');
             }
             root.dataset.theme = pref;
           } catch (e) {}
@@ -147,13 +140,15 @@ const initialTheme = getInitialTheme();
 				const dark = pref === 'dark' || (pref === 'system' && mq.matches);
 				
 				// Aplicar tema al nuevo documento antes de mostrarlo
+				const newDoc = e.newDocument.documentElement;
 				if (dark) {
-					e.newDocument.documentElement.classList.add('dark');
-					e.newDocument.documentElement.classList.remove('light');
+					newDoc.classList.add('dark');
+					newDoc.classList.remove('light');
 				} else {
-					e.newDocument.documentElement.classList.remove('dark');
+					newDoc.classList.add('light');
+					newDoc.classList.remove('dark');
 				}
-				e.newDocument.documentElement.dataset.theme = pref;
+				newDoc.dataset.theme = pref;
 			} catch (err) {}
 		});
 	</script>
