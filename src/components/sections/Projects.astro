@@ -28,14 +28,15 @@ const featuredProjects = projects.slice(0, 3);
       const isEven = index % 2 === 0;
       return (
   <article
-    class="group/project relative scroll-mt-32"
+    class="group/project relative scroll-mt-32 cursor-pointer"
     id={project.slug}
+    data-project-url={projectUrl}
   >
     <!-- Layout grid responsivo con mejor distribución -->
     <div class={`grid md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 items-center ${!isEven ? 'md:grid-flow-dense' : ''}`}>
       
       <!-- Imagen del proyecto -->
-      <div class={`relative ${!isEven ? 'md:col-start-2' : ''}`}>
+      <a href={projectUrl} data-astro-prefetch class={`relative block ${!isEven ? 'md:col-start-2' : ''}`}>
         <div class="relative overflow-hidden rounded-2xl border border-[var(--color-border)] transition-all duration-500 group-hover/project:border-[var(--color-accent)]/40 group-hover/project:shadow-2xl group-hover/project:shadow-[var(--color-accent)]/10 md:group-hover/project:-translate-y-2">
           
           <!-- Glow effect decorativo -->
@@ -55,17 +56,19 @@ const featuredProjects = projects.slice(0, 3);
             <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover/project:opacity-100"></div>
           </div>
         </div>
-      </div>
+      </a>
 
       <!-- Contenido del proyecto -->
       <div class="space-y-5">
         <!-- Título -->
-        <h3 
-          class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-heading)] leading-tight transition-all duration-300 group-hover/project:text-[var(--color-accent)]" 
-          transition:name={`project-title-${project.slug}`}
-        >
-          {project.title}
-        </h3>
+        <a href={projectUrl} data-astro-prefetch>
+          <h3 
+            class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-heading)] leading-tight transition-all duration-300 group-hover/project:text-[var(--color-accent)] hover:text-[var(--color-accent)]" 
+            transition:name={`project-title-${project.slug}`}
+          >
+            {project.title}
+          </h3>
+        </a>
 
         <!-- Descripción -->
         <p class="text-[var(--color-text-muted)] leading-relaxed text-base sm:text-lg">
@@ -147,4 +150,47 @@ const featuredProjects = projects.slice(0, 3);
       view-transition-name: none;
     }
   }
+
+  /* Cursor pointer para el proyecto completo */
+  article.group\/project {
+    cursor: pointer;
+  }
+
+  /* Botones mantienen su propio cursor */
+  article.group\/project a[class*="group/btn"],
+  article.group\/project a[target="_blank"] {
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+  }
 </style>
+
+<script>
+  // Script para hacer clickeable todo el card del proyecto
+  document.addEventListener('astro:page-load', () => {
+    const projectCards = document.querySelectorAll('article[data-project-url]');
+    
+    projectCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Verificar si el click fue en un botón o enlace
+        const target = e.target as HTMLElement;
+        const isButton = target.closest('a[class*="group/btn"]') || target.closest('a[target="_blank"]');
+        
+        if (!isButton) {
+          e.preventDefault();
+          const url = card.getAttribute('data-project-url');
+          if (url) {
+            // Crear un enlace temporal para aprovechar las view transitions de Astro
+            const tempLink = document.createElement('a');
+            tempLink.href = url;
+            tempLink.setAttribute('data-astro-prefetch', '');
+            tempLink.style.display = 'none';
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            document.body.removeChild(tempLink);
+          }
+        }
+      });
+    });
+  });
+</script>

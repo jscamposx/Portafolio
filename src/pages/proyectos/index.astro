@@ -77,7 +77,7 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
         >
           <!-- Card compacta -->
           <article
-            class="h-full flex flex-col overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] transition-all duration-500 ease-out hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10 hover:-translate-y-2"
+            class="h-full flex flex-col overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] transition-all duration-500 ease-out hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10 hover:-translate-y-2"
             style={`--card-accent: ${project.accent};`}
           >
             <!-- Imagen -->
@@ -93,9 +93,9 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
               <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
               
               <!-- Badge año -->
-              <div class="absolute top-3 left-3 z-10">
-                <span class="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-black/40 backdrop-blur-md px-2.5 py-1 text-xs font-semibold text-white">
-                  <svg class="size-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+              <div class="absolute top-2 sm:top-3 left-2 sm:left-3 z-10">
+                <span class="inline-flex items-center gap-1 sm:gap-1.5 rounded-lg border border-white/20 bg-black/40 backdrop-blur-md px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold text-white">
+                  <svg class="size-2.5 sm:size-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                   </svg>
                   {project.year}
@@ -104,40 +104,40 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
             </div>
 
             <!-- Contenido -->
-            <div class="flex flex-col flex-1 p-5 space-y-3">
+            <div class="flex flex-col flex-1 p-3 sm:p-5 space-y-2 sm:space-y-3">
               <!-- Título -->
               <h3 
-                class="text-xl font-bold text-[var(--color-heading)] transition-all duration-300 group-hover/card:text-[var(--color-accent)]"
+                class="text-base sm:text-xl font-bold text-[var(--color-heading)] transition-all duration-300 group-hover/card:text-[var(--color-accent)] line-clamp-2"
                 transition:name={`project-title-${project.slug}`}
               >
                 {project.title}
               </h3>
 
               <!-- Descripción -->
-              <p class="text-sm leading-relaxed text-[var(--color-text-muted)] line-clamp-2 flex-1">
+              <p class="text-xs sm:text-sm leading-relaxed text-[var(--color-text-muted)] line-clamp-2 flex-1">
                 {project.description}
               </p>
 
               <!-- Tags -->
-              <div class="flex flex-wrap gap-1.5 pt-2">
+              <div class="flex flex-wrap gap-1 sm:gap-1.5 pt-1 sm:pt-2">
                 {(project.tags || []).slice(0, 3).map((tag) => (
-                  <span class="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-2.5 py-1 text-xs font-medium text-[var(--color-text-muted)]">
+                  <span class="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium text-[var(--color-text-muted)]">
                     {tag}
                   </span>
                 ))}
                 {(project.tags || []).length > 3 && (
-                  <span class="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-2.5 py-1 text-xs font-medium text-[var(--color-text-muted)]">
+                  <span class="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium text-[var(--color-text-muted)]">
                     +{(project.tags || []).length - 3}
                   </span>
                 )}
               </div>
 
               <!-- Link de acción -->
-              <div class="flex items-center justify-between pt-3 border-t border-[var(--color-border)] mt-auto">
-                <span class="text-sm font-semibold text-[var(--color-accent)] group-hover/card:translate-x-1 transition-transform duration-300">
+              <div class="flex items-center justify-between pt-2 sm:pt-3 border-t border-[var(--color-border)] mt-auto">
+                <span class="text-xs sm:text-sm font-semibold text-[var(--color-accent)] group-hover/card:translate-x-1 transition-transform duration-300">
                   Ver detalles
                 </span>
-                <svg class="size-5 text-[var(--color-accent)] transition-transform duration-300 group-hover/card:translate-x-1 group-hover/card:-translate-y-1" viewBox="0 0 24 24" fill="none">
+                <svg class="size-4 sm:size-5 text-[var(--color-accent)] transition-transform duration-300 group-hover/card:translate-x-1 group-hover/card:-translate-y-1" viewBox="0 0 24 24" fill="none">
                   <path d="M8.5 5H19v10.5m0-10.5-14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
@@ -159,10 +159,10 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
       <div class="flex justify-center pt-8">
         <a 
           href="/#contacto"
-          class="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-strong)] text-white font-semibold shadow-lg shadow-[var(--color-accent)]/20 hover:shadow-xl hover:shadow-[var(--color-accent)]/40 hover:scale-105 transition-all duration-300"
+          class="group inline-flex items-center justify-center gap-2 sm:gap-2.5 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-xl bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-strong)] text-white font-semibold shadow-lg shadow-[var(--color-accent)]/20 hover:shadow-xl hover:shadow-[var(--color-accent)]/40 hover:scale-105 transition-all duration-300 w-full max-w-xs sm:w-auto"
         >
           <span>¿Hablamos de tu proyecto?</span>
-          <svg class="size-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <svg class="size-4 sm:size-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
         </a>

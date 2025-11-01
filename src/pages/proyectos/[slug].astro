@@ -480,4 +480,220 @@ const slugify = (value: string) =>
   .project-checkmark svg {
     color: var(--project-color) !important;
   }
+
+  /* Modal de imagen en pantalla completa */
+  .image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .image-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .image-modal img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .image-modal.active img {
+    transform: scale(1);
+  }
+
+  .image-modal-close {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    pointer-events: auto;
+  }
+
+  .image-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+  }
+
+  .image-modal-close:active {
+    transform: scale(0.95);
+  }
+
+  /* Cursor pointer e indicador zoom para imágenes clickeables */
+  .project-card {
+    position: relative;
+  }
+
+  .project-card img {
+    cursor: zoom-in;
+  }
+
+  /* El overlay no debe bloquear los clicks */
+  .project-card .absolute.inset-0 {
+    pointer-events: none;
+  }
+
+  /* Indicador de zoom en hover */
+  .project-card .relative:has(img)::after {
+    content: '';
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7'/%3E%3C/svg%3E");
+    background-size: 1.25rem;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .project-card:hover .relative:has(img)::after {
+    opacity: 1;
+  }
 </style>
+
+<!-- Modal para imagen en pantalla completa -->
+<div id="imageModal" class="image-modal">
+  <img id="modalImage" src="" alt="Vista ampliada" />
+  <button class="image-modal-close" aria-label="Cerrar imagen">
+    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  // Funcionalidad del modal de imagen
+  function initImageModal() {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage') as HTMLImageElement;
+    const closeBtn = document.querySelector('.image-modal-close');
+    
+    if (!modal || !modalImage) return;
+    
+    // Limpiar listeners anteriores si existen
+    const oldModalClickHandler = (modal as any).__modalClickHandler;
+    if (oldModalClickHandler) {
+      modal.removeEventListener('click', oldModalClickHandler);
+    }
+    
+    const oldCloseHandler = (closeBtn as any).__closeHandler;
+    if (oldCloseHandler) {
+      closeBtn?.removeEventListener('click', oldCloseHandler);
+    }
+    
+    const oldKeyHandler = (window as any).__imageModalKeyHandler;
+    if (oldKeyHandler) {
+      document.removeEventListener('keydown', oldKeyHandler);
+    }
+    
+    // Función para abrir el modal
+    function openImageModal(imageSrc: string, imageAlt: string) {
+      if (modalImage && modal) {
+        modalImage.src = imageSrc;
+        modalImage.alt = imageAlt;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    // Función para cerrar el modal
+    function closeImageModal() {
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+    
+    // Agregar event listeners a todas las imágenes dentro de .project-card
+    const projectImages = document.querySelectorAll('.project-card img');
+    
+    projectImages.forEach((img) => {
+      const imageElement = img as HTMLImageElement;
+      // Limpiar listener anterior si existe
+      const oldHandler = (imageElement as any).__imageClickHandler;
+      if (oldHandler) {
+        imageElement.removeEventListener('click', oldHandler);
+      }
+      
+      const imageClickHandler = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        openImageModal(imageElement.src, imageElement.alt);
+      };
+      (imageElement as any).__imageClickHandler = imageClickHandler;
+      imageElement.addEventListener('click', imageClickHandler);
+    });
+    
+    // Cerrar modal al hacer clic en el botón de cerrar
+    const closeHandler = () => closeImageModal();
+    (closeBtn as any).__closeHandler = closeHandler;
+    closeBtn?.addEventListener('click', closeHandler);
+    
+    // Cerrar modal al hacer clic fuera de la imagen
+    const modalClickHandler = (e: Event) => {
+      if (e.target === modal) {
+        closeImageModal();
+      }
+    };
+    (modal as any).__modalClickHandler = modalClickHandler;
+    modal.addEventListener('click', modalClickHandler);
+    
+    // Cerrar modal con la tecla ESC
+    const keyHandler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeImageModal();
+      }
+    };
+    (window as any).__imageModalKeyHandler = keyHandler;
+    document.addEventListener('keydown', keyHandler);
+  }
+  
+  // Inicializar cuando la página carga
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initImageModal);
+  } else {
+    initImageModal();
+  }
+  
+  // Reinicializar después de las view transitions de Astro
+  document.addEventListener('astro:page-load', initImageModal);
+</script>
