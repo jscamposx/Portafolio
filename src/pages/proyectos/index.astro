@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
 import { projects } from '../../data/projects';
 
 // Datos inline
@@ -67,24 +66,84 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
       </div>
     </header>
 
-    <!-- Grid de proyectos optimizado -->
-    <div class="grid gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
+    <!-- Grid de proyectos optimizado - Cards compactas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
       {projects.map((project, index) => (
-        <div class="project-card-wrapper">
-          <a
-            href={`/proyectos/${project.slug}`}
-            class="block group/card"
-            id={project.slug}
-            data-astro-prefetch
+        <a
+          href={`/proyectos/${project.slug}`}
+          class="project-card group/card block"
+          id={project.slug}
+          data-astro-prefetch
+        >
+          <!-- Card compacta -->
+          <article
+            class="h-full flex flex-col overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] transition-all duration-500 ease-out hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10 hover:-translate-y-2"
+            style={`--card-accent: ${project.accent};`}
           >
-            <ProjectCard
-              project={project}
-              compact
-              isWrappedInLink={true}
-              href={`/proyectos/${project.slug}`}
-            />
-          </a>
-        </div>
+            <!-- Imagen -->
+            <div class="relative aspect-video overflow-hidden bg-[var(--color-surface-alt)]">
+              <img
+                class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover/card:scale-110"
+                src={project.heroImage}
+                alt={`Vista previa del proyecto ${project.title}`}
+                loading="lazy"
+                transition:name={`project-image-${project.slug}`}
+              />
+              <!-- Overlay gradient en hover -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+              
+              <!-- Badge año -->
+              <div class="absolute top-3 left-3 z-10">
+                <span class="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-black/40 backdrop-blur-md px-2.5 py-1 text-xs font-semibold text-white">
+                  <svg class="size-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                  {project.year}
+                </span>
+              </div>
+            </div>
+
+            <!-- Contenido -->
+            <div class="flex flex-col flex-1 p-5 space-y-3">
+              <!-- Título -->
+              <h3 
+                class="text-xl font-bold text-[var(--color-heading)] transition-all duration-300 group-hover/card:text-[var(--color-accent)]"
+                transition:name={`project-title-${project.slug}`}
+              >
+                {project.title}
+              </h3>
+
+              <!-- Descripción -->
+              <p class="text-sm leading-relaxed text-[var(--color-text-muted)] line-clamp-2 flex-1">
+                {project.description}
+              </p>
+
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-1.5 pt-2">
+                {(project.tags || []).slice(0, 3).map((tag) => (
+                  <span class="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-2.5 py-1 text-xs font-medium text-[var(--color-text-muted)]">
+                    {tag}
+                  </span>
+                ))}
+                {(project.tags || []).length > 3 && (
+                  <span class="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-2.5 py-1 text-xs font-medium text-[var(--color-text-muted)]">
+                    +{(project.tags || []).length - 3}
+                  </span>
+                )}
+              </div>
+
+              <!-- Link de acción -->
+              <div class="flex items-center justify-between pt-3 border-t border-[var(--color-border)] mt-auto">
+                <span class="text-sm font-semibold text-[var(--color-accent)] group-hover/card:translate-x-1 transition-transform duration-300">
+                  Ver detalles
+                </span>
+                <svg class="size-5 text-[var(--color-accent)] transition-transform duration-300 group-hover/card:translate-x-1 group-hover/card:-translate-y-1" viewBox="0 0 24 24" fill="none">
+                  <path d="M8.5 5H19v10.5m0-10.5-14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </article>
+        </a>
       ))}
     </div>
 
@@ -113,16 +172,24 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
 </Layout>
 
 <style>
-  /* Sin animaciones de entrada - carga instantánea */
-  .project-card-wrapper {
+  /* Cards con carga instantánea */
+  .project-card {
     opacity: 1;
     transform: none;
   }
 
-  /* View Transitions optimizadas */
+  /* Truncar texto a 2 líneas */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* View Transitions optimizadas para grid */
   @media (min-width: 769px) {
     /* Limitar transiciones para mejor performance */
-    .project-card-wrapper:nth-child(n+4) {
+    .project-card:nth-child(n+7) {
       view-transition-name: none !important;
     }
   }
@@ -140,6 +207,13 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
   @media (max-width: 640px) {
     section {
       scroll-padding-top: 2rem;
+    }
+  }
+
+  /* Ajuste de grid en tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>
