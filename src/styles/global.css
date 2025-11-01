@@ -244,7 +244,6 @@ img[transition\:name] {
 	}
 	
 	.animate-on-scroll,
-	.spinning-border,
 	.hover-lift {
 		animation: none !important;
 		transition: none !important;
@@ -309,7 +308,17 @@ section[id] { scroll-margin-top: 120px; }
 
 /* Borde giratorio del chip de disponibilidad */
 .spinning-border {
-	background: conic-gradient(from 90deg at 50% 50%, #c084fc 0%, #a855f7 50%, #c084fc 100%);
+	background: conic-gradient(
+		from 90deg at 50% 50%, 
+		#a855f7 0%, 
+		#7c3aed 15%, 
+		#4c1d95 30%, 
+		transparent 45%,
+		transparent 55%,
+		#4c1d95 70%,
+		#7c3aed 85%,
+		#a855f7 100%
+	);
 	animation: spin 2s linear infinite;
 }
 
@@ -517,8 +526,7 @@ section[id] { scroll-margin-top: 120px; }
 /* Respeto a prefers-reduced-motion para animaciones continuas */
 @media (prefers-reduced-motion: reduce) {
 	.float-animation,
-	.badge-availability,
-	.spinning-border {
+	.badge-availability {
 		animation: none !important;
 	}
 }
@@ -641,24 +649,11 @@ header.nav-over-hero { margin-top: .25rem; }
 	white-space: nowrap;
 	user-select: none;
 	backdrop-filter: blur(28px);
-	transition: background-color .25s ease, border-color .25s ease, color .25s ease, transform .25s ease;
 	background: var(--color-accent-chip-bg);
 	color: var(--color-text);
 	border: 1px solid var(--color-accent-chip-ring);
 	/* Glow sutil y definición */
-	box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 4px 10px -4px rgba(0,0,0,0.6), 0 0 0 1px rgba(192,132,252,0.15) inset;
-	animation: breathing 3s ease-in-out infinite;
-}
-
-@keyframes breathing {
-	0%, 100% {
-		transform: scale(1);
-		box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 4px 10px -4px rgba(0,0,0,0.6), 0 0 0 1px rgba(192,132,252,0.15) inset;
-	}
-	50% {
-		transform: scale(1.02);
-		box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 6px 15px -4px rgba(192,132,252,0.3), 0 0 0 1px rgba(192,132,252,0.25) inset;
-	}
+	box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 4px 10px -4px rgba(0,0,0,0.6), 0 0 0 1px rgba(168,85,247,0.15) inset;
 }
 
 @media (min-width: 640px) {
@@ -688,13 +683,4 @@ img[transition\:name] {
 	content-visibility: auto;
 }
 
-.badge-availability:hover {
-	background: var(--color-accent-chip-bg-hover);
-	border-color: var(--color-accent-chip-ring-hover);
-	animation: none;
-	transform: scale(1.05);
-	box-shadow: 0 0 0 2px rgba(255,255,255,0.06), 0 8px 20px -4px rgba(192,132,252,0.4), 0 0 0 2px rgba(192,132,252,0.3) inset;
-}
-.badge-availability:active {
-	transform: translateY(1px) scale(1);
-}
+/* Eliminamos estilos de hover y active para mantener el badge estático */
