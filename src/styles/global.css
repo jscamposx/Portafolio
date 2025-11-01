@@ -401,6 +401,50 @@ section[id] { scroll-margin-top: 120px; }
 	transform: translateY(-4px);
 }
 
+/* Animaciones para iconos en hover */
+.icon-bounce {
+	transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.icon-bounce:hover {
+	transform: translateY(-2px);
+}
+
+.icon-wiggle {
+	transition: transform 0.3s ease;
+}
+
+.icon-wiggle:hover {
+	animation: wiggle 0.5s ease-in-out;
+}
+
+@keyframes wiggle {
+	0%, 100% { transform: rotate(0deg); }
+	25% { transform: rotate(-5deg); }
+	75% { transform: rotate(5deg); }
+}
+
+.icon-pulse {
+	transition: transform 0.3s ease;
+}
+
+.icon-pulse:hover {
+	animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.1); }
+}
+
+.icon-rotate {
+	transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.icon-rotate:hover {
+	transform: rotate(15deg) scale(1.05);
+}
+
 /* Animación para chips de tecnología */
 @keyframes pulse-border {
 	0%, 100% {
@@ -408,6 +452,74 @@ section[id] { scroll-margin-top: 120px; }
 	}
 	50% {
 		border-color: rgba(192, 132, 252, 0.4);
+	}
+}
+
+/* Efecto glow para botones principales */
+.btn-glow {
+	position: relative;
+	overflow: hidden;
+}
+
+.btn-glow::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: rgba(192, 132, 252, 0.3);
+	transform: translate(-50%, -50%);
+	transition: width 0.6s, height 0.6s;
+}
+
+.btn-glow:hover::before {
+	width: 300px;
+	height: 300px;
+}
+
+/* Efecto shimmer para elementos destacados */
+@keyframes shimmer {
+	0% {
+		background-position: -1000px 0;
+	}
+	100% {
+		background-position: 1000px 0;
+	}
+}
+
+.shimmer {
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(192, 132, 252, 0.1),
+		transparent
+	);
+	background-size: 1000px 100%;
+	animation: shimmer 3s infinite;
+}
+
+/* Animación de flotación suave */
+@keyframes float {
+	0%, 100% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-6px);
+	}
+}
+
+.float-animation {
+	animation: float 3s ease-in-out infinite;
+}
+
+/* Respeto a prefers-reduced-motion para animaciones continuas */
+@media (prefers-reduced-motion: reduce) {
+	.float-animation,
+	.badge-availability,
+	.spinning-border {
+		animation: none !important;
 	}
 }
 
@@ -529,12 +641,24 @@ header.nav-over-hero { margin-top: .25rem; }
 	white-space: nowrap;
 	user-select: none;
 	backdrop-filter: blur(28px);
-	transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+	transition: background-color .25s ease, border-color .25s ease, color .25s ease, transform .25s ease;
 	background: var(--color-accent-chip-bg);
 	color: var(--color-text);
 	border: 1px solid var(--color-accent-chip-ring);
 	/* Glow sutil y definición */
 	box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 4px 10px -4px rgba(0,0,0,0.6), 0 0 0 1px rgba(192,132,252,0.15) inset;
+	animation: breathing 3s ease-in-out infinite;
+}
+
+@keyframes breathing {
+	0%, 100% {
+		transform: scale(1);
+		box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 4px 10px -4px rgba(0,0,0,0.6), 0 0 0 1px rgba(192,132,252,0.15) inset;
+	}
+	50% {
+		transform: scale(1.02);
+		box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 6px 15px -4px rgba(192,132,252,0.3), 0 0 0 1px rgba(192,132,252,0.25) inset;
+	}
 }
 
 @media (min-width: 640px) {
@@ -567,7 +691,10 @@ img[transition\:name] {
 .badge-availability:hover {
 	background: var(--color-accent-chip-bg-hover);
 	border-color: var(--color-accent-chip-ring-hover);
+	animation: none;
+	transform: scale(1.05);
+	box-shadow: 0 0 0 2px rgba(255,255,255,0.06), 0 8px 20px -4px rgba(192,132,252,0.4), 0 0 0 2px rgba(192,132,252,0.3) inset;
 }
 .badge-availability:active {
-	transform: translateY(1px);
+	transform: translateY(1px) scale(1);
 }

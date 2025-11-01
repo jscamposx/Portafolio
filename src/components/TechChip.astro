@@ -81,11 +81,11 @@ const displayName = tech?.displayName || name;
 ---
 
 <span 
-  class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-accent)] transition-all duration-300 hover:shadow-[0_0_12px_rgba(var(--accent-rgb),0.15)] group"
+  class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-accent)] transition-all duration-300 hover:shadow-[0_0_12px_rgba(var(--accent-rgb),0.15)] hover:-translate-y-0.5 hover:scale-105 group cursor-default"
 >
   {Icon && (
     <Icon 
-      class="w-4 h-4 transition-transform duration-300 group-hover:scale-110" 
+      class="w-4 h-4 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12" 
       aria-hidden="true"
     />
   )}

@@ -12,7 +12,7 @@ const navLinks = [
     <!-- Links de navegación -->
     <div class="flex items-center gap-1 sm:gap-1.5 md:gap-2 flex-1 md:flex-none justify-center">
       {navLinks.map(link => (
-        <a href={link.href} class="px-2 sm:px-3 py-1.5 sm:py-2 rounded-full nav-link text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[rgba(255,255,255,0.06)] transition whitespace-nowrap text-[10px] sm:text-xs md:text-sm">
+        <a href={link.href} class="px-2 sm:px-3 py-1.5 sm:py-2 rounded-full nav-link text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[rgba(255,255,255,0.06)] transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap text-[10px] sm:text-xs md:text-sm">
           {link.label}
         </a>
       ))}
@@ -20,9 +20,9 @@ const navLinks = [
 
     <!-- Theme toggle -->
     <div class="relative">
-      <button id="theme-toggle-btn" class="appearance-none border-none flex items-center justify-center rounded-full p-2 hover:scale-110 transition text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-alt)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]" aria-label="Elegir tema" title="Cambiar tema" type="button">
+      <button id="theme-toggle-btn" class="appearance-none border-none flex items-center justify-center rounded-full p-2 hover:scale-110 transition-all duration-300 text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-alt)] hover:rotate-12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]" aria-label="Elegir tema" title="Cambiar tema" type="button">
         <span class="sr-only">Cambiar tema</span>
-        <svg id="light" class="theme-toggle-icon size-4 transition-all" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="scale:0">
+        <svg id="light" class="theme-toggle-icon size-4 transition-all duration-300" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="scale:0">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
           <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
