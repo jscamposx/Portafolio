@@ -167,50 +167,64 @@ const {
 			const currentPath = window.location.pathname;
 			const targetPath = new URL(pendingNavigationUrl || '').pathname;
 			const goingToProjectsList = targetPath === '/proyectos/' || targetPath === '/proyectos';
+			const comingFromHome = currentPath === '/' || currentPath === '';
 			const comingFromProjectDetail = currentPath.startsWith('/proyectos/') && currentPath !== '/proyectos/' && currentPath !== '/proyectos';
 			
-			// Si vamos a /proyectos/, especialmente desde un proyecto individual
+			// Si vamos a /proyectos/ desde el home O desde un proyecto individual
 			if (goingToProjectsList && !isMobile) {
-				// Inyectar CSS que oculta/simplifica las transiciones de imágenes
+				// Inyectar CSS que simplifica las transiciones
 				const style = document.createElement('style');
 				style.id = 'temp-transition-override';
 				style.textContent = `
-					/* Transición de página ultra rápida */
+					/* Transición de página rápida con fondo consistente */
 					::view-transition-old(root),
 					::view-transition-new(root) {
-						animation-duration: 0.15s !important;
+						animation-duration: ${comingFromHome ? '0.3s' : '0.15s'} !important;
+						background-color: var(--color-bg-primary, #130b1e) !important;
 					}
 					
-					/* OCULTAR COMPLETAMENTE las transiciones de imágenes */
-					::view-transition-old(project-image),
-					::view-transition-new(project-image),
-					::view-transition-old(project-image-wrapper),
-					::view-transition-new(project-image-wrapper),
-					::view-transition-group(project-image),
-					::view-transition-group(project-image-wrapper),
-					::view-transition-image-pair(project-image) {
-						animation: none !important;
-						opacity: 0 !important;
-						display: none !important;
-					}
+					/* Transiciones de proyectos: solo desde home hacer morph suave */
+					${comingFromHome ? `
+						::view-transition-old(project-image),
+						::view-transition-new(project-image),
+						::view-transition-old(project-title),
+						::view-transition-new(project-title) {
+							animation-duration: 0.4s !important;
+						}
+						
+						::view-transition-old(project-techs),
+						::view-transition-new(project-techs) {
+							animation-duration: 0.3s !important;
+						}
+					` : `
+						/* Desde proyecto individual: transiciones instantáneas */
+						::view-transition-old(project-image),
+						::view-transition-new(project-image),
+						::view-transition-old(project-image-wrapper),
+						::view-transition-new(project-image-wrapper),
+						::view-transition-group(project-image),
+						::view-transition-group(project-image-wrapper) {
+							animation: none !important;
+						}
+						
+						::view-transition-old(project-card),
+						::view-transition-new(project-card),
+						::view-transition-old(project-title),
+						::view-transition-new(project-title),
+						::view-transition-old(project-tag),
+						::view-transition-new(project-tag),
+						::view-transition-old(project-techs),
+						::view-transition-new(project-techs) {
+							animation-duration: 0.05s !important;
+						}
+					`}
 					
-					/* Cards y otros elementos muy rápidos */
-					::view-transition-old(project-card),
-					::view-transition-new(project-card),
-					::view-transition-old(project-title),
-					::view-transition-new(project-title),
-					::view-transition-old(project-tag),
-					::view-transition-new(project-tag),
-					::view-transition-old(project-techs),
-					::view-transition-new(project-techs) {
-						animation-duration: 0.1s !important;
-						opacity: 0 !important;
-					}
-					
-					/* Solo animar botones de navegación */
+					/* Botón de navegación siempre animado */
 					::view-transition-old(back-to-home-button),
-					::view-transition-new(back-to-home-button) {
-						animation-duration: 0.2s !important;
+					::view-transition-new(back-to-home-button),
+					::view-transition-old(all-projects-cta),
+					::view-transition-new(all-projects-cta) {
+						animation-duration: 0.3s !important;
 					}
 				`;
 				document.head.appendChild(style);
@@ -218,7 +232,7 @@ const {
 				// Remover el estilo después de la transición
 				setTimeout(() => {
 					document.getElementById('temp-transition-override')?.remove();
-				}, 500);
+				}, 600);
 			}
 			
 			// Determinar timeout según el tipo de navegación
