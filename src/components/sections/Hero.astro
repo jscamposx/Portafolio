@@ -18,7 +18,7 @@ const hero = {
 ---
 <section id="hero" class="pt-2 sm:pt-8 px-3 sm:px-0" transition:animate="fade">
   <div class="max-w-xl">
-  <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 sm:mb-6 animate-on-scroll fade-in-up">
+  <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 sm:mb-6">
       <div class="size-12 sm:size-16 rounded-full bg-[var(--color-accent)] flex items-center justify-center font-semibold text-[1.1rem] sm:text-[1.4rem] text-[var(--color-initials)] select-none transition-all duration-300 hover:scale-110 hover:rotate-6 cursor-default" aria-label={hero.avatar.alt} role="img">
         {hero.avatar.initials}
       </div>
@@ -38,14 +38,14 @@ const hero = {
         </div>
       </a>
     </div>
-    <h1 class="text-2xl sm:text-5xl font-bold tracking-tight text-[var(--color-text)] animate-on-scroll fade-in-up delay-100">{hero.title}</h1>
-    <p class="mt-3 sm:mt-6 text-sm sm:text-xl leading-relaxed text-[var(--color-text-muted)] [&>strong]:text-[var(--color-accent)] [&>strong]:font-semibold animate-on-scroll fade-in-up delay-200">
+    <h1 class="text-2xl sm:text-5xl font-bold tracking-tight text-[var(--color-text)]">{hero.title}</h1>
+    <p class="mt-3 sm:mt-6 text-sm sm:text-xl leading-relaxed text-[var(--color-text-muted)] [&>strong]:text-[var(--color-accent)] [&>strong]:font-semibold">
       {hero.description.leading}
       {hero.description.leading && ' '}
       <strong>{hero.description.highlight}</strong>
       {hero.description.trailing}
     </p>
-    <nav class="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-8 animate-on-scroll fade-in-up delay-300">
+    <nav class="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-8">
       {hero.actions.map((action) => (
         <a
           href={action.href}

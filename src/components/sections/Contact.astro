@@ -13,7 +13,7 @@ const contact = {
 ---
 
 <section id="contacto" class="pt-10 sm:pt-24 space-y-8 sm:space-y-12 px-3 sm:px-0">
-  <header class="space-y-2 sm:space-y-4 max-w-3xl animate-on-scroll fade-in-up">
+  <header class="space-y-2 sm:space-y-4 max-w-3xl">
     <p class="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">{contact.eyebrow}</p>
     <h2 class="text-xl sm:text-4xl font-semibold">{contact.title}</h2>
     <p class="text-xs sm:text-lg text-[var(--color-text-muted)]">{contact.description}</p>
@@ -22,7 +22,7 @@ const contact = {
   <div class="grid md:grid-cols-2 gap-6 sm:gap-12 max-w-5xl">
     <!-- Información de contacto -->
     <div class="space-y-5 sm:space-y-6">
-      <div class="space-y-3 sm:space-y-4 animate-on-scroll fade-in-left">
+      <div class="space-y-3 sm:space-y-4">
         <h3 class="text-base sm:text-lg font-semibold text-[var(--color-heading)]">Información de contacto</h3>
         
         <a 
@@ -46,7 +46,7 @@ const contact = {
         </a>
       </div>
 
-      <div class="space-y-3 animate-on-scroll fade-in-left delay-100">
+      <div class="space-y-3">
         <h3 class="text-base sm:text-lg font-semibold text-[var(--color-heading)]">Redes sociales</h3>
         <div class="flex flex-col gap-2">
           {contact.social.map((link) => (

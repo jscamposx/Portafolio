@@ -22,14 +22,14 @@ export interface TechnologiesProps {
 const { eyebrow, title, description, callout, groups } = Astro.props as TechnologiesProps;
 ---
 <section id="tecnologias" class="space-y-6 sm:space-y-10 pt-10 sm:pt-16 px-3 sm:px-0">
-  <header class="space-y-2 sm:space-y-4 animate-on-scroll fade-in-up">
+  <header class="space-y-2 sm:space-y-4">
     <p class="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">{eyebrow}</p>
     <h2 class="text-xl sm:text-4xl font-semibold">{title}</h2>
     <p class="max-w-3xl text-xs sm:text-lg text-[var(--color-text-muted)]">{description}</p>
   </header>
 
   <div class="grid gap-4 sm:gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-    <article class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[var(--color-border)] bg-[rgba(19,11,30,0.9)] p-4 sm:p-8 animate-on-scroll scale-in">
+    <article class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[var(--color-border)] bg-[rgba(19,11,30,0.9)] p-4 sm:p-8">
       <div class="absolute inset-0 bg-gradient-to-br from-[rgba(192,132,252,0.18)] via-transparent to-[rgba(29,17,45,0.85)]" aria-hidden="true"></div>
       <div class="relative space-y-4 sm:space-y-5">
         <div class="space-y-2">
@@ -37,8 +37,8 @@ const { eyebrow, title, description, callout, groups } = Astro.props as Technolo
           <p class="text-xs sm:text-lg text-[var(--color-text-muted)]">{callout.description}</p>
         </div>
         <ul class="space-y-3 sm:space-y-4">
-          {callout.items.map((item, i) => (
-            <li class="flex items-start gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-[rgba(192,132,252,0.15)] bg-[rgba(255,255,255,0.03)] p-3 sm:p-4 text-sm animate-on-scroll fade-in-left" style={`animation-delay: ${(i + 1) * 100}ms`}>
+          {callout.items.map((item) => (
+            <li class="flex items-start gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border border-[rgba(192,132,252,0.15)] bg-[rgba(255,255,255,0.03)] p-3 sm:p-4 text-sm">
               <span class="mt-1 h-2 w-2 rounded-full bg-[var(--color-accent)] shrink-0"></span>
               <div class="space-y-1">
                 <p class="text-xs sm:text-sm font-semibold text-white">{item.label}</p>
@@ -51,8 +51,8 @@ const { eyebrow, title, description, callout, groups } = Astro.props as Technolo
     </article>
 
     <div class="grid gap-4 sm:gap-6 sm:grid-cols-2">
-      {groups.map((group, i) => (
-        <article class="flex h-full flex-col justify-between gap-4 sm:gap-5 rounded-2xl sm:rounded-3xl border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-4 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(192,132,252,0.4)] hover:shadow-lg hover:shadow-[var(--color-accent)]/10 animate-on-scroll fade-in-up" style={`animation-delay: ${i * 150}ms`}>
+      {groups.map((group) => (
+        <article class="flex h-full flex-col justify-between gap-4 sm:gap-5 rounded-2xl sm:rounded-3xl border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-4 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(192,132,252,0.4)] hover:shadow-lg hover:shadow-[var(--color-accent)]/10">
           <div class="space-y-2 sm:space-y-3">
             <h3 class="text-base sm:text-xl font-semibold text-white">{group.title}</h3>
             <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">{group.description}</p>
