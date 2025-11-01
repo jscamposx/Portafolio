@@ -89,5 +89,186 @@ export const projects: Project[] = [
       { heading: 'Enfoque', body: 'Prototipé flujos de navegación y animaciones en Figma, luego implementé componentes Astro con capas de transición suaves. Integré un CMS headless para que el equipo de marketing pudiera editar el contenido.' },
       { heading: 'Impacto', body: 'El nuevo sitio duplicó el tiempo promedio de permanencia y disparó en un 65 % las solicitudes de contacto durante los primeros tres meses.' }
     ]
+  },
+  {
+    slug: 'guess-gaming',
+    title: 'Guess Gaming (Number Guessing Game)',
+    description: 'Un simple juego de adivinar el número implementado con Spring Boot y Spring Shell donde pones a prueba tu suerte y lógica.',
+    year: 2024,
+    tags: ['Juego', 'CLI', 'Spring Boot', 'Java'],
+    heroImage: '/Proyectos/card-proyect-guess-game.avif',
+    accent: '#10b981',
+    links: [
+      { label: 'Ver proyecto en Roadmap.sh', url: 'https://roadmap.sh/projects/number-guessing-game' },
+      { label: 'Repositorio', url: 'https://github.com/jscamposx/number-guessing-game' }
+    ],
+    technologies: ['Java 21', 'Spring Boot', 'Spring Shell', 'Maven'],
+    sections: [
+      { 
+        heading: 'Reto', 
+        body: 'Implementar un juego clásico de "adivinar el número" como una aplicación de consola (CLI) interactiva, utilizando el ecosistema de Spring y las características modernas de Java.' 
+      },
+      { 
+        heading: 'Solución Técnica', 
+        body: 'Se desarrolló la aplicación utilizando Spring Boot 3 y Java 21. La interactividad de la consola se gestionó completamente a través de Spring Shell, que permite definir comandos personalizados como `start <dificultad>`, `guess <número>` y `hint`.' 
+      },
+      { 
+        heading: 'Características Destacadas', 
+        body: 'Lógica de juego centralizada en un `GameService`. Múltiples niveles de dificultad (easy, medium, hard) que ajustan el número de intentos. Sistema de estado (`GameState`) para rastrear el progreso del juego. Generador de pistas (`HintGenerator`) que ofrece ayudas variadas (mayor/menor, rango, par/impar).'
+      },
+      { 
+        heading: 'Impacto', 
+        body: 'El resultado es una aplicación de CLI robusta, fácil de ejecutar y entretenida. Sirve como un excelente proyecto para demostrar el uso de Spring Shell para crear aplicaciones de consola interactivas y la gestión de estado en una aplicación Spring Boot.'
+      }
+    ]
+  },
+  {
+    slug: 'task-tracker-cli',
+    title: 'Task Tracker CLI',
+    description: 'Una aplicación CLI diseñada para rastrear y gestionar tareas directamente desde la línea de comandos, con persistencia en JSON.',
+    year: 2024,
+    tags: ['CLI', 'Gestión de Tareas', 'Spring Boot', 'Java', 'JSON'],
+    heroImage: '/Proyectos/card-proyect-task-tracker.avif',
+    accent: '#3b82f6',
+    links: [
+      { label: 'Ver proyecto en Roadmap.sh', url: 'https://roadmap.sh/projects/task-tracker' },
+      { label: 'Repositorio', url: 'https://github.com/jscamposz/Task-Tracker' }
+    ],
+    technologies: ['Java 21', 'Spring Boot', 'Spring Shell', 'Maven', 'Jackson', 'Lombok'],
+    sections: [
+      { 
+        heading: 'Reto', 
+        body: 'Crear una herramienta de línea de comandos (CLI) eficiente para la gestión completa de tareas (CRUD), permitiendo a los usuarios organizar sus pendientes, tareas en progreso y completadas directamente desde la terminal.' 
+      },
+      { 
+        heading: 'Solución Técnica', 
+        body: 'Aplicación CLI construida con Spring Boot y Spring Shell. La persistencia de datos se maneja guardando las tareas en un archivo JSON, utilizando la biblioteca Jackson para la serialización y deserialización.' 
+      },
+      { 
+        heading: 'Características Destacadas', 
+        body: 'Gestión completa de tareas: agregar, actualizar, eliminar y listar. Cambio de estado entre "Pendiente" (TODO) y "Completada" (DONE). Capacidad para filtrar tareas por estado (completadas o pendientes). Persistencia de datos en JSON para mantener la información entre sesiones.'
+      },
+      { 
+        heading: 'Impacto', 
+        body: 'Proporciona una herramienta de productividad ligera y rápida para desarrolladores o usuarios que prefieren la terminal, permitiendo una gestión de tareas sin salir de su entorno de trabajo principal.'
+      }
+    ]
+  },
+  {
+    slug: 'shorturl-backend',
+    title: 'Shorten-BackEnd: Microservicio Acortador de URLs',
+    description: 'Backend para un servicio acortador de URLs utilizando una arquitectura de microservicios con Spring Boot y Spring Cloud.',
+    year: 2024,
+    tags: ['Microservicios', 'Spring Cloud', 'Spring Boot', 'Java', 'Docker', 'MySQL', 'Redis'],
+    heroImage: '/Proyectos/Arquitectura-shorten.avif',
+    accent: '#8b5cf6',
+    links: [
+      { label: 'Repositorio', url: 'https://github.com/jscamposx/shorturl-backend' }
+    ],
+    technologies: [
+      'Java 21', 
+      'Spring Boot', 
+      'Spring Cloud (Gateway, Eureka, Config)', 
+      'Spring Data JPA', 
+      'Spring Data Redis', 
+      'Docker & Docker Compose', 
+      'MySQL', 
+      'Redis', 
+      'Maven'
+    ],
+    sections: [
+      { 
+        heading: 'Reto', 
+        body: 'Diseñar un acortador de URLs escalable y resiliente, separando las lógicas de escritura y lectura (patrón CQRS) y centralizando la gestión de configuración, descubrimiento de servicios y enrutamiento.' 
+      },
+      { 
+        heading: 'Arquitectura Técnica', 
+        body: 'Sistema de microservicios orquestado con Docker Compose. Utiliza Spring Cloud Config para configuración centralizada, Spring Cloud Eureka para el descubrimiento de servicios y Spring Cloud Gateway como punto de entrada único (API Gateway).' 
+      },
+      { 
+        heading: 'Características Destacadas', 
+        body: 'Servicio `write-api` para crear URLs cortas, persistiendo en MySQL con Spring Data JPA. Servicio `read-api` para resolver URLs, optimizado con caché en Redis usando Spring Data Redis. Implementación de Rate Limiting (limitación de tasa) basado en IP a nivel del API Gateway, utilizando Redis.' 
+      },
+      { 
+        heading: 'Impacto', 
+        body: 'El resultado es un sistema robusto donde la carga de escritura (infrecuente) no afecta el rendimiento de la lectura (muy frecuente). La arquitectura permite escalar horizontalmente cada microservicio de forma independiente según la demanda.' 
+      }
+    ]
+  },
+  {
+    slug: 'herramienta-cifrado-asimetrico',
+    title: 'Herramienta de Cifrado Asimétrico (RSA)',
+    description: 'Una aplicación web simple para encriptar y desencriptar archivos y texto usando el algoritmo RSA.',
+    year: 2024,
+    tags: ['Criptografía', 'RSA', 'Web App', 'Astro', 'React', 'Seguridad'],
+    heroImage: '/Proyectos/card-proyect-encryption.avif',
+    accent: '#ec4899',
+    links: [
+      { label: 'Ver proyecto en Roadmap.sh', url: 'https://roadmap.sh/projects/asymmetric-encryption-tool' },
+      { label: 'Repositorio', url: 'https://github.com/jscamposx/Encriptacion-Asimetrica' }
+    ],
+    technologies: [
+      'Astro', 
+      'React', 
+      'TypeScript', 
+      'Tailwind CSS', 
+      'node-forge'
+    ],
+    sections: [
+      { 
+        heading: 'Reto', 
+        body: 'Desarrollar una herramienta web accesible para que los usuarios puedan entender y utilizar la criptografía asimétrica (RSA) para encriptar y desencriptar tanto texto como archivos, sin necesidad de instalar software complejo.' 
+      },
+      { 
+        heading: 'Solución Técnica', 
+        body: 'Se construyó una aplicación web moderna con Astro para el enrutamiento y renderizado, e islas de React para la interactividad. Toda la lógica criptográfica (generación de claves, cifrado, descifrado) se maneja en el lado del cliente utilizando la biblioteca `node-forge`, asegurando que los datos sensibles nunca salgan del navegador del usuario.'
+      },
+      { 
+        heading: 'Características Destacadas', 
+        body: 'Generación de pares de claves RSA (pública y privada) directamente en el navegador. Doble funcionalidad: permite encriptar/desencriptar tanto fragmentos de texto como archivos completos (ej. .txt, .pdf). Interfaz de usuario limpia e intuitiva construida con Tailwind CSS, guiando al usuario a través del proceso de carga de archivos y claves.'
+      },
+      { 
+        heading: 'Impacto', 
+        body: 'Una herramienta educativa y funcional que desmitifica la criptografía RSA, permitiendo a cualquier persona asegurar sus mensajes o archivos de forma rápida y segura, promoviendo la conciencia sobre la privacidad y la seguridad digital.'
+      }
+    ]
+  },
+  {
+    slug: 'github-activity-cli',
+    title: 'GitHub Activity CLI',
+    description: 'Una herramienta CLI construida con Spring Shell para consultar la actividad reciente y los repositorios de un usuario de GitHub.',
+    year: 2024,
+    tags: ['CLI', 'GitHub API', 'Spring Boot', 'Java', 'WebClient'],
+    heroImage: '/Proyectos/card-proyect-github-cli.avif',
+    accent: '#4a4a4a',
+    links: [
+      { label: 'Repositorio', url: 'https://github.com/jscamposx/GithubActivity-CLI' }
+    ],
+    technologies: [
+      'Java 21', 
+      'Spring Boot', 
+      'Spring Shell', 
+      'Spring WebClient (Reactive)', 
+      'Maven', 
+      'Lombok'
+    ],
+    sections: [
+      { 
+        heading: 'Reto', 
+        body: 'Crear una utilidad de línea de comandos (CLI) para consultar la API REST de GitHub y mostrar información relevante del perfil de un usuario, su actividad reciente y sus repositorios, todo directamente desde la terminal.' 
+      },
+      { 
+        heading: 'Solución Técnica', 
+        body: 'Se desarrolló una aplicación CLI usando Spring Boot y Spring Shell para definir los comandos. La comunicación con la API de GitHub se maneja de forma asíncrona utilizando `WebClient` de Spring. Implementa un sistema de caché en memoria para reducir las llamadas repetidas a la API.' 
+      },
+      { 
+        heading: 'Características Destacadas', 
+        body: 'Comando `user <username>`: Muestra información clave del perfil (nombre, seguidores, repos públicos). Comando `activity <username>`: Lista los eventos públicos recientes del usuario (commits, creación de repos, etc.). Comando `repos <username>`: Muestra los repositorios públicos del usuario. Manejo de errores de API y formateo de fechas para mejor legibilidad.' 
+      },
+      { 
+        heading: 'Impacto', 
+        body: 'Una herramienta de productividad para desarrolladores que permite obtener información rápida de GitHub sin necesidad de salir del flujo de trabajo de la terminal.'
+      }
+    ]
   }
 ];

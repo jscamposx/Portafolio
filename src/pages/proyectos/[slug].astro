@@ -40,10 +40,10 @@ const slugify = (value: string) =>
     <!-- Botón: Volver a proyectos -->
     <a 
       href="/#proyectos"
-      class="group relative flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 shadow-lg backdrop-blur-xl transition-all hover:scale-105 hover:border-[var(--color-accent)] hover:shadow-[0_0_20px_rgba(var(--accent-rgb),0.3)]"
+      class="group relative flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 shadow-lg backdrop-blur-xl transition-all hover:scale-105 hover:border-[var(--project-color)] hover:shadow-[0_0_20px_var(--project-color-alpha)]"
       title="Volver a proyectos"
     >
-      <svg class="size-5 text-[var(--color-text-muted)] transition-all group-hover:text-[var(--color-accent)] group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="size-5 text-[var(--color-text-muted)] transition-all group-hover:text-[var(--project-color)] group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
       </svg>
       <span class="hidden sm:inline text-sm font-medium text-[var(--color-text)] sm:opacity-0 sm:max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 sm:group-hover:opacity-100 sm:group-hover:max-w-xs">
@@ -54,7 +54,8 @@ const slugify = (value: string) =>
     <!-- Botón: Ver más proyectos -->
     <a 
       href="/proyectos/"
-      class="group relative flex items-center justify-center gap-3 rounded-full border border-[var(--color-accent)]/30 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-strong)] px-4 py-3 shadow-lg backdrop-blur-xl transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(var(--accent-rgb),0.5)]"
+      class="group relative flex items-center justify-center gap-3 rounded-full border px-4 py-3 shadow-lg backdrop-blur-xl transition-all hover:scale-105"
+      style={`border-color: ${project.accent}50; background: linear-gradient(to right, ${project.accent}, ${project.accent}dd);`}
       title="Ver más proyectos"
     >
       <svg class="size-5 text-white transition-transform group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,7 +67,15 @@ const slugify = (value: string) =>
     </a>
   </div>
 
-  <article class="space-y-16">
+  <article 
+    class="space-y-16"
+    style={`
+      --project-color: ${project.accent};
+      --project-color-alpha: ${project.accent}33;
+      --project-color-bg: ${project.accent}1A;
+      --project-color-border: ${project.accent}40;
+    `}
+  >
     <header
       class="relative space-y-8"
       style={`--project-accent: ${project.accent};`}
@@ -84,7 +93,10 @@ const slugify = (value: string) =>
       </div>
       <div class="flex flex-wrap gap-3">
         {project.tags.map((tag) => (
-            <span class="rounded-full border border-[var(--color-border)] surface-pill px-4 py-2 text-xs font-medium uppercase tracking-wide text-[var(--color-text)]">
+            <span 
+              class="project-tag rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-wide"
+              style={`border-color: var(--project-color); background: var(--project-color-bg); color: var(--project-color);`}
+            >
             {tag}
           </span>
         ))}
@@ -104,7 +116,7 @@ const slugify = (value: string) =>
       <div class="flex flex-wrap gap-4">
           {project.links.map((link) => (
             <a
-              class="group inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] surface-pill px-5 py-3 text-sm font-semibold text-[var(--color-text)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(192,132,252,0.6)] hover:shadow-lg hover:shadow-[rgba(192,132,252,0.25)]"
+              class="project-link group inline-flex items-center gap-2 rounded-full border surface-pill px-5 py-3 text-sm font-semibold backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               href={link.url}
               target="_blank"
               rel="noreferrer"
@@ -129,10 +141,8 @@ const slugify = (value: string) =>
     {project.slug !== 'viadca' && project.slug !== 'yola' && (
       <section class="space-y-8">
         {project.sections.map((section) => (
-          <div
-            class="space-y-3 rounded-2xl border border-[var(--color-border)] surface-card p-6 transition hover:-translate-y-0.5"
-          >
-            <h2 class="text-xl font-semibold text-white">{section.heading}</h2>
+          <div class="project-section space-y-3 rounded-2xl border surface-card p-6 transition hover:-translate-y-0.5">
+            <h2 class="text-xl font-semibold">{section.heading}</h2>
             <p class="text-base text-[var(--color-text-muted)]">{section.body}</p>
           </div>
         ))}
@@ -144,7 +154,7 @@ const slugify = (value: string) =>
       <section class="space-y-8 sm:space-y-12">
         {/* Header de sección */}
         <div class="text-center space-y-3 sm:space-y-4">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#c084fc] to-[#a855f7] bg-clip-text text-transparent">
+          <h2 class="project-title text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent">
             Dashboard Administrativo
           </h2>
           <p class="text-sm sm:text-base md:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto px-4">
@@ -156,7 +166,7 @@ const slugify = (value: string) =>
         <div class="space-y-10 sm:space-y-16">
           {/* Control de Usuarios - Imagen izquierda */}
           <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
-            <div class="relative group overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent p-1 transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
+            <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
               <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
                 <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/viadca/viadca-users.avif" alt="Panel de gestión de usuarios" loading="lazy" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -164,16 +174,27 @@ const slugify = (value: string) =>
             </div>
             
             <div class="space-y-3 sm:space-y-6">
-              <div class="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                <svg class="size-4 sm:size-5 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                <span class="text-xs sm:text-sm font-semibold text-[#c084fc]">Gestión de Usuarios</span>
+              <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
+                <svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                <span class="text-xs sm:text-sm font-semibold">Gestión de Usuarios</span>
               </div>
               <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">Control Total de Accesos</h3>
               <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">Sistema robusto de roles y permisos que permite configurar accesos granulares para administradores, mayoristas y agentes.</p>
               <div class="grid grid-cols-3 gap-2 sm:gap-4">
-                <div class="p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[#c084fc] transition-colors"><p class="text-lg sm:text-2xl font-bold text-[#c084fc]">3+</p><p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Roles</p></div>
-                <div class="p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[#c084fc] transition-colors"><p class="text-lg sm:text-2xl font-bold text-[#c084fc]">JWT</p><p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Seguridad</p></div>
-                <div class="p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[#c084fc] transition-colors"><p class="text-lg sm:text-2xl font-bold text-[#c084fc]">100%</p><p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Control</p></div>
+                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
+                  <p class="text-lg sm:text-2xl font-bold">3+</p>
+                  <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Roles</p>
+                </div>
+                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
+                  <p class="text-lg sm:text-2xl font-bold">JWT</p>
+                  <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Seguridad</p>
+                </div>
+                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
+                  <p class="text-lg sm:text-2xl font-bold">100%</p>
+                  <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Control</p>
+                </div>
               </div>
             </div>
           </div>
@@ -203,11 +224,11 @@ const slugify = (value: string) =>
 
           {/* Grid 2x2 para las últimas 3 imágenes */}
           <div class="grid md:grid-cols-2 gap-4 sm:gap-8">
-            <div class="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent p-4 sm:p-6 transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
+            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
               <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                  <svg class="size-3 sm:size-4 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold text-[#c084fc]">Formularios</span>
+                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  <span class="text-xs sm:text-sm font-semibold">Formularios</span>
                 </div>
                 <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Validación Inteligente</h3>
                 <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Feedback en tiempo real con mensajes contextuales</p>
@@ -215,11 +236,11 @@ const slugify = (value: string) =>
               <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/viadca/viadca-form.avif" alt="Formularios dinámicos" loading="lazy" /></div>
             </div>
 
-            <div class="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent p-4 sm:p-6 transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
+            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
               <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                  <svg class="size-3 sm:size-4 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold text-[#c084fc]">Recuperación</span>
+                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                  <span class="text-xs sm:text-sm font-semibold">Recuperación</span>
                 </div>
                 <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Papelera Segura</h3>
                 <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Recuperación de datos con un solo clic</p>
@@ -227,12 +248,12 @@ const slugify = (value: string) =>
               <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/viadca/viadca-trash.avif" alt="Sistema de papelera" loading="lazy" /></div>
             </div>
 
-            <div class="md:col-span-2 group relative overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
+            <div class="project-card md:col-span-2 group relative overflow-hidden rounded-xl sm:rounded-2xl border transition-all duration-500 hover:shadow-2xl">
               <div class="grid md:grid-cols-2 gap-4 sm:gap-6 p-4 sm:p-6">
                 <div class="space-y-3 sm:space-y-6">
-                  <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                    <svg class="size-3 sm:size-4 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    <span class="text-xs sm:text-sm font-semibold text-[#c084fc]">Configuración</span>
+                  <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                    <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span class="text-xs sm:text-sm font-semibold">Configuración</span>
                   </div>
                   <h3 class="text-lg sm:text-2xl font-bold text-[var(--color-text)]">Panel de Control Total</h3>
                   <p class="text-xs sm:text-base text-[var(--color-text-muted)] leading-relaxed">Personalización completa de branding, SEO, emails y permisos desde un panel centralizado.</p>
@@ -256,7 +277,7 @@ const slugify = (value: string) =>
       <section class="space-y-8 sm:space-y-12">
         {/* Header de sección */}
         <div class="text-center space-y-3 sm:space-y-4">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#c084fc] to-[#a855f7] bg-clip-text text-transparent">
+          <h2 class="project-title text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent">
             Plataforma E-commerce Completa
           </h2>
           <p class="text-sm sm:text-base md:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto px-4">
@@ -266,117 +287,125 @@ const slugify = (value: string) =>
 
         {/* Grid de módulos - Layout alternado */}
         <div class="space-y-10 sm:space-y-16">
-          {/* Login y Dashboard - Grid 2 columnas */}
-          <div class="grid md:grid-cols-2 gap-4 sm:gap-8">
-            {/* Login */}
-            <div class="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
-              <div class="p-4 sm:p-6 space-y-3 sm:space-y-4">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                  <svg class="size-3 sm:size-4 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold text-[#c084fc]">Autenticación</span>
-                </div>
-                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Acceso Seguro</h3>
-                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Sistema robusto con múltiples niveles de acceso</p>
-              </div>
-              <div class="relative overflow-hidden">
+          {/* Login - Imagen izquierda */}
+          <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
+            <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
+              <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
                 <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-login.avif" alt="Sistema de autenticación" loading="lazy" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
             </div>
-
-            {/* Dashboard */}
-            <div class="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
-              <div class="p-4 sm:p-6 space-y-3 sm:space-y-4">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                  <svg class="size-3 sm:size-4 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold text-[#c084fc]">Panel de Control</span>
-                </div>
-                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Dashboard Admin</h3>
-                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Métricas y gestión de pedidos en tiempo real</p>
+            
+            <div class="space-y-3 sm:space-y-6">
+              <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
+                <svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <span class="text-xs sm:text-sm font-semibold">Autenticación</span>
               </div>
-              <div class="relative overflow-hidden">
+              <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">Acceso Seguro y Personalizado</h3>
+              <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">Sistema de autenticación robusto con diferentes niveles de acceso para administradores y clientes.</p>
+              <div class="grid grid-cols-3 gap-2 sm:gap-4">
+                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors"><p class="text-lg sm:text-2xl font-bold">2FA</p><p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Seguridad</p></div>
+                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors"><p class="text-lg sm:text-2xl font-bold">OAuth</p><p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Social</p></div>
+                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors"><p class="text-lg sm:text-2xl font-bold">JWT</p><p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Tokens</p></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Dashboard - Imagen derecha */}
+          <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
+            <div class="space-y-3 sm:space-y-6 md:order-1">
+              <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
+                <svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <span class="text-xs sm:text-sm font-semibold">Panel de Control</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">Dashboard Administrativo</h3>
+              <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">Centro de control con métricas en tiempo real, gestión de pedidos y análisis de ventas.</p>
+              <ul class="space-y-2 sm:space-y-3">
+                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Métricas de ventas en tiempo real</span></li>
+                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Gestión completa de pedidos</span></li>
+                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Reportes y análisis detallados</span></li>
+              </ul>
+            </div>
+            <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl md:order-2">
+              <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
                 <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-dashboard.avif" alt="Dashboard administrativo" loading="lazy" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
             </div>
           </div>
 
-          {/* Crear Platillos - Card destacada */}
-          <div class="relative group overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
-            <div class="grid md:grid-cols-2 gap-4 sm:gap-6 p-4 sm:p-6 items-center">
-              <div class="space-y-3 sm:space-y-4">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                  <svg class="size-3 sm:size-4 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold text-[#c084fc]">Gestión de Menú</span>
-                </div>
-                <h3 class="text-xl sm:text-2xl font-bold text-[var(--color-text)]">Creación de Platillos</h3>
-                <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">Editor completo para gestionar el menú con imágenes, ingredientes y categorías.</p>
-                <ul class="space-y-2">
-                  <li class="flex items-start gap-2"><div class="mt-0.5 p-1 rounded-full bg-[rgba(192,132,252,0.1)]"><svg class="size-3 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Upload múltiple de imágenes</span></li>
-                  <li class="flex items-start gap-2"><div class="mt-0.5 p-1 rounded-full bg-[rgba(192,132,252,0.1)]"><svg class="size-3 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Gestión de ingredientes</span></li>
-                  <li class="flex items-start gap-2"><div class="mt-0.5 p-1 rounded-full bg-[rgba(192,132,252,0.1)]"><svg class="size-3 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Organización por categorías</span></li>
-                </ul>
-              </div>
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl">
+          {/* Crear Platillos - Imagen izquierda */}
+          <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
+            <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
+              <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
                 <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-crearplatillos.avif" alt="Gestión de platillos" loading="lazy" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
+            </div>
+            
+            <div class="space-y-3 sm:space-y-6">
+              <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
+                <svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                <span class="text-xs sm:text-sm font-semibold">Gestión de Menú</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">Creación de Platillos</h3>
+              <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">Editor completo para crear y gestionar el menú con imágenes, ingredientes, precios y categorías.</p>
+              <ul class="space-y-2 sm:space-y-3">
+                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Upload múltiple de imágenes</span></li>
+                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Gestión de ingredientes y alérgenos</span></li>
+                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Organización por categorías</span></li>
+              </ul>
             </div>
           </div>
 
-          {/* Grid 2x2 para diseño y funcionalidades */}
-          <div class="grid sm:grid-cols-2 gap-4 sm:gap-6">
-            <div class="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
-              <div class="p-3 sm:p-4 space-y-2 sm:space-y-3">
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                  <svg class="size-3 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-                  <span class="text-[10px] sm:text-xs font-semibold text-[#c084fc]">Diseño Web</span>
+          {/* Grid 2x2 para las últimas 4 imágenes */}
+          <div class="grid md:grid-cols-2 gap-4 sm:gap-8">
+            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
+              <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                  <span class="text-xs sm:text-sm font-semibold">Diseño Web</span>
                 </div>
-                <h3 class="text-base sm:text-lg font-bold text-[var(--color-text)]">Homepage Moderna</h3>
-                <p class="text-xs text-[var(--color-text-muted)]">Landing atractiva con CTAs optimizados</p>
+                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Homepage Moderna</h3>
+                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Landing page atractiva con hero sections y CTAs optimizados</p>
               </div>
-              <div class="relative overflow-hidden">
-                <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-designhomepage.avif" alt="Diseño homepage" loading="lazy" />
-              </div>
+              <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-designhomepage.avif" alt="Diseño homepage" loading="lazy" /></div>
             </div>
 
-            <div class="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
-              <div class="p-3 sm:p-4 space-y-2 sm:space-y-3">
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                  <svg class="size-3 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-                  <span class="text-[10px] sm:text-xs font-semibold text-[#c084fc]">Secciones</span>
+            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
+              <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+                  <span class="text-xs sm:text-sm font-semibold">Secciones</span>
                 </div>
-                <h3 class="text-base sm:text-lg font-bold text-[var(--color-text)]">Páginas Internas</h3>
-                <p class="text-xs text-[var(--color-text-muted)]">Diseño consistente en todo el sitio</p>
+                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Páginas Internas</h3>
+                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Diseño consistente en todas las secciones del sitio</p>
               </div>
-              <div class="relative overflow-hidden">
-                <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-designsectionpage.avif" alt="Diseño páginas internas" loading="lazy" />
-              </div>
+              <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-designsectionpage.avif" alt="Diseño páginas internas" loading="lazy" /></div>
             </div>
 
-            <div class="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
-              <div class="p-3 sm:p-4 space-y-2 sm:space-y-3">
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                  <svg class="size-3 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                  <span class="text-[10px] sm:text-xs font-semibold text-[#c084fc]">Formularios</span>
+            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
+              <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  <span class="text-xs sm:text-sm font-semibold">Formularios</span>
                 </div>
-                <h3 class="text-base sm:text-lg font-bold text-[var(--color-text)]">Sistema de Pedidos</h3>
-                <p class="text-xs text-[var(--color-text-muted)]">Checkout con validación en tiempo real</p>
+                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Sistema de Pedidos</h3>
+                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Checkout optimizado con validación en tiempo real</p>
               </div>
-              <div class="relative overflow-hidden">
-                <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-formularios.avif" alt="Formularios de pedidos" loading="lazy" />
-              </div>
+              <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-formularios.avif" alt="Formularios de pedidos" loading="lazy" /></div>
             </div>
 
-            <div class="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[rgba(192,132,252,0.05)] to-transparent transition-all duration-500 hover:border-[#c084fc] hover:shadow-2xl hover:shadow-[#c084fc]/20">
-              <div class="p-3 sm:p-4 space-y-2 sm:space-y-3">
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[rgba(192,132,252,0.1)] border border-[rgba(192,132,252,0.2)]">
-                  <svg class="size-3 text-[#c084fc]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                  <span class="text-[10px] sm:text-xs font-semibold text-[#c084fc]">Responsive</span>
+            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
+              <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                  <span class="text-xs sm:text-sm font-semibold">Responsive</span>
                 </div>
-                <h3 class="text-base sm:text-lg font-bold text-[var(--color-text)]">Adaptable a Móviles</h3>
-                <p class="text-xs text-[var(--color-text-muted)]">Experiencia perfecta en dispositivos</p>
+                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Adaptable a Móviles</h3>
+                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Experiencia perfecta en todos los dispositivos</p>
               </div>
-              <div class="relative overflow-hidden">
-                <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-responsive.avif" alt="Diseño responsive" loading="lazy" />
-              </div>
+              <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-responsive.avif" alt="Diseño responsive" loading="lazy" /></div>
             </div>
           </div>
         </div>
@@ -385,3 +414,69 @@ const slugify = (value: string) =>
   </article>
 </Layout>
 
+<style>
+  /* Estilos dinámicos para colores de proyecto */
+  .project-tag {
+    border-color: var(--project-color) !important;
+    background: var(--project-color-bg) !important;
+    color: var(--project-color) !important;
+  }
+
+  .project-link {
+    border-color: var(--project-color-border) !important;
+    color: var(--color-text) !important;
+  }
+
+  .project-link:hover {
+    border-color: var(--project-color) !important;
+    box-shadow: 0 10px 40px var(--project-color-alpha) !important;
+  }
+
+  /* Secciones genéricas */
+  .project-section {
+    border-color: var(--project-color-border) !important;
+  }
+
+  .project-section h2 {
+    color: var(--project-color) !important;
+  }
+
+  /* Título con gradiente */
+  .project-title {
+    background-image: linear-gradient(to right, var(--project-color), var(--project-color)) !important;
+  }
+
+  /* Para Viadca y Yola - elementos dinámicos */
+  .project-card {
+    border-color: var(--color-border);
+    background: linear-gradient(to bottom right, var(--project-color-bg), transparent);
+  }
+
+  .project-card:hover {
+    border-color: var(--project-color) !important;
+    box-shadow: 0 25px 50px var(--project-color-alpha) !important;
+  }
+
+  .project-badge {
+    background: var(--project-color-bg) !important;
+    border-color: var(--project-color-border) !important;
+  }
+
+  .project-badge svg,
+  .project-badge span {
+    color: var(--project-color) !important;
+  }
+
+  .project-stat {
+    border-color: var(--color-border);
+  }
+
+  .project-stat:hover {
+    border-color: var(--project-color) !important;
+  }
+
+  .project-stat p:first-child,
+  .project-checkmark svg {
+    color: var(--project-color) !important;
+  }
+</style>
