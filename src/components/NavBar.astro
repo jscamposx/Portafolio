@@ -7,20 +7,20 @@ const navLinks = [
   { label: 'Contacto', href: '/#contacto' }
 ];
 ---
-<header class="fixed top-0 z-50 flex w-full justify-center mt-2 px-4" transition:name="main-header">
-  <nav class="nav-surface flex items-center rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium gap-2 sm:gap-3 w-full max-w-screen-sm md:w-auto md:max-w-none">
+<header class="fixed top-0 z-50 flex w-full justify-center mt-2 px-2" transition:name="main-header">
+  <nav class="nav-surface flex flex-wrap items-center justify-center rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium gap-0.5 sm:gap-2 max-w-fit">
     <!-- Links de navegación -->
-    <div class="flex items-center gap-1 sm:gap-1.5 md:gap-2 flex-1 md:flex-none justify-center">
+    <div class="flex flex-wrap items-center justify-center gap-0.5 sm:gap-2">
       {navLinks.map(link => (
-        <a href={link.href} class="px-2 sm:px-3 py-1.5 sm:py-2 rounded-full nav-link text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[rgba(255,255,255,0.06)] transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap text-[10px] sm:text-xs md:text-sm">
+        <a href={link.href} class="px-2 sm:px-3 py-1.5 rounded-full nav-link text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[rgba(255,255,255,0.06)] transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap text-[11px] sm:text-sm">
           {link.label}
         </a>
       ))}
     </div>
 
     <!-- Theme toggle -->
-    <div class="relative">
-      <button id="theme-toggle-btn" class="appearance-none border-none flex items-center justify-center rounded-full p-2 hover:scale-110 transition-all duration-300 text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-alt)] hover:rotate-12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]" aria-label="Elegir tema" title="Cambiar tema" type="button">
+    <div class="relative ml-0.5 sm:ml-1">
+      <button id="theme-toggle-btn" class="appearance-none border-none flex items-center justify-center rounded-full p-1.5 sm:p-2 hover:scale-110 transition-all duration-300 text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-alt)] hover:rotate-12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]" aria-label="Elegir tema" title="Cambiar tema" type="button">
         <span class="sr-only">Cambiar tema</span>
         <svg id="light" class="theme-toggle-icon size-4 transition-all duration-300" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="scale:0">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
