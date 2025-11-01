@@ -22,7 +22,7 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
     </svg>
     
     <span class="text-sm font-semibold text-[var(--color-text)] transition-all duration-300 group-hover:text-white hidden sm:inline">
-      Proyectos
+      Volver
     </span>
   </a>
 
@@ -50,14 +50,14 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
       
       <!-- Estadísticas decorativas mejoradas -->
       <div class="flex justify-center gap-8 sm:gap-16 pt-2">
-        <div class="space-y-1.5">
+        <div class="space-y-1.5 flex flex-col items-center">
           <div class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-strong)] bg-clip-text text-transparent">
             {projects.length}
           </div>
           <div class="text-xs sm:text-sm text-[var(--color-text-muted)] uppercase tracking-wider font-medium">Proyectos</div>
         </div>
         <div class="w-px bg-gradient-to-b from-transparent via-[var(--color-border)] to-transparent"></div>
-        <div class="space-y-1.5">
+        <div class="space-y-1.5 flex flex-col items-center">
           <div class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-strong)] bg-clip-text text-transparent">
             {new Date().getFullYear()}
           </div>
@@ -148,7 +148,7 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
     </div>
 
     <!-- Footer decorativo mejorado -->
-    <footer class="pt-12 sm:pt-16 pb-8">
+    <div class="pt-12 sm:pt-16 pb-8">
       <div class="flex items-center gap-3 sm:gap-4">
         <div class="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-[var(--color-border)]"></div>
         <span class="text-xs sm:text-sm text-[var(--color-text-muted)] uppercase tracking-wider font-medium">Fin del portafolio</span>
@@ -167,7 +167,7 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
           </svg>
         </a>
       </div>
-    </footer>
+    </div>
   </section>
 </Layout>
 

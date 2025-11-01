@@ -65,7 +65,7 @@ export const projects: Project[] = [
     heroImage: '/Proyectos/card-proyect2.avif',
     accent: '#f97316',
     links: [
-      { label: 'Ver proyecto', url: 'https://ejemplo.com/yola' }
+      { label: 'Repositorio', url: 'https://github.com/jscamposx/Yola' }
     ],
     technologies: ['PHP', 'Sass', 'AWS', 'HTML'],
     sections: [
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     tags: ['Identidad de marca', 'Animación', 'Gestor de contenidos'],
     heroImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=75',
     accent: '#f97316',
-    links: [{ label: 'Ver proyecto', url: 'https://ejemplo.com/lumen' }],
+    links: [{ label: 'Repositorio', url: 'https://github.com/jscamposx/lumen' }],
     technologies: ['Astro', 'Tailwind CSS', 'Headless CMS', 'Figma'],
     sections: [
       { heading: 'Reto', body: 'Lumen necesitaba reposicionar su presencia digital con una narrativa clara y actualizable, sin perder la personalidad vibrante de la marca.' },
