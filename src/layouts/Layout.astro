@@ -179,34 +179,41 @@ const {
 					/* Transición de página rápida con fondo consistente */
 					::view-transition-old(root),
 					::view-transition-new(root) {
-						animation-duration: ${comingFromHome ? '0.3s' : '0.15s'} !important;
+						animation-duration: ${comingFromHome ? '0.35s' : '0.15s'} !important;
 						background-color: var(--color-bg-primary, #130b1e) !important;
 					}
 					
-					/* Transiciones de proyectos: solo desde home hacer morph suave */
+					/* DESHABILITAR transiciones de imágenes para evitar glitches */
+					::view-transition-old(project-image),
+					::view-transition-new(project-image),
+					::view-transition-old(project-image-wrapper),
+					::view-transition-new(project-image-wrapper),
+					::view-transition-group(project-image),
+					::view-transition-group(project-image-wrapper),
+					::view-transition-image-pair(project-image),
+					::view-transition-image-pair(project-image-wrapper) {
+						animation: none !important;
+						mix-blend-mode: normal !important;
+					}
+					
+					/* Solo animar títulos y techs suavemente desde home */
 					${comingFromHome ? `
-						::view-transition-old(project-image),
-						::view-transition-new(project-image),
 						::view-transition-old(project-title),
 						::view-transition-new(project-title) {
-							animation-duration: 0.4s !important;
+							animation-duration: 0.35s !important;
 						}
 						
 						::view-transition-old(project-techs),
 						::view-transition-new(project-techs) {
 							animation-duration: 0.3s !important;
 						}
-					` : `
-						/* Desde proyecto individual: transiciones instantáneas */
-						::view-transition-old(project-image),
-						::view-transition-new(project-image),
-						::view-transition-old(project-image-wrapper),
-						::view-transition-new(project-image-wrapper),
-						::view-transition-group(project-image),
-						::view-transition-group(project-image-wrapper) {
-							animation: none !important;
-						}
 						
+						::view-transition-old(all-projects-title),
+						::view-transition-new(all-projects-title) {
+							animation-duration: 0.4s !important;
+						}
+					` : `
+						/* Desde proyecto individual: todo instantáneo excepto botones */
 						::view-transition-old(project-card),
 						::view-transition-new(project-card),
 						::view-transition-old(project-title),
@@ -224,7 +231,7 @@ const {
 					::view-transition-new(back-to-home-button),
 					::view-transition-old(all-projects-cta),
 					::view-transition-new(all-projects-cta) {
-						animation-duration: 0.3s !important;
+						animation-duration: 0.35s !important;
 					}
 				`;
 				document.head.appendChild(style);
@@ -232,7 +239,7 @@ const {
 				// Remover el estilo después de la transición
 				setTimeout(() => {
 					document.getElementById('temp-transition-override')?.remove();
-				}, 600);
+				}, 650);
 			}
 			
 			// Determinar timeout según el tipo de navegación
