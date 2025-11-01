@@ -24,26 +24,26 @@ const items = [
   }
 ];
 ---
-<section id="experiencia" class="space-y-8 sm:space-y-10 pt-12 sm:pt-16 px-4 sm:px-0" transition:animate="fade">
-  <header class="space-y-3 sm:space-y-4">
-    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">{eyebrow}</p>
-    <h2 class="text-2xl font-semibold sm:text-4xl">{title}</h2>
-    <p class="max-w-3xl text-sm text-[var(--color-text-muted)] sm:text-lg">{description}</p>
+<section id="experiencia" class="space-y-6 sm:space-y-10 pt-8 sm:pt-16 px-3 sm:px-0" transition:animate="fade">
+  <header class="space-y-2 sm:space-y-4 animate-on-scroll fade-in-up">
+    <p class="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">{eyebrow}</p>
+    <h2 class="text-xl sm:text-4xl font-semibold">{title}</h2>
+    <p class="max-w-3xl text-xs sm:text-lg text-[var(--color-text-muted)]">{description}</p>
   </header>
 
-  <ol class="relative space-y-8 before:absolute before:left-[18px] before:top-6 before:h-[calc(100%-3rem)] before:w-px before:bg-[var(--timeline-line,rgba(192,132,252,0.25))] before:content-[''] sm:space-y-12 md:space-y-16">
-    {items.map((item) => (
-      <li class="relative pl-12 sm:pl-14">
-        <div class="absolute left-0 top-1 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[color:var(--experience-dot-bg,rgba(192,132,252,0.2))] text-base sm:text-lg font-semibold text-[var(--color-accent)] shadow-[0_15px_45px_-25px_rgba(192,132,252,0.55)]">
+  <ol class="relative space-y-6 sm:space-y-12 md:space-y-16 before:absolute before:left-[14px] sm:before:left-[18px] before:top-6 before:h-[calc(100%-3rem)] before:w-px before:bg-[var(--timeline-line,rgba(192,132,252,0.25))] before:content-['']">
+    {items.map((item, index) => (
+      <li class="relative pl-10 sm:pl-14 animate-on-scroll fade-in-left" style={`animation-delay: ${index * 150}ms`}>
+        <div class="absolute left-0 top-1 flex h-7 w-7 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[color:var(--experience-dot-bg,rgba(192,132,252,0.2))] text-sm sm:text-lg font-semibold text-[var(--color-accent)] shadow-[0_15px_45px_-25px_rgba(192,132,252,0.55)]">
           •
         </div>
-        <div class="space-y-2 sm:space-y-3 rounded-2xl sm:rounded-3xl border border-[var(--color-border)] surface-card p-4 sm:p-6 transition hover:-translate-y-1 hover:border-[rgba(192,132,252,0.45)]">
+        <div class="space-y-2 sm:space-y-3 rounded-xl sm:rounded-3xl border border-[var(--color-border)] surface-card p-3 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(192,132,252,0.45)] hover:shadow-lg hover:shadow-[var(--color-accent)]/10">
           <div class="flex flex-wrap items-baseline justify-between gap-2 text-sm text-[var(--color-text-muted)]">
-            <span class="text-xs sm:text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-accent)]">{item.role}</span>
-            <time class="text-[10px] sm:text-xs uppercase tracking-[0.18em] text-[var(--color-text-muted)]">{item.period}</time>
+            <span class="text-[10px] sm:text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-accent)]">{item.role}</span>
+            <time class="text-[9px] sm:text-xs uppercase tracking-[0.18em] text-[var(--color-text-muted)]">{item.period}</time>
           </div>
-          <h3 class="text-xl sm:text-2xl font-semibold text-[var(--color-text)]">{item.company}</h3>
-          <p class="text-sm sm:text-base text-[var(--color-text-muted)]">{item.description}</p>
+          <h3 class="text-base sm:text-2xl font-semibold text-[var(--color-text)]">{item.company}</h3>
+          <p class="text-xs sm:text-base text-[var(--color-text-muted)] leading-relaxed">{item.description}</p>
           {/* Enlace removido según solicitud (antes: item.link) */}
         </div>
       </li>

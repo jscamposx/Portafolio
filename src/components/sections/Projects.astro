@@ -8,14 +8,14 @@ const title = 'Resultados reales junto a equipos valientes';
 const description = 'Sistemas de diseño, landings, aplicaciones internas y experimentos que aceleraron objetivos de negocio.';
 const cta = { label: 'Ver todos los proyectos', href: '/proyectos/' };
 ---
-<section id="proyectos" class="pt-16 sm:pt-24 space-y-12 sm:space-y-16 px-4 sm:px-0">
-  <header class="space-y-3 sm:space-y-4">
-    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">{eyebrow}</p>
-    <h2 class="text-2xl font-semibold sm:text-4xl text-[var(--color-heading)]">{title}</h2>
-    <p class="max-w-3xl text-sm text-[var(--color-text-muted)] sm:text-lg leading-relaxed">{description}</p>
+<section id="proyectos" class="pt-10 sm:pt-24 space-y-8 sm:space-y-16 px-3 sm:px-0">
+  <header class="space-y-2 sm:space-y-4 animate-on-scroll fade-in-up">
+    <p class="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">{eyebrow}</p>
+    <h2 class="text-xl sm:text-4xl font-semibold text-[var(--color-heading)]">{title}</h2>
+    <p class="max-w-3xl text-xs sm:text-lg text-[var(--color-text-muted)] leading-relaxed">{description}</p>
   </header>
 
-  <div class="space-y-16 sm:space-y-24">
+  <div class="space-y-12 sm:space-y-24">
     {projects.map((project, index) => {
       const techs = project.technologies || [];
       const codeLink = project.links?.find(l => /repo|git/i.test(l.label));
@@ -25,11 +25,12 @@ const cta = { label: 'Ver todos los proyectos', href: '/proyectos/' };
       const isEven = index % 2 === 0;
       return (
   <article
-    class="group/project relative scroll-mt-32"
+    class="group/project relative scroll-mt-32 animate-on-scroll fade-in-up"
     id={project.slug}
+    style={`animation-delay: ${index * 100}ms`}
   >
     <!-- Layout grid responsivo con mejor distribución -->
-    <div class={`grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center ${!isEven ? 'md:grid-flow-dense' : ''}`}>
+    <div class={`grid md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 items-center ${!isEven ? 'md:grid-flow-dense' : ''}`}>
       
       <!-- Imagen del proyecto -->
       <div class={`relative ${!isEven ? 'md:col-start-2' : ''}`}>

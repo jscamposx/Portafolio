@@ -12,6 +12,7 @@
 	--color-accent: #c084fc;
 	--color-accent-strong: #a855f7;
 	--accent-rgb: 192, 132, 252;
+	--color-initials: #1a0b2e;
 	/* Nuevos tokens para componentes acento */
 	--color-accent-chip-bg: linear-gradient(135deg,#2a183d 0%, #3a2152 100%);
 	--color-accent-chip-bg-hover: linear-gradient(135deg,#352050 0%, #442b63 100%);
@@ -39,6 +40,7 @@
 	--color-accent: #7e3ff2;
 	--color-accent-strong: #6a2dd4;
 	--accent-rgb: 126, 63, 242;
+	--color-initials: #ffffff;
 	--color-accent-chip-bg: linear-gradient(135deg,#fdfbff 0%, #f5f0ff 100%);
 	--color-accent-chip-bg-hover: linear-gradient(135deg,#f9f6ff 0%, #ede4ff 100%);
 	--color-accent-chip-ring: rgba(126,63,242,0.35);
@@ -240,6 +242,18 @@ img[transition\:name] {
 	::view-transition-new(*) {
 		animation-duration: 0.01ms !important;
 	}
+	
+	.animate-on-scroll,
+	.spinning-border,
+	.hover-lift {
+		animation: none !important;
+		transition: none !important;
+	}
+	
+	.animate-on-scroll {
+		opacity: 1 !important;
+		transform: none !important;
+	}
 }
 
 /* Espacio para anclas bajo navbar fija */
@@ -286,6 +300,116 @@ section[id] { scroll-margin-top: 120px; }
 }
 
 @keyframes fadeIn { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+
+/* Animación para el borde del chip de disponibilidad */
+@keyframes spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+/* Borde giratorio del chip de disponibilidad */
+.spinning-border {
+	background: conic-gradient(from 90deg at 50% 50%, #c084fc 0%, #a855f7 50%, #c084fc 100%);
+	animation: spin 2s linear infinite;
+}
+
+/* === ANIMACIONES DE ENTRADA === */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes fadeInRight {
+	from {
+		opacity: 0;
+		transform: translateX(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes scaleIn {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/* Clases para animaciones */
+.animate-on-scroll {
+	opacity: 0;
+}
+
+.animate-on-scroll.animated {
+	animation-duration: 0.6s;
+	animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	animation-fill-mode: both;
+}
+
+.fade-in-up {
+	animation-name: fadeInUp;
+}
+
+.fade-in-left {
+	animation-name: fadeInLeft;
+}
+
+.fade-in-right {
+	animation-name: fadeInRight;
+}
+
+.scale-in {
+	animation-name: scaleIn;
+}
+
+/* Delays para efectos escalonados */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+/* Micro-interacciones suaves */
+.hover-lift {
+	transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+	            box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hover-lift:hover {
+	transform: translateY(-4px);
+}
+
+/* Animación para chips de tecnología */
+@keyframes pulse-border {
+	0%, 100% {
+		border-color: var(--color-border);
+	}
+	50% {
+		border-color: rgba(192, 132, 252, 0.4);
+	}
+}
 
 /* Estado activo de link en modo oscuro */
 .dark header nav a.nav-active {
@@ -395,8 +519,8 @@ header.nav-over-hero { margin-top: .25rem; }
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	padding: 0.25rem 0.75rem; /* py-1 px-3 */
-	font-size: 0.75rem; /* text-xs */
+	padding: 0.25rem 0.6rem; /* Reducido para mobile */
+	font-size: 0.7rem; /* text-xs */
 	line-height: 1rem;
 	letter-spacing: .05em; /* tracking-wide */
 	font-weight: 500; /* font-medium */
@@ -411,6 +535,13 @@ header.nav-over-hero { margin-top: .25rem; }
 	border: 1px solid var(--color-accent-chip-ring);
 	/* Glow sutil y definición */
 	box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 4px 10px -4px rgba(0,0,0,0.6), 0 0 0 1px rgba(192,132,252,0.15) inset;
+}
+
+@media (min-width: 640px) {
+	.badge-availability {
+		padding: 0.25rem 0.75rem;
+		font-size: 0.75rem;
+	}
 }
 
 /* Footer surface adaptativa */
