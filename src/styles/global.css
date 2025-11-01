@@ -86,8 +86,8 @@ body {
 /* Optimización de transiciones de imágenes - Más rápidas para evitar congelamientos */
 ::view-transition-old(project-image),
 ::view-transition-new(project-image) {
-	animation-duration: 0.35s;
-	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	animation-duration: 0.45s;
+	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 	overflow: hidden;
 	backface-visibility: hidden;
 	transform: translateZ(0);
@@ -98,18 +98,54 @@ body {
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
 	position: relative;
+	mix-blend-mode: normal;
+	opacity: 1;
 }
 
 /* Asegurar que la imagen se mantenga en su lugar durante transición */
 ::view-transition-group(project-image) {
-	animation-duration: 0.35s;
-	overflow: hidden;
+	animation-duration: 0.45s;
+	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+	overflow: visible;
 	contain: layout;
+	isolation: isolate;
 }
 
-/* Mantener imágenes visibles durante transiciones */
+/* Mantener imágenes visibles durante transiciones - sin fade */
 ::view-transition-image-pair(project-image) {
 	isolation: isolate;
+	mix-blend-mode: normal;
+}
+
+/* Prevenir parpadeo blanco en las imágenes */
+::view-transition-old(project-image)::before,
+::view-transition-new(project-image)::before {
+	background: transparent;
+}
+
+/* Deshabilitar animación de fade por defecto en imágenes */
+::view-transition-old(project-image) {
+	animation: none;
+	opacity: 1;
+}
+
+::view-transition-new(project-image) {
+	animation: none;
+	opacity: 1;
+}
+
+/* Solo animar la transformación/posición del grupo */
+::view-transition-group(project-image) {
+	animation-name: view-transition-fade;
+}
+
+@keyframes view-transition-fade {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 /* Transiciones optimizadas para navegación home ↔ /proyectos/ */
@@ -119,15 +155,15 @@ body {
 ::view-transition-new(all-projects-title),
 ::view-transition-old(back-to-home-button),
 ::view-transition-new(back-to-home-button) {
-	animation-duration: 0.3s;
-	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	animation-duration: 0.4s;
+	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Cards individuales con transición muy rápida (solo para /proyectos/ → detalle) */
+/* Cards individuales con transición rápida (solo para /proyectos/ → detalle) */
 ::view-transition-old(project-card),
 ::view-transition-new(project-card) {
-	animation-duration: 0.25s !important;
-	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	animation-duration: 0.35s !important;
+	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* Transiciones suaves para el título y tecnologías */
@@ -135,19 +171,30 @@ body {
 ::view-transition-new(project-title),
 ::view-transition-old(project-techs),
 ::view-transition-new(project-techs) {
-	animation-duration: 0.3s;
-	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	animation-duration: 0.4s;
+	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* Prevenir parpadeos durante la transición */
 ::view-transition-group(*) {
-	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+	mix-blend-mode: normal;
 }
 
-/* Optimizar renderizado de imágenes - Solo preparar GPU cuando sea necesario */
+/* Asegurar que el root no tenga animaciones extrañas */
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 0.4s;
+	mix-blend-mode: normal;
+}
+
+/* Optimizar renderizado de imágenes */
 img[transition\:name] {
 	will-change: auto;
 	content-visibility: auto;
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	transform: translateZ(0);
 }
 
 /* Activar GPU solo durante hover en desktop */

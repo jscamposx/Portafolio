@@ -10,73 +10,72 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
 ---
 
 <Layout title={pageTitle} description={pageDescription} showNav={false}>
-  <!-- Botón flotante: Volver al inicio (fuera del section para que sea fixed respecto al viewport) -->
+  <!-- Botón flotante: Volver a proyectos del inicio -->
   <a 
-    href="/" 
+    href="/#proyectos" 
     data-astro-prefetch
     transition:name="back-to-home-button"
-    class="group fixed bottom-4 right-4 z-50 flex items-center justify-center gap-3 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-4 shadow-lg backdrop-blur-xl transition-all duration-300 hover:scale-110 hover:border-[var(--color-accent)] hover:shadow-[0_12px_40px_-8px_rgba(var(--accent-rgb),0.5)] active:scale-95 sm:bottom-6 sm:right-6 sm:px-5 sm:py-5"
-    title="Volver al inicio"
+    class="group fixed bottom-4 right-4 z-50 flex items-center justify-center gap-2.5 rounded-full border border-[var(--color-border)] bg-[var(--nav-surface-bg)] backdrop-blur-xl px-4 py-3 shadow-lg transition-all duration-300 hover:scale-105 hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-white hover:shadow-xl hover:shadow-[var(--color-accent)]/30 active:scale-95 sm:bottom-6 sm:right-6 sm:px-5 sm:py-3.5"
+    title="Volver a proyectos"
   >
-    <!-- Icono solo en mobile, con texto en desktop hover -->
-    <svg class="size-5 text-[var(--color-text-muted)] transition-all duration-300 group-hover:text-[var(--color-accent)] group-hover:-translate-x-1 sm:size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+    <svg class="size-5 text-[var(--color-text-muted)] transition-all duration-300 group-hover:text-white group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
       <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
     </svg>
     
-    <!-- Texto (solo desktop hover) -->
-    <span class="hidden text-sm font-bold text-[var(--color-text)] transition-all duration-300 group-hover:text-[var(--color-accent)] sm:inline sm:max-w-0 sm:overflow-hidden sm:whitespace-nowrap sm:opacity-0 sm:group-hover:max-w-[140px] sm:group-hover:opacity-100 sm:group-hover:ml-1">
-      Volver al inicio
+    <span class="text-sm font-semibold text-[var(--color-text)] transition-all duration-300 group-hover:text-white hidden sm:inline">
+      Proyectos
     </span>
-    
-    <!-- Efecto de brillo en hover -->
-    <div class="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-[var(--color-accent)]/0 via-[var(--color-accent)]/15 to-[var(--color-accent)]/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
   </a>
 
-  <section class="space-y-12 sm:space-y-16">
+  <section class="space-y-12 sm:space-y-16 px-4 sm:px-6 lg:px-8">
+    <header class="space-y-8 sm:space-y-10">
+      <!-- Breadcrumb mejorado -->
       <div class="flex items-center gap-3">
         <div class="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent"></div>
         <p class="text-xs font-bold uppercase tracking-[0.3em] text-[var(--color-accent)]">Portafolio</p>
         <div class="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent"></div>
       </div>
       
-      <div class="space-y-4 text-center">
+      <!-- Título mejorado -->
+      <div class="space-y-4 sm:space-y-5 text-center max-w-4xl mx-auto">
         <h1 
-          class="text-4xl font-bold sm:text-5xl lg:text-6xl bg-gradient-to-br from-[var(--color-heading)] to-[var(--color-text-muted)] bg-clip-text text-transparent"
+          class="text-3xl font-bold sm:text-5xl lg:text-6xl text-[var(--color-heading)] leading-tight"
           transition:name="all-projects-title"
         >
           Casos de estudio seleccionados
         </h1>
-        <p class="max-w-3xl mx-auto text-base text-[var(--color-text-muted)] sm:text-lg leading-relaxed">
-          Experiencias digitales pensadas de forma integral: investigación, diseño de interacción y desarrollo
-          front-end listo para producción.
+        <p class="max-w-2xl mx-auto text-base text-[var(--color-text-muted)] sm:text-lg leading-relaxed">
+          Experiencias digitales pensadas de forma integral: investigación, diseño de interacción y desarrollo front-end listo para producción.
         </p>
       </div>
       
-      <!-- Estadística decorativa -->
-      <div class="flex justify-center gap-8 sm:gap-12 text-center pt-4">
-        <div class="space-y-1">
-          <div class="text-3xl sm:text-4xl font-bold text-[var(--color-accent)]">{projects.length}</div>
-          <div class="text-xs sm:text-sm text-[var(--color-text-muted)] uppercase tracking-wider">Proyectos</div>
+      <!-- Estadísticas decorativas mejoradas -->
+      <div class="flex justify-center gap-8 sm:gap-16 pt-2">
+        <div class="space-y-1.5">
+          <div class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-strong)] bg-clip-text text-transparent">
+            {projects.length}
+          </div>
+          <div class="text-xs sm:text-sm text-[var(--color-text-muted)] uppercase tracking-wider font-medium">Proyectos</div>
         </div>
         <div class="w-px bg-gradient-to-b from-transparent via-[var(--color-border)] to-transparent"></div>
-        <div class="space-y-1">
-          <div class="text-3xl sm:text-4xl font-bold text-[var(--color-accent)]">{new Date().getFullYear()}</div>
-          <div class="text-xs sm:text-sm text-[var(--color-text-muted)] uppercase tracking-wider">Actualizado</div>
+        <div class="space-y-1.5">
+          <div class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-strong)] bg-clip-text text-transparent">
+            {new Date().getFullYear()}
+          </div>
+          <div class="text-xs sm:text-sm text-[var(--color-text-muted)] uppercase tracking-wider font-medium">Actualizado</div>
         </div>
       </div>
     </header>
 
-    <!-- Grid de proyectos con stagger animation -->
-    <div class="grid gap-8 sm:gap-10">
+    <!-- Grid de proyectos optimizado -->
+    <div class="grid gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
       {projects.map((project, index) => (
-        <div 
-          class="project-card-wrapper"
-          style={`animation-delay: ${index * 100}ms`}
-        >
+        <div class="project-card-wrapper">
           <a
             href={`/proyectos/${project.slug}`}
             class="block group/card"
             id={project.slug}
+            data-astro-prefetch
           >
             <ProjectCard
               project={project}
@@ -89,77 +88,58 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
       ))}
     </div>
 
-    <!-- Footer decorativo -->
-    <div class="pt-12 pb-8">
-      <div class="flex items-center gap-3">
+    <!-- Footer decorativo mejorado -->
+    <footer class="pt-12 sm:pt-16 pb-8">
+      <div class="flex items-center gap-3 sm:gap-4">
         <div class="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-[var(--color-border)]"></div>
-        <span class="text-xs text-[var(--color-text-muted)] uppercase tracking-wider">Fin del portafolio</span>
+        <span class="text-xs sm:text-sm text-[var(--color-text-muted)] uppercase tracking-wider font-medium">Fin del portafolio</span>
         <div class="h-px flex-1 bg-gradient-to-l from-transparent via-[var(--color-border)] to-[var(--color-border)]"></div>
       </div>
-    </div>
+      
+      <!-- Botón CTA adicional para contacto -->
+      <div class="flex justify-center pt-8">
+        <a 
+          href="/#contacto"
+          class="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-strong)] text-white font-semibold shadow-lg shadow-[var(--color-accent)]/20 hover:shadow-xl hover:shadow-[var(--color-accent)]/40 hover:scale-105 transition-all duration-300"
+        >
+          <span>¿Hablamos de tu proyecto?</span>
+          <svg class="size-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
   </section>
 </Layout>
 
 <style>
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slide-up {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
+  /* Sin animaciones de entrada - carga instantánea */
   .project-card-wrapper {
-    animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    opacity: 1;
+    transform: none;
   }
 
-  /* Optimización de performance */
-  .project-card-wrapper {
-    will-change: transform, opacity;
-  }
-
-  /* Optimización para View Transitions */
+  /* View Transitions optimizadas */
   @media (min-width: 769px) {
-    /* Limitar el número de elementos con view-transition-name */
-    .project-card-wrapper:nth-child(n+6) {
+    /* Limitar transiciones para mejor performance */
+    .project-card-wrapper:nth-child(n+4) {
       view-transition-name: none !important;
     }
   }
 
-  /* Deshabilitar animaciones en mobile para mejor performance */
-  @media (max-width: 768px) {
-    .project-card-wrapper {
-      animation: none;
-      opacity: 1;
-      transform: none;
-      will-change: auto;
+  /* Reducir motion si el usuario lo prefiere */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .animate-fade-in,
-    .project-card-wrapper {
-      animation: none;
-      opacity: 1;
-      transform: none;
+  
+  /* Mejorar scroll en mobile */
+  @media (max-width: 640px) {
+    section {
+      scroll-padding-top: 2rem;
     }
   }
 </style>
