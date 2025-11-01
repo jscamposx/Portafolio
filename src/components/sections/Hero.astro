@@ -11,6 +11,7 @@ const hero = {
     trailing: ' de Durango, México 🇲🇽. Especializado en crear experiencias web únicas.'
   },
   actions: [
+    { label: 'Descargar CV', href: '/JesusCampos_FullStackDeveloper.pdf', icon: 'download', download: true },
     { label: 'Contáctame', href: 'mailto:jscamposx@gmail.com', icon: 'mail' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jscamposx', icon: 'linkedin', external: true }
   ]
@@ -51,9 +52,29 @@ const hero = {
           href={action.href}
           target={action.external ? '_blank' : undefined}
           rel={action.external ? 'noopener noreferrer' : undefined}
+          download={action.download ? true : undefined}
           role="link"
           class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium rounded-full transition group max-w-fit focus:outline-none focus-visible:outline-none ring-1 ring-inset ring-[rgba(192,132,252,0.35)] bg-[rgba(192,132,252,0.12)] text-[var(--color-text)] hover:bg-[rgba(192,132,252,0.22)] hover:ring-[rgba(192,132,252,0.55)] active:scale-[.97]"
         >
+          {action.icon === 'download' && (
+            <svg
+              class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:translate-y-1"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
+              <path d="M7 11l5 5l5 -5"></path>
+              <path d="M12 4l0 12"></path>
+            </svg>
+          )}
           {action.icon === 'mail' && (
             <svg
               class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"

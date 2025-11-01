@@ -1,0 +1,10 @@
+# robots.txt para jscamposx.com
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://jscamposx.com/sitemap.xml
+
+# Disallow admin/private paths if any
+# User-agent: *
+# Disallow: /admin/

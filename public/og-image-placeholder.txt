@@ -1,0 +1,15 @@
+<!-- 
+Placeholder para og-image.jpg
+Por favor, crea una imagen de 1200x630px con:
+- Tu nombre: Jesús Campos
+- Título: Desarrollador Full Stack
+- Tecnologías: React, Node.js, NestJS, AWS
+- Colores del tema morado de tu portafolio
+
+Puedes usar herramientas como:
+- Canva
+- Figma
+- https://www.opengraph.xyz/
+
+Guarda la imagen como: public/og-image.jpg
+-->

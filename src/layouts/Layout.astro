@@ -6,14 +6,17 @@ import { ClientRouter } from 'astro:transitions';
 
 // Meta y datos globales inline (simplificado)
 const siteName = 'Jesús Campos';
+const siteUrl = 'https://jscamposx.com'; // Actualiza con tu URL real
 const socialLinks = [
 	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/jscamposx', icon: 'linkedin' },
 	{ label: 'GitHub', href: 'https://github.com/jscamposx', icon: 'github' },
 	{ label: 'WhatsApp', href: 'https://wa.me/526181658730', icon: 'whatsapp' }
 ];
 const defaultMeta = {
-	title: 'Jesús Campos | Diseño y desarrollo web',
-	description: 'Portafolio de Jesús Campos: diseño de interfaces, desarrollo front-end y experiencias digitales cuidadas.'
+	title: 'Jesús Campos | Desarrollador Full Stack - Diseño y Desarrollo Web',
+	description: 'Desarrollador Full Stack con +3 años de experiencia en diseño UI/UX, desarrollo frontend y backend. Especializado en crear experiencias web únicas con React, Node.js, NestJS y AWS.',
+	image: '/og-image.jpg', // Asegúrate de tener esta imagen
+	keywords: 'desarrollador full stack, desarrollo web, diseño UI/UX, frontend, backend, React, Node.js, NestJS, AWS, portafolio desarrollador'
 };
 
 interface Props {
@@ -22,6 +25,9 @@ interface Props {
 	canonical?: string;
 	showNav?: boolean; // permitir ocultar navbar
 	preloadImage?: string; // imagen para precargar
+	image?: string; // imagen para Open Graph
+	keywords?: string; // palabras clave SEO
+	type?: string; // tipo de contenido (website, article, etc.)
 }
 
 const {
@@ -29,8 +35,14 @@ const {
 	description = defaultMeta.description,
 	canonical,
 	showNav = true,
-	preloadImage
+	preloadImage,
+	image = defaultMeta.image,
+	keywords = defaultMeta.keywords,
+	type = 'website'
 } = Astro.props as Props;
+
+const currentUrl = canonical || `${siteUrl}${Astro.url.pathname}`;
+const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 ---
 
 <!doctype html>
@@ -41,10 +53,59 @@ const {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		
+		<!-- SEO Básico -->
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		{canonical && <link rel="canonical" href={canonical} />}
+		<meta name="keywords" content={keywords} />
+		<meta name="author" content="Jesús Campos" />
+		<link rel="canonical" href={currentUrl} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={currentUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:locale" content="es_MX" />
+		
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={currentUrl} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageUrl} />
+		
+		<!-- Verificación y robots -->
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow" />
+		
+		<!-- Performance -->
 		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" media="(min-width: 768px)" />}
+		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+		
+		<!-- Structured Data - Schema.org -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Person",
+			"name": "Jesús Campos",
+			"url": siteUrl,
+			"image": imageUrl,
+			"sameAs": [
+				"https://www.linkedin.com/in/jscamposx",
+				"https://github.com/jscamposx"
+			],
+			"jobTitle": "Desarrollador Full Stack",
+			"description": "Desarrollador Full Stack con +3 años de experiencia especializado en diseño UI/UX, desarrollo frontend y backend",
+			"knowsAbout": ["Desarrollo Web", "UI/UX Design", "React", "Node.js", "NestJS", "AWS", "TypeScript"],
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "Durango",
+				"addressCountry": "MX"
+			}
+		})} />
+		
 		<slot name="head" />
 		<script is:inline>
         (function() {
