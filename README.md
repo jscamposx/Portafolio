@@ -1,59 +1,111 @@
-# Portafolio de Jesús Campos
+# 📌 Portafolio – Jesús Campos
 
-Sitio personal desarrollado con [Astro](https://astro.build) para presentar experiencia profesional, proyectos destacados y canales de contacto.
+Portafolio personal diseñado para mostrar experiencia profesional, proyectos y habilidades en el desarrollo web. Construido con un stack moderno, optimizado para alto rendimiento y una experiencia fluida para el usuario.
 
-## ✨ Características
+## ✨ Funcionalidades Principales
 
-- Hero modular con métricas, perfil y enlaces sociales.
-- Sección de experiencia laboral y stack tecnológico administrado desde `siteConfig`.
-- Listado de proyectos con rutas dinámicas (`/proyectos/[slug]`).
-- Transiciones fluidas gracias a `ClientRouter` de Astro.
+**Diseño Moderno y Responsivo**
 
-## 🗂️ Estructura principal
+* Interfaz minimalista y elegante con Tailwind CSS.
+* Modo Oscuro/Claro/Sistema con persistencia en localStorage.
+* Totalmente adaptado a móviles, tablets y pantallas grandes.
 
-```text
-.
+**Alto Rendimiento**
+
+* Construido con Astro (SSG) para cargas rápidas.
+* Transiciones fluidas entre páginas usando Astro View Transitions.
+* Service Worker (sw.js) con caché para navegación rápida.
+* Optimización de imágenes y precarga del elemento principal.
+
+**Arquitectura de Contenido**
+
+* Datos centralizados en `src/data/projects.ts`.
+* Rutas dinámicas para páginas de detalles.
+
+**Funcionalidad Completa**
+
+* Formulario de contacto funcional integrado con Formspree.
+* SEO avanzado: sitemap.xml y metadata para redes sociales.
+* Lightbox para ver imágenes de proyectos.
+
+## 🛠️ Tecnologías Utilizadas
+
+| Tecnología   | Descripción                                   |
+| ------------ | --------------------------------------------- |
+| Astro        | Framework principal para SSG                  |
+| Tailwind CSS | Estilos basados en utilidades                 |
+| TypeScript   | Tipado estático para componentes y datos      |
+| Formspree    | Backend del formulario de contacto            |
+| Render.com   | Hosting y despliegue estático                 |
+| Vite         | Herramienta de desarrollo utilizada por Astro |
+
+### Dependencias Clave (NPM)
+
+* astro
+* @astrojs/sitemap
+* @tailwindcss/vite
+* tailwindcss
+* zod
+
+## 📂 Estructura del Proyecto
+
+```
+📦 portafolio
+├── dist/
 ├── public/
-│   └── favicon.svg
+│   ├── icons/
+│   ├── Proyectos/
+│   └── ...
 ├── src/
-│   ├── assets/
-│   │   ├── astro.svg
-│   │   └── background.svg
 │   ├── components/
-│   │   ├── ProjectCard.astro
-│   │   └── sections/
-│   │       ├── Contact.astro
-│   │       ├── Experience.astro
-│   │       ├── Hero.astro
-│   │       ├── Projects.astro
-│   │       └── Technologies.astro
+│   │   ├── sections/
+│   │   ├── NavBar.astro
+│   │   └── TechChip.astro
 │   ├── data/
-│   │   ├── projects.ts            # Data de proyectos (cards / páginas dinámicas)
-│   │   └── site/                  # Config (todas las secciones consolidadas en index.ts)
+│   │   └── projects.ts
 │   ├── layouts/
 │   │   └── Layout.astro
-│   └── pages/
-│       ├── index.astro
-│       └── proyectos/
-│           ├── [slug].astro
-│           └── index.astro
+│   ├── pages/
+│   │   ├── proyectos/
+│   │   │   ├── [slug].astro
+│   │   │   └── index.astro
+│   │   └── index.astro
+│   └── styles/
+│       └── global.css
+├── .gitignore
 ├── astro.config.mjs
 ├── package.json
+├── render.yaml
 └── tsconfig.json
 ```
 
-## 🧞 Comandos
+## 🚀 Cómo Ejecutar el Proyecto
 
-Todos los comandos se ejecutan desde la raíz del proyecto:
+### Desde el código fuente
 
-| Comando           | Acción                                                      |
-| :---------------- | :---------------------------------------------------------- |
-| `npm install`     | Instala las dependencias                                    |
-| `npm run dev`     | Inicia el servidor de desarrollo en `http://localhost:4321` |
-| `npm run build`   | Genera la versión de producción en `./dist/`                |
-| `npm run preview` | Previsualiza la build de producción                         |
+```bash
+git clone https://github.com/jscamposx/portafolio.git
+cd portafolio
+```
 
-## � Recursos
+```bash
+npm install
+```
 
-- [Documentación de Astro](https://docs.astro.build)
-- [Guía de diseño de transiciones](https://docs.astro.build/en/guides/view-transitions/)
+```bash
+npm run dev
+```
+
+Abrir en el navegador: `http://localhost:4321`
+
+## ⌨️ Scripts Disponibles
+
+| Comando         | Acción                          |
+| --------------- | ------------------------------- |
+| npm run dev     | Inicia modo desarrollo          |
+| npm run build   | Genera la versión de producción |
+| npm run preview | Previsualiza el build generado  |
+
+## 📜 Licencia
+
+Este proyecto está bajo la licencia MIT.
