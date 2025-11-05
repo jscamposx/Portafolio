@@ -2,50 +2,77 @@
 // Datos inline
 const eyebrow = 'Trayectoria';
 const title = 'Experiencia laboral';
-const description = 'Acompaño a equipos de producto, marketing y tecnología para lanzar experiencias digitales con impacto medible.';
+const description =
+  'Acompaño a equipos de producto, marketing y tecnología para lanzar experiencias digitales con impacto medible.';
 const items = [
   {
     period: '2024 — 2025',
     role: 'Desarrollador Full Stack',
     company: 'Viadca',
-    description: 'Diseñé y desarrollé una aplicación orientada a mejorar la eficiencia en la gestión y creación de viajes. Contribuí en diseño UI/UX, implementación frontend y backend, y despliegue en AWS, logrando optimizar procesos clave del negocio.'
+    description:
+      'Diseñé y desarrollé una aplicación orientada a mejorar la eficiencia en la gestión y creación de viajes. Contribuí en diseño UI/UX, implementación frontend y backend, y despliegue en AWS, logrando optimizar procesos clave del negocio.'
   },
   {
     period: '2023 — 2024',
     role: 'Desarrollador Full Stack',
     company: 'Yola',
-    description: 'Diseñé y desarrollé una plataforma de comercio electrónico para un restaurante, gestionando platillos, usuarios, eventos y pagos. Contribuí en el diseño UI/UX, desarrollo frontend y backend, integración de pasarelas de pago y despliegue en AWS, optimizando la experiencia de compra y la gestión de operaciones.'
+    description:
+      'Diseñé y desarrollé una plataforma de comercio electrónico para un restaurante, gestionando platillos, usuarios, eventos y pagos. Contribuí en el diseño UI/UX, desarrollo frontend y backend, integración de pasarelas de pago y despliegue en AWS, optimizando la experiencia de compra y la gestión de operaciones.'
   },
   {
     period: '2021 — 2023',
     role: 'Desarrollador Full Stack',
     company: 'ITD',
-    description: 'Diseñé y desarrollé un sitio web para la administración de egresados, con el objetivo de agilizar procesos de citas y gestión de proyectos de residencia. Contribuí en diseño UI/UX, desarrollo frontend y backend, y despliegue en AWS, mejorando la eficiencia en la gestión académica.'
+    description:
+      'Diseñé y desarrollé un sitio web para la administración de egresados, con el objetivo de agilizar procesos de citas y gestión de proyectos de residencia. Contribuí en diseño UI/UX, desarrollo frontend y backend, y despliegue en AWS, mejorando la eficiencia en la gestión académica.'
   }
 ];
 ---
-<section id="experiencia" class="space-y-6 sm:space-y-10 pt-8 sm:pt-16 px-3 sm:px-0" transition:animate="fade">
+
+<section
+  id="experiencia"
+  class="space-y-6 sm:space-y-10 pt-8 sm:pt-16 px-3 sm:px-0"
+  transition:animate="fade"
+>
   <header class="space-y-2 sm:space-y-4">
-    <p class="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]">{eyebrow}</p>
+    <p
+      class="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)]"
+    >
+      {eyebrow}
+    </p>
     <h2 class="text-xl sm:text-4xl font-semibold">{title}</h2>
-    <p class="max-w-3xl text-xs sm:text-lg text-[var(--color-text-muted)] hidden sm:block">{description}</p>
+    <p class="max-w-3xl text-xs sm:text-lg text-[var(--color-text-muted)] hidden sm:block">
+      {description}
+    </p>
   </header>
 
-  <ol class="relative space-y-4 sm:space-y-12 md:space-y-16 before:absolute before:left-[14px] sm:before:left-[18px] before:top-6 before:h-[calc(100%-3rem)] before:w-px before:bg-[var(--timeline-line,rgba(192,132,252,0.25))] before:content-['']">
-    {items.map((item) => (
-      <li class="relative pl-10 sm:pl-14">
-        <div class="absolute left-0 top-1 flex h-7 w-7 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[color:var(--experience-dot-bg,rgba(192,132,252,0.2))] text-sm sm:text-lg font-semibold text-[var(--color-accent)] shadow-[0_15px_45px_-25px_rgba(192,132,252,0.55)] transition-all duration-300 hover:scale-125 hover:rotate-180 cursor-pointer">
-          •
-        </div>
-        <div class="space-y-1.5 sm:space-y-3 rounded-xl sm:rounded-3xl border border-[var(--color-border)] surface-card p-3 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(192,132,252,0.45)] hover:shadow-lg hover:shadow-[var(--color-accent)]/10">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-2 text-sm text-[var(--color-text-muted)]">
-            <h3 class="text-sm sm:text-2xl font-semibold text-[var(--color-text)] order-2 sm:order-1">{item.company}</h3>
-            <time class="text-[9px] sm:text-xs uppercase tracking-[0.18em] text-[var(--color-text-muted)] order-1 sm:order-2">{item.period}</time>
+  <ol
+    class="relative space-y-4 sm:space-y-12 md:space-y-16 before:absolute before:left-[14px] sm:before:left-[18px] before:top-6 before:h-[calc(100%-3rem)] before:w-px before:bg-[var(--timeline-line,rgba(192,132,252,0.25))] before:content-['']"
+  >
+    {
+      items.map((item) => (
+        <li class="relative pl-10 sm:pl-14">
+          <div class="absolute left-0 top-1 flex h-7 w-7 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[color:var(--experience-dot-bg,rgba(192,132,252,0.2))] text-sm sm:text-lg font-semibold text-[var(--color-accent)] shadow-[0_15px_45px_-25px_rgba(192,132,252,0.55)] transition-all duration-300 hover:scale-125 hover:rotate-180 cursor-pointer">
+            •
           </div>
-          <span class="block text-[10px] sm:text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-accent)]">{item.role}</span>
-          <p class="text-[11px] sm:text-base text-[var(--color-text-muted)] leading-relaxed line-clamp-3 sm:line-clamp-none">{item.description}</p>
-        </div>
-      </li>
-    ))}
+          <div class="space-y-1.5 sm:space-y-3 rounded-xl sm:rounded-3xl border border-[var(--color-border)] surface-card p-3 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(192,132,252,0.45)] hover:shadow-lg hover:shadow-[var(--color-accent)]/10">
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-2 text-sm text-[var(--color-text-muted)]">
+              <h3 class="text-sm sm:text-2xl font-semibold text-[var(--color-text)] order-2 sm:order-1">
+                {item.company}
+              </h3>
+              <time class="text-[9px] sm:text-xs uppercase tracking-[0.18em] text-[var(--color-text-muted)] order-1 sm:order-2">
+                {item.period}
+              </time>
+            </div>
+            <span class="block text-[10px] sm:text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-accent)]">
+              {item.role}
+            </span>
+            <p class="text-[11px] sm:text-base text-[var(--color-text-muted)] leading-relaxed line-clamp-3 sm:line-clamp-none">
+              {item.description}
+            </p>
+          </div>
+        </li>
+      ))
+    }
   </ol>
 </section>

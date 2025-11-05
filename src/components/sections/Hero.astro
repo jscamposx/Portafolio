@@ -2,7 +2,10 @@
 // Datos inline (Hero)
 const hero = {
   avatar: { initials: 'JC', alt: 'Iniciales de Jesús Campos' },
-  availability: { text: 'Disponible para colaborar', href: 'https://www.linkedin.com/in/jscamposx' },
+  availability: {
+    text: 'Disponible para colaborar',
+    href: 'https://www.linkedin.com/in/jscamposx'
+  },
   title: 'Hey, soy Jesús Campos',
   description: {
     leading: '+3 años de experiencia.',
@@ -11,16 +14,31 @@ const hero = {
     trailing: ' de Durango, México 🇲🇽. Especializado en crear experiencias web únicas.'
   },
   actions: [
-    { label: 'Descargar CV', href: '/JesusCampos_FullStackDeveloper.pdf', icon: 'download', download: true },
+    {
+      label: 'Descargar CV',
+      href: '/JesusCampos_FullStackDeveloper.pdf',
+      icon: 'download',
+      download: true
+    },
     { label: 'Contáctame', href: '#contacto', icon: 'mail' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jscamposx', icon: 'linkedin', external: true }
+    {
+      label: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/jscamposx',
+      icon: 'linkedin',
+      external: true
+    }
   ]
 };
 ---
+
 <section id="hero" class="pt-8 sm:pt-8 pb-16 sm:pb-24 px-3 sm:px-0" transition:animate="fade">
   <div class="max-w-xl">
-  <div class="flex gap-1.5 sm:gap-4 mb-4 sm:mb-8">
-      <div class="size-10 sm:size-16 rounded-full bg-[var(--color-accent)] flex items-center justify-center font-semibold text-[0.9rem] sm:text-[1.4rem] text-[var(--color-initials)] select-none transition-all duration-300 hover:scale-110 hover:rotate-6 cursor-default shadow-lg" aria-label={hero.avatar.alt} role="img">
+    <div class="flex gap-1.5 sm:gap-4 mb-4 sm:mb-8">
+      <div
+        class="size-10 sm:size-16 rounded-full bg-[var(--color-accent)] flex items-center justify-center font-semibold text-[0.9rem] sm:text-[1.4rem] text-[var(--color-initials)] select-none transition-all duration-300 hover:scale-110 hover:rotate-6 cursor-default shadow-lg"
+        aria-label={hero.avatar.alt}
+        role="img"
+      >
         {hero.avatar.initials}
       </div>
       <a
@@ -39,86 +57,92 @@ const hero = {
         </div>
       </a>
     </div>
-    <h1 class="text-2xl sm:text-5xl font-bold tracking-tight text-[var(--color-text)]">{hero.title}</h1>
-    <p class="mt-3 sm:mt-6 text-sm sm:text-xl leading-relaxed text-[var(--color-text-muted)] [&>strong]:text-[var(--color-accent)] [&>strong]:font-semibold">
+    <h1 class="text-2xl sm:text-5xl font-bold tracking-tight text-[var(--color-text)]">
+      {hero.title}
+    </h1>
+    <p
+      class="mt-3 sm:mt-6 text-sm sm:text-xl leading-relaxed text-[var(--color-text-muted)] [&>strong]:text-[var(--color-accent)] [&>strong]:font-semibold"
+    >
       {hero.description.leading}
       {hero.description.leading && ' '}
       <strong>{hero.description.highlight}</strong>
       {hero.description.trailing}
     </p>
     <nav class="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-8">
-      {hero.actions.map((action) => (
-        <a
-          href={action.href}
-          target={action.external ? '_blank' : undefined}
-          rel={action.external ? 'noopener noreferrer' : undefined}
-          download={action.download ? true : undefined}
-          role="link"
-          class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium rounded-full transition group max-w-fit focus:outline-none focus-visible:outline-none ring-1 ring-inset ring-[rgba(192,132,252,0.35)] bg-[rgba(192,132,252,0.12)] text-[var(--color-text)] hover:bg-[rgba(192,132,252,0.22)] hover:ring-[rgba(192,132,252,0.55)] active:scale-[.97]"
-        >
-          {action.icon === 'download' && (
-            <svg
-              class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:translate-y-1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
-              <path d="M7 11l5 5l5 -5"></path>
-              <path d="M12 4l0 12"></path>
-            </svg>
-          )}
-          {action.icon === 'mail' && (
-            <svg
-              class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M12 18h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v7.5"></path>
-              <path d="M3 6l9 6l9 -6"></path>
-              <path d="M15 18h6"></path>
-              <path d="M18 15l3 3l-3 3"></path>
-            </svg>
-          )}
-          {action.icon === 'linkedin' && (
-            <svg
-              class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-              <path d="M8 11l0 5"></path>
-              <path d="M8 8l0 .01"></path>
-              <path d="M12 16l0 -5"></path>
-              <path d="M16 16v-3a2 2 0 0 0 -4 0"></path>
-            </svg>
-          )}
-          {action.label}
-        </a>
-      ))}
+      {
+        hero.actions.map((action) => (
+          <a
+            href={action.href}
+            target={action.external ? '_blank' : undefined}
+            rel={action.external ? 'noopener noreferrer' : undefined}
+            download={action.download ? true : undefined}
+            role="link"
+            class="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 text-xs sm:text-sm font-medium rounded-full transition group max-w-fit focus:outline-none focus-visible:outline-none ring-1 ring-inset ring-[rgba(192,132,252,0.35)] bg-[rgba(192,132,252,0.12)] text-[var(--color-text)] hover:bg-[rgba(192,132,252,0.22)] hover:ring-[rgba(192,132,252,0.55)] active:scale-[.97]"
+          >
+            {action.icon === 'download' && (
+              <svg
+                class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:translate-y-1"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                <path d="M7 11l5 5l5 -5" />
+                <path d="M12 4l0 12" />
+              </svg>
+            )}
+            {action.icon === 'mail' && (
+              <svg
+                class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 18h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v7.5" />
+                <path d="M3 6l9 6l9 -6" />
+                <path d="M15 18h6" />
+                <path d="M18 15l3 3l-3 3" />
+              </svg>
+            )}
+            {action.icon === 'linkedin' && (
+              <svg
+                class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                <path d="M8 11l0 5" />
+                <path d="M8 8l0 .01" />
+                <path d="M12 16l0 -5" />
+                <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+              </svg>
+            )}
+            {action.label}
+          </a>
+        ))
+      }
     </nav>
   </div>
 </section>

@@ -6,7 +6,7 @@ import TechChip from '../../components/TechChip.astro';
 // Datos inline
 const siteName = 'Jesús Campos';
 
-const getProjectBySlug = (slug: string) => projects.find(p => p.slug === slug);
+const getProjectBySlug = (slug: string) => projects.find((p) => p.slug === slug);
 
 export function getStaticPaths() {
   return projects.map((project) => ({ params: { slug: project.slug } }));
@@ -34,40 +34,64 @@ const slugify = (value: string) =>
     .replace(/(^-|-$)/g, '');
 ---
 
-<Layout title={metaTitle} description={project.description} showNav={false} preloadImage={project.heroImage}>
+<Layout
+  title={metaTitle}
+  description={project.description}
+  showNav={false}
+  preloadImage={project.heroImage}
+>
   <!-- Navegación flotante fija -->
   <div class="fixed bottom-4 right-4 z-50 flex flex-col gap-3 sm:bottom-6 sm:right-6">
     <!-- Botón: Volver a proyectos -->
-    <a 
+    <a
       href="/#proyectos"
       class="group relative flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 shadow-lg backdrop-blur-xl transition-all hover:scale-105 hover:border-[var(--project-color)] hover:shadow-[0_0_20px_var(--project-color-alpha)]"
       title="Volver a proyectos"
     >
-      <svg class="size-5 text-[var(--color-text-muted)] transition-all group-hover:text-[var(--project-color)] group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      <svg
+        class="size-5 text-[var(--color-text-muted)] transition-all group-hover:text-[var(--project-color)] group-hover:-translate-x-1"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"
+        ></path>
       </svg>
-      <span class="hidden sm:inline text-sm font-medium text-[var(--color-text)] sm:opacity-0 sm:max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 sm:group-hover:opacity-100 sm:group-hover:max-w-xs">
+      <span
+        class="hidden sm:inline text-sm font-medium text-[var(--color-text)] sm:opacity-0 sm:max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 sm:group-hover:opacity-100 sm:group-hover:max-w-xs"
+      >
         Volver
       </span>
     </a>
 
     <!-- Botón: Ver más proyectos -->
-    <a 
+    <a
       href="/proyectos/"
       class="group relative flex items-center justify-center gap-3 rounded-full border px-4 py-3 shadow-lg backdrop-blur-xl transition-all hover:scale-105"
       style={`border-color: ${project.accent}50; background: linear-gradient(to right, ${project.accent}, ${project.accent}dd);`}
       title="Ver más proyectos"
     >
-      <svg class="size-5 text-white transition-transform group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      <svg
+        class="size-5 text-white transition-transform group-hover:rotate-90"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
-      <span class="hidden sm:inline text-sm font-medium text-white sm:opacity-0 sm:max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 sm:group-hover:opacity-100 sm:group-hover:max-w-xs">
+      <span
+        class="hidden sm:inline text-sm font-medium text-white sm:opacity-0 sm:max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 sm:group-hover:opacity-100 sm:group-hover:max-w-xs"
+      >
         Más proyectos
       </span>
     </a>
   </div>
 
-  <article 
+  <article
     class="space-y-16"
     style={`
       --project-color: ${project.accent};
@@ -76,32 +100,45 @@ const slugify = (value: string) =>
       --project-color-border: ${project.accent}40;
     `}
   >
-    <header
-      class="relative space-y-8"
-      style={`--project-accent: ${project.accent};`}
-    >
-      {project.technologies && project.technologies.length > 0 && (
-        <div class="flex flex-wrap items-center gap-2" transition:name={`project-techs-${project.slug}`}>
-          {project.technologies.map((tech) => (
-            <TechChip name={tech} />
-          ))}
-        </div>
-      )}
+    <header class="relative space-y-8" style={`--project-accent: ${project.accent};`}>
+      {
+        project.technologies && project.technologies.length > 0 && (
+          <div
+            class="flex flex-wrap items-center gap-2"
+            transition:name={`project-techs-${project.slug}`}
+          >
+            {project.technologies.map((tech) => (
+              <TechChip name={tech} />
+            ))}
+          </div>
+        )
+      }
       <div class="space-y-4">
-        <h1 class="text-4xl font-semibold sm:text-5xl" transition:name={`project-title-${project.slug}`}>{project.title}</h1>
-        <p class="max-w-3xl text-base text-[var(--color-text-muted)] sm:text-lg">{project.description}</p>
+        <h1
+          class="text-4xl font-semibold sm:text-5xl"
+          transition:name={`project-title-${project.slug}`}
+        >
+          {project.title}
+        </h1>
+        <p class="max-w-3xl text-base text-[var(--color-text-muted)] sm:text-lg">
+          {project.description}
+        </p>
       </div>
       <div class="flex flex-wrap gap-3">
-        {project.tags.map((tag) => (
-            <span 
+        {
+          project.tags.map((tag) => (
+            <span
               class="project-tag rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-wide"
               style={`border-color: var(--project-color); background: var(--project-color-bg); color: var(--project-color);`}
             >
-            {tag}
-          </span>
-        ))}
+              {tag}
+            </span>
+          ))
+        }
       </div>
-      <div class="relative overflow-hidden rounded-2xl border border-[var(--color-border)] image-frame">
+      <div
+        class="relative overflow-hidden rounded-2xl border border-[var(--color-border)] image-frame"
+      >
         <div class="relative aspect-video">
           <img
             class="absolute inset-0 w-full h-full object-cover"
@@ -114,7 +151,8 @@ const slugify = (value: string) =>
         </div>
       </div>
       <div class="flex flex-wrap gap-4">
-          {project.links.map((link) => (
+        {
+          project.links.map((link) => (
             <a
               class="project-link group inline-flex items-center gap-2 rounded-full border surface-pill px-5 py-3 text-sm font-semibold backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               href={link.url}
@@ -122,295 +160,890 @@ const slugify = (value: string) =>
               rel="noreferrer"
             >
               {link.label.includes('sitio') || link.label.includes('Sitio') ? (
-                <svg class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                <svg
+                  class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                  />
                 </svg>
               ) : (
-                <svg class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                <svg
+                  class="size-4 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                 </svg>
               )}
               <span>{link.label}</span>
-              <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+              <span
+                class="transition-transform duration-300 group-hover:translate-x-1"
+                aria-hidden="true"
+              >
+                →
+              </span>
             </a>
-          ))}
+          ))
+        }
       </div>
     </header>
 
     {/* Secciones normales solo para proyectos que NO son Viadca ni Yola */}
-    {project.slug !== 'viadca' && project.slug !== 'yola' && (
-      <section class="space-y-8">
-        {project.sections.map((section) => (
-          <div class="project-section space-y-3 rounded-2xl border surface-card p-6 transition hover:-translate-y-0.5">
-            <h2 class="text-xl font-semibold">{section.heading}</h2>
-            <p class="text-base text-[var(--color-text-muted)]">{section.body}</p>
-          </div>
-        ))}
-      </section>
-    )}
+    {
+      project.slug !== 'viadca' && project.slug !== 'yola' && (
+        <section class="space-y-8">
+          {project.sections.map((section) => (
+            <div class="project-section space-y-3 rounded-2xl border surface-card p-6 transition hover:-translate-y-0.5">
+              <h2 class="text-xl font-semibold">{section.heading}</h2>
+              <p class="text-base text-[var(--color-text-muted)]">{section.body}</p>
+            </div>
+          ))}
+        </section>
+      )
+    }
 
     {/* Contenido especial para Viadca con imágenes */}
-    {project.slug === 'viadca' && (
-      <section class="space-y-8 sm:space-y-12">
-        {/* Header de sección */}
-        <div class="text-center space-y-3 sm:space-y-4">
-          <h2 class="project-title text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent">
-            Dashboard Administrativo
-          </h2>
-          <p class="text-sm sm:text-base md:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto px-4">
-            Módulos especializados diseñados para optimizar cada aspecto de la gestión de viajes
-          </p>
-        </div>
-
-        {/* Grid de módulos - Layout alternado */}
-        <div class="space-y-10 sm:space-y-16">
-          {/* Control de Usuarios - Imagen izquierda */}
-          <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
-            <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
-                <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/viadca/viadca-users.avif" alt="Panel de gestión de usuarios" loading="lazy" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </div>
-            
-            <div class="space-y-3 sm:space-y-6">
-              <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
-                <svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-                </svg>
-                <span class="text-xs sm:text-sm font-semibold">Gestión de Usuarios</span>
-              </div>
-              <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">Control Total de Accesos</h3>
-              <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">Sistema robusto de roles y permisos que permite configurar accesos granulares para administradores, mayoristas y agentes.</p>
-              <div class="grid grid-cols-3 gap-2 sm:gap-4">
-                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
-                  <p class="text-lg sm:text-2xl font-bold">3+</p>
-                  <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Roles</p>
-                </div>
-                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
-                  <p class="text-lg sm:text-2xl font-bold">JWT</p>
-                  <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Seguridad</p>
-                </div>
-                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
-                  <p class="text-lg sm:text-2xl font-bold">100%</p>
-                  <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Control</p>
-                </div>
-              </div>
-            </div>
+    {
+      project.slug === 'viadca' && (
+        <section class="space-y-8 sm:space-y-12">
+          {/* Header de sección */}
+          <div class="text-center space-y-3 sm:space-y-4">
+            <h2 class="project-title text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent">
+              Dashboard Administrativo
+            </h2>
+            <p class="text-sm sm:text-base md:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto px-4">
+              Módulos especializados diseñados para optimizar cada aspecto de la gestión de viajes
+            </p>
           </div>
 
-          {/* Gestión de Tareas - Imagen derecha */}
-          <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
-            <div class="space-y-3 sm:space-y-6 md:order-1">
-              <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
-                <svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-                <span class="text-xs sm:text-sm font-semibold">Gestión de Tareas</span>
-              </div>
-              <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">Monitor de Actividades</h3>
-              <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">Sistema completo para rastrear y gestionar todas las tareas del equipo, con historial detallado, estados en tiempo real y asignaciones por usuario.</p>
-              <ul class="space-y-2 sm:space-y-3">
-                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Historial completo de tareas realizadas</span></li>
-                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Estados y prioridades visuales</span></li>
-                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Asignación y seguimiento por usuario</span></li>
-              </ul>
-            </div>
-            <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl md:order-2">
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
-                <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/viadca/viadca-task.avif" alt="Monitor de tareas y actividades" loading="lazy" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </div>
-          </div>
-
-          {/* Grid 2x2 para las últimas 3 imágenes */}
-          <div class="grid md:grid-cols-2 gap-4 sm:gap-8">
-            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
-              <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
-                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
-                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold">Formularios</span>
+          {/* Grid de módulos - Layout alternado */}
+          <div class="space-y-10 sm:space-y-16">
+            {/* Control de Usuarios - Imagen izquierda */}
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
+              <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/viadca/viadca-users.avif"
+                    alt="Panel de gestión de usuarios"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Validación Inteligente</h3>
-                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Feedback en tiempo real con mensajes contextuales</p>
               </div>
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/viadca/viadca-form.avif" alt="Formularios dinámicos" loading="lazy" /></div>
-            </div>
 
-            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
-              <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
-                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
-                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold">Recuperación</span>
+              <div class="space-y-3 sm:space-y-6">
+                <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
+                  <svg
+                    class="size-4 sm:size-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                    />
+                  </svg>
+                  <span class="text-xs sm:text-sm font-semibold">Gestión de Usuarios</span>
                 </div>
-                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Papelera Segura</h3>
-                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Recuperación de datos con un solo clic</p>
+                <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">
+                  Control Total de Accesos
+                </h3>
+                <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
+                  Sistema robusto de roles y permisos que permite configurar accesos granulares para
+                  administradores, mayoristas y agentes.
+                </p>
+                <div class="grid grid-cols-3 gap-2 sm:gap-4">
+                  <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
+                    <p class="text-lg sm:text-2xl font-bold">3+</p>
+                    <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Roles</p>
+                  </div>
+                  <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
+                    <p class="text-lg sm:text-2xl font-bold">JWT</p>
+                    <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">
+                      Seguridad
+                    </p>
+                  </div>
+                  <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
+                    <p class="text-lg sm:text-2xl font-bold">100%</p>
+                    <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">
+                      Control
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/viadca/viadca-trash.avif" alt="Sistema de papelera" loading="lazy" /></div>
             </div>
 
-            <div class="project-card md:col-span-2 group relative overflow-hidden rounded-xl sm:rounded-2xl border transition-all duration-500 hover:shadow-2xl">
-              <div class="grid md:grid-cols-2 gap-4 sm:gap-6 p-4 sm:p-6">
-                <div class="space-y-3 sm:space-y-6">
+            {/* Gestión de Tareas - Imagen derecha */}
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
+              <div class="space-y-3 sm:space-y-6 md:order-1">
+                <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
+                  <svg
+                    class="size-4 sm:size-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                    />
+                  </svg>
+                  <span class="text-xs sm:text-sm font-semibold">Gestión de Tareas</span>
+                </div>
+                <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">
+                  Monitor de Actividades
+                </h3>
+                <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
+                  Sistema completo para rastrear y gestionar todas las tareas del equipo, con
+                  historial detallado, estados en tiempo real y asignaciones por usuario.
+                </p>
+                <ul class="space-y-2 sm:space-y-3">
+                  <li class="flex items-start gap-2 sm:gap-3">
+                    <>
+                      <div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]">
+                        <svg
+                          class="size-3 sm:size-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                        Historial completo de tareas realizadas
+                      </span>
+                    </>
+                  </li>
+                  <li class="flex items-start gap-2 sm:gap-3">
+                    <>
+                      <div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]">
+                        <svg
+                          class="size-3 sm:size-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                        Estados y prioridades visuales
+                      </span>
+                    </>
+                  </li>
+                  <li class="flex items-start gap-2 sm:gap-3">
+                    <>
+                      <div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]">
+                        <svg
+                          class="size-3 sm:size-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                        Asignación y seguimiento por usuario
+                      </span>
+                    </>
+                  </li>
+                </ul>
+              </div>
+              <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl md:order-2">
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/viadca/viadca-task.avif"
+                    alt="Monitor de tareas y actividades"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+              </div>
+            </div>
+
+            {/* Grid 2x2 para las últimas 3 imágenes */}
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-8">
+              <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
+                <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
                   <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
-                    <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    <span class="text-xs sm:text-sm font-semibold">Configuración</span>
+                    <svg
+                      class="size-3 sm:size-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                    <span class="text-xs sm:text-sm font-semibold">Formularios</span>
                   </div>
-                  <h3 class="text-lg sm:text-2xl font-bold text-[var(--color-text)]">Panel de Control Total</h3>
-                  <p class="text-xs sm:text-base text-[var(--color-text-muted)] leading-relaxed">Personalización completa de branding, SEO, emails y permisos desde un panel centralizado.</p>
-                  <div class="grid grid-cols-2 gap-2 sm:gap-3">
-                    <div class="project-stat flex items-center gap-2 p-2 sm:p-3 rounded-lg bg-[var(--color-surface)] border"><svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg><span class="text-[10px] sm:text-xs font-medium text-[var(--color-text)]">Branding</span></div>
-                    <div class="project-stat flex items-center gap-2 p-2 sm:p-3 rounded-lg bg-[var(--color-surface)] border"><svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span class="text-[10px] sm:text-xs font-medium text-[var(--color-text)]">SEO</span></div>
-                    <div class="project-stat flex items-center gap-2 p-2 sm:p-3 rounded-lg bg-[var(--color-surface)] border"><svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 2z"/></svg><span class="text-[10px] sm:text-xs font-medium text-[var(--color-text)]">Email</span></div>
-                    <div class="project-stat flex items-center gap-2 p-2 sm:p-3 rounded-lg bg-[var(--color-surface)] border"><svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg><span class="text-[10px] sm:text-xs font-medium text-[var(--color-text)]">Seguridad</span></div>
+                  <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">
+                    Validación Inteligente
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                    Feedback en tiempo real con mensajes contextuales
+                  </p>
+                </div>
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/viadca/viadca-form.avif"
+                    alt="Formularios dinámicos"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
+                <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+                  <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                    <svg
+                      class="size-3 sm:size-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                    <span class="text-xs sm:text-sm font-semibold">Recuperación</span>
+                  </div>
+                  <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">
+                    Papelera Segura
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                    Recuperación de datos con un solo clic
+                  </p>
+                </div>
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/viadca/viadca-trash.avif"
+                    alt="Sistema de papelera"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <div class="project-card md:col-span-2 group relative overflow-hidden rounded-xl sm:rounded-2xl border transition-all duration-500 hover:shadow-2xl">
+                <div class="grid md:grid-cols-2 gap-4 sm:gap-6 p-4 sm:p-6">
+                  <div class="space-y-3 sm:space-y-6">
+                    <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                      <svg
+                        class="size-3 sm:size-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <>
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                          />
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </>
+                      </svg>
+                      <span class="text-xs sm:text-sm font-semibold">Configuración</span>
+                    </div>
+                    <h3 class="text-lg sm:text-2xl font-bold text-[var(--color-text)]">
+                      Panel de Control Total
+                    </h3>
+                    <p class="text-xs sm:text-base text-[var(--color-text-muted)] leading-relaxed">
+                      Personalización completa de branding, SEO, emails y permisos desde un panel
+                      centralizado.
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 sm:gap-3">
+                      <div class="project-stat flex items-center gap-2 p-2 sm:p-3 rounded-lg bg-[var(--color-surface)] border">
+                        <>
+                          <svg
+                            class="size-4 sm:size-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                            />
+                          </svg>
+                          <span class="text-[10px] sm:text-xs font-medium text-[var(--color-text)]">
+                            Branding
+                          </span>
+                        </>
+                      </div>
+                      <div class="project-stat flex items-center gap-2 p-2 sm:p-3 rounded-lg bg-[var(--color-surface)] border">
+                        <>
+                          <svg
+                            class="size-4 sm:size-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            />
+                          </svg>
+                          <span class="text-[10px] sm:text-xs font-medium text-[var(--color-text)]">
+                            SEO
+                          </span>
+                        </>
+                      </div>
+                      <div class="project-stat flex items-center gap-2 p-2 sm:p-3 rounded-lg bg-[var(--color-surface)] border">
+                        <>
+                          <svg
+                            class="size-4 sm:size-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 2z"
+                            />
+                          </svg>
+                          <span class="text-[10px] sm:text-xs font-medium text-[var(--color-text)]">
+                            Email
+                          </span>
+                        </>
+                      </div>
+                      <div class="project-stat flex items-center gap-2 p-2 sm:p-3 rounded-lg bg-[var(--color-surface)] border">
+                        <>
+                          <svg
+                            class="size-4 sm:size-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                            />
+                          </svg>
+                          <span class="text-[10px] sm:text-xs font-medium text-[var(--color-text)]">
+                            Seguridad
+                          </span>
+                        </>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="relative overflow-hidden rounded-lg sm:rounded-xl">
+                    <img
+                      class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                      src="/Proyectos/viadca/viadca-config.avif"
+                      alt="Panel de configuración"
+                      loading="lazy"
+                    />
                   </div>
                 </div>
-                <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/viadca/viadca-config.avif" alt="Panel de configuración" loading="lazy" /></div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    )}
+        </section>
+      )
+    }
 
     {/* Contenido especial para Yola con imágenes */}
-    {project.slug === 'yola' && (
-      <section class="space-y-8 sm:space-y-12">
-        {/* Header de sección */}
-        <div class="text-center space-y-3 sm:space-y-4">
-          <h2 class="project-title text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent">
-            Plataforma E-commerce Completa
-          </h2>
-          <p class="text-sm sm:text-base md:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto px-4">
-            Sistema integral para gestión de restaurante con diseño moderno y experiencia optimizada
-          </p>
-        </div>
+    {
+      project.slug === 'yola' && (
+        <section class="space-y-8 sm:space-y-12">
+          {/* Header de sección */}
+          <div class="text-center space-y-3 sm:space-y-4">
+            <h2 class="project-title text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent">
+              Plataforma E-commerce Completa
+            </h2>
+            <p class="text-sm sm:text-base md:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto px-4">
+              Sistema integral para gestión de restaurante con diseño moderno y experiencia
+              optimizada
+            </p>
+          </div>
 
-        {/* Grid de módulos - Layout alternado */}
-        <div class="space-y-10 sm:space-y-16">
-          {/* Login - Imagen izquierda */}
-          <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
-            <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
-                <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-login.avif" alt="Sistema de autenticación" loading="lazy" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          {/* Grid de módulos - Layout alternado */}
+          <div class="space-y-10 sm:space-y-16">
+            {/* Login - Imagen izquierda */}
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
+              <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/yola/yola-login.avif"
+                    alt="Sistema de autenticación"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+              </div>
+
+              <div class="space-y-3 sm:space-y-6">
+                <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
+                  <svg
+                    class="size-4 sm:size-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                  <span class="text-xs sm:text-sm font-semibold">Autenticación</span>
+                </div>
+                <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">
+                  Acceso Seguro y Personalizado
+                </h3>
+                <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
+                  Sistema de autenticación robusto con diferentes niveles de acceso para
+                  administradores y clientes.
+                </p>
+                <div class="grid grid-cols-3 gap-2 sm:gap-4">
+                  <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
+                    <>
+                      <p class="text-lg sm:text-2xl font-bold">2FA</p>
+                      <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">
+                        Seguridad
+                      </p>
+                    </>
+                  </div>
+                  <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
+                    <>
+                      <p class="text-lg sm:text-2xl font-bold">OAuth</p>
+                      <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">
+                        Social
+                      </p>
+                    </>
+                  </div>
+                  <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors">
+                    <>
+                      <p class="text-lg sm:text-2xl font-bold">JWT</p>
+                      <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">
+                        Tokens
+                      </p>
+                    </>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            <div class="space-y-3 sm:space-y-6">
-              <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
-                <svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                <span class="text-xs sm:text-sm font-semibold">Autenticación</span>
+
+            {/* Dashboard - Imagen derecha */}
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
+              <div class="space-y-3 sm:space-y-6 md:order-1">
+                <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
+                  <svg
+                    class="size-4 sm:size-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    />
+                  </svg>
+                  <span class="text-xs sm:text-sm font-semibold">Panel de Control</span>
+                </div>
+                <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">
+                  Dashboard Administrativo
+                </h3>
+                <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
+                  Centro de control con métricas en tiempo real, gestión de pedidos y análisis de
+                  ventas.
+                </p>
+                <ul class="space-y-2 sm:space-y-3">
+                  <li class="flex items-start gap-2 sm:gap-3">
+                    <>
+                      <div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]">
+                        <svg
+                          class="size-3 sm:size-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                        Métricas de ventas en tiempo real
+                      </span>
+                    </>
+                  </li>
+                  <li class="flex items-start gap-2 sm:gap-3">
+                    <>
+                      <div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]">
+                        <svg
+                          class="size-3 sm:size-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                        Gestión completa de pedidos
+                      </span>
+                    </>
+                  </li>
+                  <li class="flex items-start gap-2 sm:gap-3">
+                    <>
+                      <div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]">
+                        <svg
+                          class="size-3 sm:size-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                        Reportes y análisis detallados
+                      </span>
+                    </>
+                  </li>
+                </ul>
               </div>
-              <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">Acceso Seguro y Personalizado</h3>
-              <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">Sistema de autenticación robusto con diferentes niveles de acceso para administradores y clientes.</p>
-              <div class="grid grid-cols-3 gap-2 sm:gap-4">
-                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors"><p class="text-lg sm:text-2xl font-bold">2FA</p><p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Seguridad</p></div>
-                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors"><p class="text-lg sm:text-2xl font-bold">OAuth</p><p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Social</p></div>
-                <div class="project-stat p-2 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--color-surface)] border transition-colors"><p class="text-lg sm:text-2xl font-bold">JWT</p><p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">Tokens</p></div>
+              <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl md:order-2">
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/yola/yola-dashboard.avif"
+                    alt="Dashboard administrativo"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+              </div>
+            </div>
+
+            {/* Crear Platillos - Imagen izquierda */}
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
+              <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/yola/yola-crearplatillos.avif"
+                    alt="Gestión de platillos"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+              </div>
+
+              <div class="space-y-3 sm:space-y-6">
+                <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
+                  <svg
+                    class="size-4 sm:size-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                  <span class="text-xs sm:text-sm font-semibold">Gestión de Menú</span>
+                </div>
+                <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">
+                  Creación de Platillos
+                </h3>
+                <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
+                  Editor completo para crear y gestionar el menú con imágenes, ingredientes, precios
+                  y categorías.
+                </p>
+                <ul class="space-y-2 sm:space-y-3">
+                  <li class="flex items-start gap-2 sm:gap-3">
+                    <>
+                      <div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]">
+                        <svg
+                          class="size-3 sm:size-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                        Upload múltiple de imágenes
+                      </span>
+                    </>
+                  </li>
+                  <li class="flex items-start gap-2 sm:gap-3">
+                    <>
+                      <div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]">
+                        <svg
+                          class="size-3 sm:size-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                        Gestión de ingredientes y alérgenos
+                      </span>
+                    </>
+                  </li>
+                  <li class="flex items-start gap-2 sm:gap-3">
+                    <>
+                      <div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]">
+                        <svg
+                          class="size-3 sm:size-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                        Organización por categorías
+                      </span>
+                    </>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Grid 2x2 para las últimas 4 imágenes */}
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-8">
+              <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
+                <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+                  <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                    <svg
+                      class="size-3 sm:size-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                      />
+                    </svg>
+                    <span class="text-xs sm:text-sm font-semibold">Diseño Web</span>
+                  </div>
+                  <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">
+                    Homepage Moderna
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                    Landing page atractiva con hero sections y CTAs optimizados
+                  </p>
+                </div>
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/yola/yola-designhomepage.avif"
+                    alt="Diseño homepage"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
+                <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+                  <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                    <svg
+                      class="size-3 sm:size-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+                      />
+                    </svg>
+                    <span class="text-xs sm:text-sm font-semibold">Secciones</span>
+                  </div>
+                  <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">
+                    Páginas Internas
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                    Diseño consistente en todas las secciones del sitio
+                  </p>
+                </div>
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/yola/yola-designsectionpage.avif"
+                    alt="Diseño páginas internas"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
+                <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+                  <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                    <svg
+                      class="size-3 sm:size-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                    <span class="text-xs sm:text-sm font-semibold">Formularios</span>
+                  </div>
+                  <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">
+                    Sistema de Pedidos
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                    Checkout optimizado con validación en tiempo real
+                  </p>
+                </div>
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/yola/yola-formularios.avif"
+                    alt="Formularios de pedidos"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
+                <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+                  <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
+                    <svg
+                      class="size-3 sm:size-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                      />
+                    </svg>
+                    <span class="text-xs sm:text-sm font-semibold">Responsive</span>
+                  </div>
+                  <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">
+                    Adaptable a Móviles
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                    Experiencia perfecta en todos los dispositivos
+                  </p>
+                </div>
+                <div class="relative overflow-hidden rounded-lg sm:rounded-xl">
+                  <img
+                    class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                    src="/Proyectos/yola/yola-responsive.avif"
+                    alt="Diseño responsive"
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Dashboard - Imagen derecha */}
-          <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
-            <div class="space-y-3 sm:space-y-6 md:order-1">
-              <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
-                <svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                <span class="text-xs sm:text-sm font-semibold">Panel de Control</span>
-              </div>
-              <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">Dashboard Administrativo</h3>
-              <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">Centro de control con métricas en tiempo real, gestión de pedidos y análisis de ventas.</p>
-              <ul class="space-y-2 sm:space-y-3">
-                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Métricas de ventas en tiempo real</span></li>
-                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Gestión completa de pedidos</span></li>
-                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Reportes y análisis detallados</span></li>
-              </ul>
-            </div>
-            <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl md:order-2">
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
-                <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-dashboard.avif" alt="Dashboard administrativo" loading="lazy" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </div>
-          </div>
-
-          {/* Crear Platillos - Imagen izquierda */}
-          <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
-            <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
-                <img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-crearplatillos.avif" alt="Gestión de platillos" loading="lazy" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </div>
-            
-            <div class="space-y-3 sm:space-y-6">
-              <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
-                <svg class="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-                <span class="text-xs sm:text-sm font-semibold">Gestión de Menú</span>
-              </div>
-              <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)]">Creación de Platillos</h3>
-              <p class="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">Editor completo para crear y gestionar el menú con imágenes, ingredientes, precios y categorías.</p>
-              <ul class="space-y-2 sm:space-y-3">
-                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Upload múltiple de imágenes</span></li>
-                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Gestión de ingredientes y alérgenos</span></li>
-                <li class="flex items-start gap-2 sm:gap-3"><div class="project-checkmark mt-0.5 sm:mt-1 p-1 rounded-full bg-[var(--project-color-bg)]"><svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><span class="text-xs sm:text-sm text-[var(--color-text-muted)]">Organización por categorías</span></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Grid 2x2 para las últimas 4 imágenes */}
-          <div class="grid md:grid-cols-2 gap-4 sm:gap-8">
-            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
-              <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
-                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
-                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold">Diseño Web</span>
-                </div>
-                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Homepage Moderna</h3>
-                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Landing page atractiva con hero sections y CTAs optimizados</p>
-              </div>
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-designhomepage.avif" alt="Diseño homepage" loading="lazy" /></div>
-            </div>
-
-            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
-              <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
-                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
-                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold">Secciones</span>
-                </div>
-                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Páginas Internas</h3>
-                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Diseño consistente en todas las secciones del sitio</p>
-              </div>
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-designsectionpage.avif" alt="Diseño páginas internas" loading="lazy" /></div>
-            </div>
-
-            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
-              <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
-                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
-                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold">Formularios</span>
-                </div>
-                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Sistema de Pedidos</h3>
-                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Checkout optimizado con validación en tiempo real</p>
-              </div>
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-formularios.avif" alt="Formularios de pedidos" loading="lazy" /></div>
-            </div>
-
-            <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
-              <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
-                <div class="project-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full border">
-                  <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                  <span class="text-xs sm:text-sm font-semibold">Responsive</span>
-                </div>
-                <h3 class="text-lg sm:text-xl font-bold text-[var(--color-text)]">Adaptable a Móviles</h3>
-                <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">Experiencia perfecta en todos los dispositivos</p>
-              </div>
-              <div class="relative overflow-hidden rounded-lg sm:rounded-xl"><img class="w-full h-auto transition-transform duration-700 group-hover:scale-105" src="/Proyectos/yola/yola-responsive.avif" alt="Diseño responsive" loading="lazy" /></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    )}
+        </section>
+      )
+    }
   </article>
 </Layout>
 
@@ -443,7 +1076,11 @@ const slugify = (value: string) =>
 
   /* Título con gradiente */
   .project-title {
-    background-image: linear-gradient(to right, var(--project-color), var(--project-color)) !important;
+    background-image: linear-gradient(
+      to right,
+      var(--project-color),
+      var(--project-color)
+    ) !important;
   }
 
   /* Para Viadca y Yola - elementos dinámicos */
@@ -595,7 +1232,8 @@ const slugify = (value: string) =>
   <img id="modalImage" src="" alt="Vista ampliada" />
   <button class="image-modal-close" aria-label="Cerrar imagen">
     <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"
+      ></path>
     </svg>
   </button>
 </div>
@@ -606,25 +1244,25 @@ const slugify = (value: string) =>
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage') as HTMLImageElement;
     const closeBtn = document.querySelector('.image-modal-close');
-    
+
     if (!modal || !modalImage) return;
-    
+
     // Limpiar listeners anteriores si existen
     const oldModalClickHandler = (modal as any).__modalClickHandler;
     if (oldModalClickHandler) {
       modal.removeEventListener('click', oldModalClickHandler);
     }
-    
+
     const oldCloseHandler = (closeBtn as any).__closeHandler;
     if (oldCloseHandler) {
       closeBtn?.removeEventListener('click', oldCloseHandler);
     }
-    
+
     const oldKeyHandler = (window as any).__imageModalKeyHandler;
     if (oldKeyHandler) {
       document.removeEventListener('keydown', oldKeyHandler);
     }
-    
+
     // Función para abrir el modal
     function openImageModal(imageSrc: string, imageAlt: string) {
       if (modalImage && modal) {
@@ -634,7 +1272,7 @@ const slugify = (value: string) =>
         document.body.style.overflow = 'hidden';
       }
     }
-    
+
     // Función para cerrar el modal
     function closeImageModal() {
       if (modal) {
@@ -642,10 +1280,10 @@ const slugify = (value: string) =>
         document.body.style.overflow = '';
       }
     }
-    
+
     // Agregar event listeners a todas las imágenes dentro de .project-card
     const projectImages = document.querySelectorAll('.project-card img');
-    
+
     projectImages.forEach((img) => {
       const imageElement = img as HTMLImageElement;
       // Limpiar listener anterior si existe
@@ -653,7 +1291,7 @@ const slugify = (value: string) =>
       if (oldHandler) {
         imageElement.removeEventListener('click', oldHandler);
       }
-      
+
       const imageClickHandler = (e: Event) => {
         e.preventDefault();
         e.stopPropagation();
@@ -662,12 +1300,12 @@ const slugify = (value: string) =>
       (imageElement as any).__imageClickHandler = imageClickHandler;
       imageElement.addEventListener('click', imageClickHandler);
     });
-    
+
     // Cerrar modal al hacer clic en el botón de cerrar
     const closeHandler = () => closeImageModal();
     (closeBtn as any).__closeHandler = closeHandler;
     closeBtn?.addEventListener('click', closeHandler);
-    
+
     // Cerrar modal al hacer clic fuera de la imagen
     const modalClickHandler = (e: Event) => {
       if (e.target === modal) {
@@ -676,7 +1314,7 @@ const slugify = (value: string) =>
     };
     (modal as any).__modalClickHandler = modalClickHandler;
     modal.addEventListener('click', modalClickHandler);
-    
+
     // Cerrar modal con la tecla ESC
     const keyHandler = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
@@ -686,14 +1324,14 @@ const slugify = (value: string) =>
     (window as any).__imageModalKeyHandler = keyHandler;
     document.addEventListener('keydown', keyHandler);
   }
-  
+
   // Inicializar cuando la página carga
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initImageModal);
   } else {
     initImageModal();
   }
-  
+
   // Reinicializar después de las view transitions de Astro
   document.addEventListener('astro:page-load', initImageModal);
 </script>

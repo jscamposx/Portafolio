@@ -8,37 +8,39 @@ import { ClientRouter } from 'astro:transitions';
 const siteName = 'Jesús Campos';
 const siteUrl = 'https://jscamposx.dev'; // Actualiza con tu URL real
 const socialLinks = [
-	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/jscamposx', icon: 'linkedin' },
-	{ label: 'GitHub', href: 'https://github.com/jscamposx', icon: 'github' },
-	{ label: 'WhatsApp', href: 'https://wa.me/526181658730', icon: 'whatsapp' }
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jscamposx', icon: 'linkedin' },
+  { label: 'GitHub', href: 'https://github.com/jscamposx', icon: 'github' },
+  { label: 'WhatsApp', href: 'https://wa.me/526181658730', icon: 'whatsapp' }
 ];
 const defaultMeta = {
-	title: 'Jesús Campos | Desarrollador Full Stack - Diseño y Desarrollo Web',
-	description: 'Desarrollador Full Stack con +3 años de experiencia en diseño UI/UX, desarrollo frontend y backend. Especializado en crear experiencias web únicas con React, Node.js, NestJS y AWS.',
-	image: '/og-image.jpg', // Asegúrate de tener esta imagen
-	keywords: 'desarrollador full stack, desarrollo web, diseño UI/UX, frontend, backend, React, Node.js, NestJS, AWS, portafolio desarrollador'
+  title: 'Jesús Campos | Desarrollador Full Stack - Diseño y Desarrollo Web',
+  description:
+    'Desarrollador Full Stack con +3 años de experiencia en diseño UI/UX, desarrollo frontend y backend. Especializado en crear experiencias web únicas con React, Node.js, NestJS y AWS.',
+  image: '/og-image.jpg', // Asegúrate de tener esta imagen
+  keywords:
+    'desarrollador full stack, desarrollo web, diseño UI/UX, frontend, backend, React, Node.js, NestJS, AWS, portafolio desarrollador'
 };
 
 interface Props {
-	title?: string;
-	description?: string;
-	canonical?: string;
-	showNav?: boolean; // permitir ocultar navbar
-	preloadImage?: string; // imagen para precargar
-	image?: string; // imagen para Open Graph
-	keywords?: string; // palabras clave SEO
-	type?: string; // tipo de contenido (website, article, etc.)
+  title?: string;
+  description?: string;
+  canonical?: string;
+  showNav?: boolean; // permitir ocultar navbar
+  preloadImage?: string; // imagen para precargar
+  image?: string; // imagen para Open Graph
+  keywords?: string; // palabras clave SEO
+  type?: string; // tipo de contenido (website, article, etc.)
 }
 
 const {
-	title = defaultMeta.title,
-	description = defaultMeta.description,
-	canonical,
-	showNav = true,
-	preloadImage,
-	image = defaultMeta.image,
-	keywords = defaultMeta.keywords,
-	type = 'website'
+  title = defaultMeta.title,
+  description = defaultMeta.description,
+  canonical,
+  showNav = true,
+  preloadImage,
+  image = defaultMeta.image,
+  keywords = defaultMeta.keywords,
+  type = 'website'
 } = Astro.props as Props;
 
 const currentUrl = canonical || `${siteUrl}${Astro.url.pathname}`;
@@ -47,196 +49,236 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
 <!doctype html>
 <html lang="es">
-	<head>
-		<ClientRouter />
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		
-		<!-- SEO Básico -->
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		<meta name="keywords" content={keywords} />
-		<meta name="author" content="Jesús Campos" />
-		<link rel="canonical" href={currentUrl} />
-		
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content={type} />
-		<meta property="og:url" content={currentUrl} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content={imageUrl} />
-		<meta property="og:site_name" content={siteName} />
-		<meta property="og:locale" content="es_MX" />
-		
-		<!-- Twitter -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:url" content={currentUrl} />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={imageUrl} />
-		
-		<!-- Verificación y robots -->
-		<meta name="robots" content="index, follow" />
-		<meta name="googlebot" content="index, follow" />
-		
-		<!-- Performance -->
-		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" media="(min-width: 768px)" />}
-		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-		
-		<!-- Structured Data - Schema.org -->
-		<script type="application/ld+json" set:html={JSON.stringify({
-			"@context": "https://schema.org",
-			"@type": "Person",
-			"name": "Jesús Campos",
-			"url": siteUrl,
-			"image": imageUrl,
-			"sameAs": [
-				"https://www.linkedin.com/in/jscamposx",
-				"https://github.com/jscamposx"
-			],
-			"jobTitle": "Desarrollador Full Stack",
-			"description": "Desarrollador Full Stack con +3 años de experiencia especializado en diseño UI/UX, desarrollo frontend y backend",
-			"knowsAbout": ["Desarrollo Web", "UI/UX Design", "React", "Node.js", "NestJS", "AWS", "TypeScript"],
-			"address": {
-				"@type": "PostalAddress",
-				"addressLocality": "Durango",
-				"addressCountry": "MX"
-			}
-		})} />
-		
-		<slot name="head" />
-		<script is:inline>
-        (function() {
-          try {
-            const pref = localStorage.getItem('theme') || 'system';
-            const mq = window.matchMedia('(prefers-color-scheme: dark)');
-            const dark = pref === 'dark' || (pref === 'system' && mq.matches);
-            const root = document.documentElement;
-            
-            // Aplicar clase de tema inmediatamente
-            if (dark) {
-              root.classList.add('dark');
-            } else {
-              root.classList.add('light');
+  <head>
+    <ClientRouter />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Básico -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="Jesús Campos" />
+    <link rel="canonical" href={currentUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="es_MX" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={currentUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <!-- Verificación y robots -->
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+
+    <!-- Performance -->
+    {
+      preloadImage && (
+        <link
+          rel="preload"
+          as="image"
+          href={preloadImage}
+          fetchpriority="high"
+          media="(min-width: 768px)"
+        />
+      )
+    }
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+    <!-- Structured Data - Schema.org -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Jesús Campos',
+        url: siteUrl,
+        image: imageUrl,
+        sameAs: ['https://www.linkedin.com/in/jscamposx', 'https://github.com/jscamposx'],
+        jobTitle: 'Desarrollador Full Stack',
+        description:
+          'Desarrollador Full Stack con +3 años de experiencia especializado en diseño UI/UX, desarrollo frontend y backend',
+        knowsAbout: [
+          'Desarrollo Web',
+          'UI/UX Design',
+          'React',
+          'Node.js',
+          'NestJS',
+          'AWS',
+          'TypeScript'
+        ],
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Durango',
+          addressCountry: 'MX'
+        }
+      })}
+    />
+
+    <slot name="head" />
+    <script is:inline>
+      (function () {
+        try {
+          const pref = localStorage.getItem('theme') || 'system';
+          const mq = window.matchMedia('(prefers-color-scheme: dark)');
+          const dark = pref === 'dark' || (pref === 'system' && mq.matches);
+          const root = document.documentElement;
+
+          // Aplicar clase de tema inmediatamente
+          if (dark) {
+            root.classList.add('dark');
+          } else {
+            root.classList.add('light');
+          }
+          root.dataset.theme = pref;
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen bg-transparent text-[var(--color-text)] antialiased">
+    <div class="relative">
+      <div
+        class="pointer-events-none fixed inset-0 -z-10 bg-gradient-to-br from-[rgba(192,132,252,0.18)] via-transparent to-[rgba(82,33,145,0.25)] blur-3xl"
+        aria-hidden="true"
+      >
+      </div>
+
+      {showNav && <NavBar transition:persist="global-nav" />}
+      {!showNav && <ThemeToggle transition:persist="theme-toggle" />}
+
+      <main class="mx-auto max-w-6xl px-4 sm:px-6 pt-16 pb-10 sm:pt-28 sm:pb-16 lg:pt-36 lg:pb-24">
+        <slot />
+      </main>
+
+      <footer class="border-t border-[var(--color-border)]">
+        <div
+          class="mx-auto flex max-w-6xl flex-col gap-4 sm:gap-6 px-4 sm:px-6 py-8 sm:py-10 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <p class="text-sm text-[var(--color-text-muted)]">
+            © {new Date().getFullYear()}
+            {siteName}
+          </p>
+          <nav class="flex flex-wrap items-center gap-5" aria-label="Redes sociales">
+            {
+              socialLinks.map((social) => (
+                <a
+                  class="group flex items-center gap-2 text-sm text-[var(--color-text-muted)] transition-all duration-300 hover:text-[var(--color-accent)] hover:-translate-y-1"
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.label}
+                >
+                  {social.icon === 'linkedin' && (
+                    <svg
+                      class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                  )}
+                  {social.icon === 'github' && (
+                    <svg
+                      class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                    </svg>
+                  )}
+                  {social.icon === 'whatsapp' && (
+                    <svg
+                      class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                    </svg>
+                  )}
+                  <span class="sr-only">{social.label}</span>
+                </a>
+              ))
             }
-            root.dataset.theme = pref;
-          } catch (e) {}
-        })();
-      </script>
-	</head>
-	<body class="min-h-screen bg-transparent text-[var(--color-text)] antialiased">
-		<div class="relative">
-			<div
-				class="pointer-events-none fixed inset-0 -z-10 bg-gradient-to-br from-[rgba(192,132,252,0.18)] via-transparent to-[rgba(82,33,145,0.25)] blur-3xl"
-				aria-hidden="true">
-			</div>
+          </nav>
+        </div>
+      </footer>
+    </div>
+  </body><script>
+    const scrollToHash = () => {
+      if (!location.hash) return;
+      const target = document.querySelector(location.hash);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
 
-			{showNav && (
-				<NavBar transition:persist="global-nav" />
-			)}
-			{!showNav && (
-				<ThemeToggle transition:persist="theme-toggle" />
-			)}
+    window.queueMicrotask(scrollToHash);
+    window.addEventListener('astro:after-swap', scrollToHash);
+    window.addEventListener('astro:page-load', scrollToHash);
 
-			<main class="mx-auto max-w-6xl px-4 sm:px-6 pt-16 pb-10 sm:pt-28 sm:pb-16 lg:pt-36 lg:pb-24">
-				<slot />
-			</main>
+    // Deshabilitar View Transitions en mobile y conexiones lentas
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const isSlowConnection =
+      (navigator as any).connection &&
+      ((navigator as any).connection.effectiveType === 'slow-2g' ||
+        (navigator as any).connection.effectiveType === '2g' ||
+        (navigator as any).connection.effectiveType === '3g');
 
-			<footer class="border-t border-[var(--color-border)]">
-				<div class="mx-auto flex max-w-6xl flex-col gap-4 sm:gap-6 px-4 sm:px-6 py-8 sm:py-10 sm:flex-row sm:items-center sm:justify-between">
-					<p class="text-sm text-[var(--color-text-muted)]">
-						© {new Date().getFullYear()} {siteName}
-					</p>
-					<nav class="flex flex-wrap items-center gap-5" aria-label="Redes sociales">
-						{socialLinks.map((social) => (
-							<a
-								class="group flex items-center gap-2 text-sm text-[var(--color-text-muted)] transition-all duration-300 hover:text-[var(--color-accent)] hover:-translate-y-1"
-								href={social.href}
-								target="_blank"
-								rel="noreferrer"
-								aria-label={social.label}
-							>
-								{social.icon === 'linkedin' && (
-									<svg class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" fill="currentColor" viewBox="0 0 24 24">
-										<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-									</svg>
-								)}
-								{social.icon === 'github' && (
-									<svg class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12" fill="currentColor" viewBox="0 0 24 24">
-										<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-									</svg>
-								)}
-								{social.icon === 'whatsapp' && (
-									<svg class="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" fill="currentColor" viewBox="0 0 24 24">
-										<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-									</svg>
-								)}
-								<span class="sr-only">{social.label}</span>
-							</a>
-						))}
-					</nav>
-				</div>
-			</footer>
-		</div>
-	</body>
-	<script>
-		const scrollToHash = () => {
-			if (!location.hash) return;
-			const target = document.querySelector(location.hash);
-			if (target) {
-				target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-			}
-		};
+    if (isMobile || isSlowConnection) {
+      // Prevenir que las transiciones se ejecuten
+      document.addEventListener(
+        'astro:before-preparation',
+        (e) => {
+          e.preventDefault();
+        },
+        { capture: true }
+      );
 
-		window.queueMicrotask(scrollToHash);
-		window.addEventListener('astro:after-swap', scrollToHash);
-		window.addEventListener('astro:page-load', scrollToHash);
-		
-		// Deshabilitar View Transitions en mobile y conexiones lentas
-		const isMobile = window.matchMedia('(max-width: 768px)').matches;
-		const isSlowConnection = (navigator as any).connection && 
-			((navigator as any).connection.effectiveType === 'slow-2g' || 
-			 (navigator as any).connection.effectiveType === '2g' || 
-			 (navigator as any).connection.effectiveType === '3g');
-		
-		if (isMobile || isSlowConnection) {
-			// Prevenir que las transiciones se ejecuten
-			document.addEventListener('astro:before-preparation', (e) => {
-				e.preventDefault();
-			}, { capture: true });
-			
-			// Fallback: si el evento no funciona, forzar navegación estándar
-			document.addEventListener('astro:page-load', () => {
-				document.documentElement.dataset.astroTransition = 'none';
-			});
-		}
-		
-		// Timeout de emergencia para evitar congelamientos
-		let transitionTimeout: ReturnType<typeof setTimeout> | undefined;
-		let pendingNavigationUrl: string | null = null;
-		let transitionStartTime: number = 0;
-		
-		document.addEventListener('astro:before-preparation', (e: any) => {
-			transitionStartTime = performance.now();
-			
-			// Guardar la URL de destino
-			pendingNavigationUrl = e.to?.href || e.newDocument?.location?.href;
-			
-			// Detectar si vamos HACIA /proyectos/ (desde home o desde un proyecto)
-			const currentPath = window.location.pathname;
-			const targetPath = new URL(pendingNavigationUrl || '').pathname;
-			const goingToProjectsList = targetPath === '/proyectos/' || targetPath === '/proyectos';
-			const comingFromHome = currentPath === '/' || currentPath === '';
-			const comingFromProjectDetail = currentPath.startsWith('/proyectos/') && currentPath !== '/proyectos/' && currentPath !== '/proyectos';
-			
-			// Si vamos a /proyectos/ desde el home O desde un proyecto individual
-			if (goingToProjectsList && !isMobile) {
-				// Inyectar CSS que simplifica las transiciones
-				const style = document.createElement('style');
-				style.id = 'temp-transition-override';
-				style.textContent = `
+      // Fallback: si el evento no funciona, forzar navegación estándar
+      document.addEventListener('astro:page-load', () => {
+        document.documentElement.dataset.astroTransition = 'none';
+      });
+    }
+
+    // Timeout de emergencia para evitar congelamientos
+    let transitionTimeout: ReturnType<typeof setTimeout> | undefined;
+    let pendingNavigationUrl: string | null = null;
+    let transitionStartTime: number = 0;
+
+    document.addEventListener('astro:before-preparation', (e: any) => {
+      transitionStartTime = performance.now();
+
+      // Guardar la URL de destino
+      pendingNavigationUrl = e.to?.href || e.newDocument?.location?.href;
+
+      // Detectar si vamos HACIA /proyectos/ (desde home o desde un proyecto)
+      const currentPath = window.location.pathname;
+      const targetPath = new URL(pendingNavigationUrl || '').pathname;
+      const goingToProjectsList = targetPath === '/proyectos/' || targetPath === '/proyectos';
+      const comingFromHome = currentPath === '/' || currentPath === '';
+      const comingFromProjectDetail =
+        currentPath.startsWith('/proyectos/') &&
+        currentPath !== '/proyectos/' &&
+        currentPath !== '/proyectos';
+
+      // Si vamos a /proyectos/ desde el home O desde un proyecto individual
+      if (goingToProjectsList && !isMobile) {
+        // Inyectar CSS que simplifica las transiciones
+        const style = document.createElement('style');
+        style.id = 'temp-transition-override';
+        style.textContent = `
 					/* Transición de página rápida con fondo consistente */
 					::view-transition-old(root),
 					::view-transition-new(root) {
@@ -258,7 +300,9 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 					}
 					
 					/* Solo animar títulos y techs suavemente desde home */
-					${comingFromHome ? `
+					${
+            comingFromHome
+              ? `
 						::view-transition-old(project-title),
 						::view-transition-new(project-title) {
 							animation-duration: 0.35s !important;
@@ -273,7 +317,8 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 						::view-transition-new(all-projects-title) {
 							animation-duration: 0.4s !important;
 						}
-					` : `
+					`
+              : `
 						/* Desde proyecto individual: todo instantáneo excepto botones */
 						::view-transition-old(project-card),
 						::view-transition-new(project-card),
@@ -285,7 +330,8 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 						::view-transition-new(project-techs) {
 							animation-duration: 0.05s !important;
 						}
-					`}
+					`
+          }
 					
 					/* Botón de navegación siempre animado */
 					::view-transition-old(back-to-home-button),
@@ -295,145 +341,147 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 						animation-duration: 0.35s !important;
 					}
 				`;
-				document.head.appendChild(style);
-				
-				// Remover el estilo después de la transición
-				setTimeout(() => {
-					document.getElementById('temp-transition-override')?.remove();
-				}, 650);
-			}
-			
-			// Determinar timeout según el tipo de navegación
-			let timeoutDuration = 800;
-			
-			if (goingToProjectsList) {
-				// Si viene desde un proyecto, ser más agresivo con el timeout
-				timeoutDuration = comingFromProjectDetail ? 500 : 600;
-			}
-			
-			// Si la transición tarda demasiado, navegar directamente
-			transitionTimeout = setTimeout(() => {
-				const elapsed = performance.now() - transitionStartTime;
-				console.warn(`Transición lenta detectada (${Math.round(elapsed)}ms), navegando directamente...`);
-				if (pendingNavigationUrl) {
-					window.location.href = pendingNavigationUrl;
-				}
-			}, timeoutDuration);
-		});
-		
-		document.addEventListener('astro:after-swap', () => {
-			const elapsed = performance.now() - transitionStartTime;
-			if (elapsed > 500) {
-				console.log(`Transición completada en ${Math.round(elapsed)}ms`);
-			}
-			clearTimeout(transitionTimeout);
-			pendingNavigationUrl = null;
-		});
-		
-		document.addEventListener('astro:page-load', () => {
-			clearTimeout(transitionTimeout);
-			pendingNavigationUrl = null;
-		});
-		
-		// Reinicializar tema ANTES de que se vea el swap
-		document.addEventListener('astro:before-swap', (e) => {
-			try {
-				const pref = localStorage.getItem('theme') || 'system';
-				const mq = window.matchMedia('(prefers-color-scheme: dark)');
-				const dark = pref === 'dark' || (pref === 'system' && mq.matches);
-				
-				// Aplicar tema al nuevo documento antes de mostrarlo
-				const newDoc = e.newDocument.documentElement;
-				if (dark) {
-					newDoc.classList.add('dark');
-					newDoc.classList.remove('light');
-				} else {
-					newDoc.classList.add('light');
-					newDoc.classList.remove('dark');
-				}
-				newDoc.dataset.theme = pref;
-			} catch (err) {}
-		});
-		
-		// Registrar Service Worker SOLO en producción (no en dev)
-		if ('serviceWorker' in navigator && import.meta.env.PROD) {
-			window.addEventListener('load', () => {
-				navigator.serviceWorker.register('/sw.js').catch(() => {
-					// Silenciosamente fallar si no se puede registrar
-				});
-			});
-		}
-		
-		// Prefetch inteligente SOLO en producción
-		if (import.meta.env.PROD) {
-			if (window.requestIdleCallback) {
-				window.requestIdleCallback(() => {
-					prefetchProjectPages();
-				});
-			} else {
-				setTimeout(() => {
-					prefetchProjectPages();
-				}, 2000);
-			}
-		}
-		
-		function prefetchProjectPages() {
-			// Obtener todos los links a proyectos
-			const projectLinks = document.querySelectorAll('a[href^="/proyectos/"]');
-			
-			projectLinks.forEach((link, index) => {
-				// Usar requestIdleCallback para no bloquear el thread principal
-				const prefetch = () => {
-					const url = link.getAttribute('href');
-					if (!url) return;
-					
-					// Crear un link prefetch
-					const linkEl = document.createElement('link');
-					linkEl.rel = 'prefetch';
-					linkEl.href = url;
-					document.head.appendChild(linkEl);
-				};
-				
-				// Escalonar los prefetch para no saturar
-				if (window.requestIdleCallback) {
-					window.requestIdleCallback(prefetch, { timeout: 2000 + (index * 100) });
-				} else {
-					setTimeout(prefetch, 2000 + (index * 100));
-				}
-			});
-		}
-	</script>
+        document.head.appendChild(style);
 
-	<!-- Script de animaciones on scroll -->
-	<script>
-		function initScrollAnimations() {
-			const animatedElements = document.querySelectorAll('.animate-on-scroll');
-			
-			if (!animatedElements.length) return;
-			
-			const observerOptions = {
-				threshold: 0.1,
-				rootMargin: '0px 0px -50px 0px'
-			};
-			
-			const observer = new IntersectionObserver((entries) => {
-				entries.forEach(entry => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add('animated');
-						observer.unobserve(entry.target);
-					}
-				});
-			}, observerOptions);
-			
-			animatedElements.forEach(el => observer.observe(el));
-		}
-		
-		// Inicializar en carga de página
-		document.addEventListener('astro:page-load', initScrollAnimations);
-		
-		// También ejecutar inmediatamente si no hay transiciones
-		if (document.readyState === 'complete') {
-			initScrollAnimations();
-		}
-	</script>
+        // Remover el estilo después de la transición
+        setTimeout(() => {
+          document.getElementById('temp-transition-override')?.remove();
+        }, 650);
+      }
+
+      // Determinar timeout según el tipo de navegación
+      let timeoutDuration = 800;
+
+      if (goingToProjectsList) {
+        // Si viene desde un proyecto, ser más agresivo con el timeout
+        timeoutDuration = comingFromProjectDetail ? 500 : 600;
+      }
+
+      // Si la transición tarda demasiado, navegar directamente
+      transitionTimeout = setTimeout(() => {
+        const elapsed = performance.now() - transitionStartTime;
+        console.warn(
+          `Transición lenta detectada (${Math.round(elapsed)}ms), navegando directamente...`
+        );
+        if (pendingNavigationUrl) {
+          window.location.href = pendingNavigationUrl;
+        }
+      }, timeoutDuration);
+    });
+
+    document.addEventListener('astro:after-swap', () => {
+      const elapsed = performance.now() - transitionStartTime;
+      if (elapsed > 500) {
+        console.log(`Transición completada en ${Math.round(elapsed)}ms`);
+      }
+      clearTimeout(transitionTimeout);
+      pendingNavigationUrl = null;
+    });
+
+    document.addEventListener('astro:page-load', () => {
+      clearTimeout(transitionTimeout);
+      pendingNavigationUrl = null;
+    });
+
+    // Reinicializar tema ANTES de que se vea el swap
+    document.addEventListener('astro:before-swap', (e) => {
+      try {
+        const pref = localStorage.getItem('theme') || 'system';
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        const dark = pref === 'dark' || (pref === 'system' && mq.matches);
+
+        // Aplicar tema al nuevo documento antes de mostrarlo
+        const newDoc = e.newDocument.documentElement;
+        if (dark) {
+          newDoc.classList.add('dark');
+          newDoc.classList.remove('light');
+        } else {
+          newDoc.classList.add('light');
+          newDoc.classList.remove('dark');
+        }
+        newDoc.dataset.theme = pref;
+      } catch (err) {}
+    });
+
+    // Registrar Service Worker SOLO en producción (no en dev)
+    if ('serviceWorker' in navigator && import.meta.env.PROD) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {
+          // Silenciosamente fallar si no se puede registrar
+        });
+      });
+    }
+
+    // Prefetch inteligente SOLO en producción
+    if (import.meta.env.PROD) {
+      if (window.requestIdleCallback) {
+        window.requestIdleCallback(() => {
+          prefetchProjectPages();
+        });
+      } else {
+        setTimeout(() => {
+          prefetchProjectPages();
+        }, 2000);
+      }
+    }
+
+    function prefetchProjectPages() {
+      // Obtener todos los links a proyectos
+      const projectLinks = document.querySelectorAll('a[href^="/proyectos/"]');
+
+      projectLinks.forEach((link, index) => {
+        // Usar requestIdleCallback para no bloquear el thread principal
+        const prefetch = () => {
+          const url = link.getAttribute('href');
+          if (!url) return;
+
+          // Crear un link prefetch
+          const linkEl = document.createElement('link');
+          linkEl.rel = 'prefetch';
+          linkEl.href = url;
+          document.head.appendChild(linkEl);
+        };
+
+        // Escalonar los prefetch para no saturar
+        if (window.requestIdleCallback) {
+          window.requestIdleCallback(prefetch, { timeout: 2000 + index * 100 });
+        } else {
+          setTimeout(prefetch, 2000 + index * 100);
+        }
+      });
+    }
+  </script>
+
+  <!-- Script de animaciones on scroll -->
+  <script>
+    function initScrollAnimations() {
+      const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+      if (!animatedElements.length) return;
+
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      animatedElements.forEach((el) => observer.observe(el));
+    }
+
+    // Inicializar en carga de página
+    document.addEventListener('astro:page-load', initScrollAnimations);
+
+    // También ejecutar inmediatamente si no hay transiciones
+    if (document.readyState === 'complete') {
+      initScrollAnimations();
+    }
+  </script>
 </html>

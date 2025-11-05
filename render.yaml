@@ -6,7 +6,6 @@ buildCommand: npm run build
 
 # Publish Directory (donde Astro genera el sitio estático)
 publishPath: dist
-
 # Headers personalizado (si Render lo soporta)
 # Los headers están en public/_headers
 

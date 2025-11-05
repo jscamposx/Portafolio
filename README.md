@@ -46,12 +46,12 @@ Sitio personal desarrollado con [Astro](https://astro.build) para presentar expe
 
 Todos los comandos se ejecutan desde la raíz del proyecto:
 
-| Comando         | Acción                                                    |
-| :-------------- | :-------------------------------------------------------- |
-| `npm install`   | Instala las dependencias                                  |
-| `npm run dev`   | Inicia el servidor de desarrollo en `http://localhost:4321` |
-| `npm run build` | Genera la versión de producción en `./dist/`              |
-| `npm run preview` | Previsualiza la build de producción                       |
+| Comando           | Acción                                                      |
+| :---------------- | :---------------------------------------------------------- |
+| `npm install`     | Instala las dependencias                                    |
+| `npm run dev`     | Inicia el servidor de desarrollo en `http://localhost:4321` |
+| `npm run build`   | Genera la versión de producción en `./dist/`                |
+| `npm run preview` | Previsualiza la build de producción                         |
 
 ## � Recursos
 

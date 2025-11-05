@@ -1,153 +1,160 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-	--color-bg-primary: #130b1e;
-	--color-bg-secondary: #1d112d;
-	--color-surface: #1f1630;
-	--color-surface-alt: rgba(255, 255, 255, 0.06);
-	--color-border: rgba(255, 255, 255, 0.1);
-	--color-text: #f5f3ff;
-	--color-text-muted: #c9c2db;
-	--color-heading: #ffffff;
-	--color-accent: #c084fc;
-	--color-accent-strong: #a855f7;
-	--accent-rgb: 192, 132, 252;
-	--color-initials: #1a0b2e;
-	/* Nuevos tokens para componentes acento */
-	--color-accent-chip-bg: linear-gradient(135deg,#2a183d 0%, #3a2152 100%);
-	--color-accent-chip-bg-hover: linear-gradient(135deg,#352050 0%, #442b63 100%);
-	--color-accent-chip-ring: rgba(192,132,252,0.55);
-	--color-accent-chip-ring-hover: rgba(192,132,252,0.75);
-	/* Surfaces específicas */
-	--nav-surface-bg: rgba(22,15,34,0.88);
-	--nav-surface-border: rgba(255,255,255,0.12);
-	--footer-bg: rgba(29,17,45,0.9);
-	--card-surface: rgba(19,11,30,0.85);
-	--pill-surface: rgba(29,17,45,0.9);
-	--pill-surface-hover: rgba(192,132,252,0.2);
+  --color-bg-primary: #130b1e;
+  --color-bg-secondary: #1d112d;
+  --color-surface: #1f1630;
+  --color-surface-alt: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-text: #f5f3ff;
+  --color-text-muted: #c9c2db;
+  --color-heading: #ffffff;
+  --color-accent: #c084fc;
+  --color-accent-strong: #a855f7;
+  --accent-rgb: 192, 132, 252;
+  --color-initials: #1a0b2e;
+  /* Nuevos tokens para componentes acento */
+  --color-accent-chip-bg: linear-gradient(135deg, #2a183d 0%, #3a2152 100%);
+  --color-accent-chip-bg-hover: linear-gradient(135deg, #352050 0%, #442b63 100%);
+  --color-accent-chip-ring: rgba(192, 132, 252, 0.55);
+  --color-accent-chip-ring-hover: rgba(192, 132, 252, 0.75);
+  /* Surfaces específicas */
+  --nav-surface-bg: rgba(22, 15, 34, 0.88);
+  --nav-surface-border: rgba(255, 255, 255, 0.12);
+  --footer-bg: rgba(29, 17, 45, 0.9);
+  --card-surface: rgba(19, 11, 30, 0.85);
+  --pill-surface: rgba(29, 17, 45, 0.9);
+  --pill-surface-hover: rgba(192, 132, 252, 0.2);
 }
 
 /* Modo claro: se aplica cuando NO hay clase .dark (preferencia light o system sin dark) */
 :root:not(.dark) {
-	--color-bg-primary: #fafbff;
-	--color-bg-secondary: #f3f4f9;
-	--color-surface: #ffffffdd;
-	--color-surface-alt: rgba(126,63,242,0.08);
-	--color-border: rgba(126,63,242,0.15);
-	--color-text: #2c2e3a;
-	--color-text-muted: #5a5d6e;
-	--color-heading: #1a1b26;
-	--color-accent: #7e3ff2;
-	--color-accent-strong: #6a2dd4;
-	--accent-rgb: 126, 63, 242;
-	--color-initials: #ffffff;
-	--color-accent-chip-bg: linear-gradient(135deg,#fdfbff 0%, #f5f0ff 100%);
-	--color-accent-chip-bg-hover: linear-gradient(135deg,#f9f6ff 0%, #ede4ff 100%);
-	--color-accent-chip-ring: rgba(126,63,242,0.35);
-	--color-accent-chip-ring-hover: rgba(126,63,242,0.55);
-	--nav-surface-bg: rgba(255,255,255,0.92);
-	--nav-surface-border: rgba(126,63,242,0.18);
-	--footer-bg: rgba(255,255,255,0.92);
-	--card-surface: rgba(255,255,255,0.92);
-	--pill-surface: rgba(252,250,255,0.95);
-	--pill-surface-hover: rgba(126,63,242,0.12);
+  --color-bg-primary: #fafbff;
+  --color-bg-secondary: #f3f4f9;
+  --color-surface: #ffffffdd;
+  --color-surface-alt: rgba(126, 63, 242, 0.08);
+  --color-border: rgba(126, 63, 242, 0.15);
+  --color-text: #2c2e3a;
+  --color-text-muted: #5a5d6e;
+  --color-heading: #1a1b26;
+  --color-accent: #7e3ff2;
+  --color-accent-strong: #6a2dd4;
+  --accent-rgb: 126, 63, 242;
+  --color-initials: #ffffff;
+  --color-accent-chip-bg: linear-gradient(135deg, #fdfbff 0%, #f5f0ff 100%);
+  --color-accent-chip-bg-hover: linear-gradient(135deg, #f9f6ff 0%, #ede4ff 100%);
+  --color-accent-chip-ring: rgba(126, 63, 242, 0.35);
+  --color-accent-chip-ring-hover: rgba(126, 63, 242, 0.55);
+  --nav-surface-bg: rgba(255, 255, 255, 0.92);
+  --nav-surface-border: rgba(126, 63, 242, 0.18);
+  --footer-bg: rgba(255, 255, 255, 0.92);
+  --card-surface: rgba(255, 255, 255, 0.92);
+  --pill-surface: rgba(252, 250, 255, 0.95);
+  --pill-surface-hover: rgba(126, 63, 242, 0.12);
 }
 
 /* Ajustes específicos light para degradado de fondo */
 :root:not(.dark) body {
-	background: radial-gradient(circle at top left, rgba(126,63,242,0.12), transparent 60%),
-		radial-gradient(circle at bottom right, rgba(168,85,247,0.15), transparent 60%),
-		var(--color-bg-primary);
+  background:
+    radial-gradient(circle at top left, rgba(126, 63, 242, 0.12), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.15), transparent 60%),
+    var(--color-bg-primary);
 }
 
 /* Transición suave de tema (se habilita tras aplicar tema inicial) */
 .theme-transition * {
-	transition: background-color .35s ease, color .35s ease, border-color .35s ease, fill .35s ease, stroke .35s ease;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    fill 0.35s ease,
+    stroke 0.35s ease;
 }
 
 /* Prevenir parpadeo blanco durante view transitions */
 html {
-	background-color: var(--color-bg-primary);
+  background-color: var(--color-bg-primary);
 }
 
 body {
-	background: radial-gradient(circle at top left, rgba(192, 132, 252, 0.18), transparent 55%),
-		radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.12), transparent 55%),
-		var(--color-bg-primary);
-	color: var(--color-text);
-	scroll-behavior: smooth;
+  background:
+    radial-gradient(circle at top left, rgba(192, 132, 252, 0.18), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.12), transparent 55%),
+    var(--color-bg-primary);
+  color: var(--color-text);
+  scroll-behavior: smooth;
 }
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-	animation: none;
-	mix-blend-mode: normal;
-	background-color: var(--color-bg-primary);
+  animation: none;
+  mix-blend-mode: normal;
+  background-color: var(--color-bg-primary);
 }
 
 /* Optimización de transiciones de imágenes - Más rápidas para evitar congelamientos */
 ::view-transition-old(project-image),
 ::view-transition-new(project-image) {
-	animation-duration: 0.45s;
-	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-	overflow: hidden;
-	backface-visibility: hidden;
-	transform: translateZ(0);
-	object-fit: cover;
-	width: 100%;
-	height: 100%;
-	image-rendering: auto;
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	position: relative;
-	mix-blend-mode: normal;
-	opacity: 1;
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  position: relative;
+  mix-blend-mode: normal;
+  opacity: 1;
 }
 
 /* Asegurar que la imagen se mantenga en su lugar durante transición */
 ::view-transition-group(project-image) {
-	animation-duration: 0.45s;
-	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-	overflow: visible;
-	contain: layout;
-	isolation: isolate;
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: visible;
+  contain: layout;
+  isolation: isolate;
 }
 
 /* Mantener imágenes visibles durante transiciones - sin fade */
 ::view-transition-image-pair(project-image) {
-	isolation: isolate;
-	mix-blend-mode: normal;
+  isolation: isolate;
+  mix-blend-mode: normal;
 }
 
 /* Prevenir parpadeo blanco en las imágenes */
 ::view-transition-old(project-image)::before,
 ::view-transition-new(project-image)::before {
-	background: transparent;
+  background: transparent;
 }
 
 /* Deshabilitar animación de fade por defecto en imágenes */
 ::view-transition-old(project-image) {
-	animation: none;
-	opacity: 1;
+  animation: none;
+  opacity: 1;
 }
 
 ::view-transition-new(project-image) {
-	animation: none;
-	opacity: 1;
+  animation: none;
+  opacity: 1;
 }
 
 /* Solo animar la transformación/posición del grupo */
 ::view-transition-group(project-image) {
-	animation-name: view-transition-fade;
+  animation-name: view-transition-fade;
 }
 
 @keyframes view-transition-fade {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 1;
-	}
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Transiciones optimizadas para navegación home ↔ /proyectos/ */
@@ -157,15 +164,15 @@ body {
 ::view-transition-new(all-projects-title),
 ::view-transition-old(back-to-home-button),
 ::view-transition-new(back-to-home-button) {
-	animation-duration: 0.4s;
-	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* Cards individuales con transición rápida (solo para /proyectos/ → detalle) */
 ::view-transition-old(project-card),
 ::view-transition-new(project-card) {
-	animation-duration: 0.35s !important;
-	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  animation-duration: 0.35s !important;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* Transiciones suaves para el título y tecnologías */
@@ -173,514 +180,586 @@ body {
 ::view-transition-new(project-title),
 ::view-transition-old(project-techs),
 ::view-transition-new(project-techs) {
-	animation-duration: 0.4s;
-	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* Prevenir parpadeos durante la transición */
 ::view-transition-group(*) {
-	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-	mix-blend-mode: normal;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  mix-blend-mode: normal;
 }
 
 /* Asegurar que el root no tenga animaciones extrañas */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-	animation-duration: 0.4s;
-	mix-blend-mode: normal;
+  animation-duration: 0.4s;
+  mix-blend-mode: normal;
 }
 
 /* Optimizar renderizado de imágenes */
 img[transition\:name] {
-	will-change: auto;
-	content-visibility: auto;
-	backface-visibility: hidden;
-	-webkit-backface-visibility: hidden;
-	transform: translateZ(0);
+  will-change: auto;
+  content-visibility: auto;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* Activar GPU solo durante hover en desktop */
 @media (min-width: 769px) {
-	img[transition\:name]:hover {
-		will-change: transform;
-	}
+  img[transition\:name]:hover {
+    will-change: transform;
+  }
 }
 
 /* Optimizar artículos de proyectos en mobile */
 @media (max-width: 768px) {
-	article {
-		content-visibility: auto;
-		contain-intrinsic-size: auto 500px;
-	}
+  article {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
 }
 
 /* Optimizaciones específicas para móvil - DESHABILITAR transiciones para mejor rendimiento */
 @media (max-width: 768px) {
-	/* Desactivar completamente View Transitions en mobile para navegación instantánea */
-	::view-transition-group(*),
-	::view-transition-old(*),
-	::view-transition-new(*) {
-		animation: none !important;
-		animation-duration: 0s !important;
-	}
-	
-	/* Reducir trabajo de GPU en mobile */
-	img[transition\:name] {
-		will-change: auto;
-	}
-	
-	/* Simplificar transiciones hover en mobile */
-	.group:hover img {
-		transform: none !important;
-	}
+  /* Desactivar completamente View Transitions en mobile para navegación instantánea */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+    animation-duration: 0s !important;
+  }
+
+  /* Reducir trabajo de GPU en mobile */
+  img[transition\:name] {
+    will-change: auto;
+  }
+
+  /* Simplificar transiciones hover en mobile */
+  .group:hover img {
+    transform: none !important;
+  }
 }
 
 /* Respetar preferencias de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
-	::view-transition-group(*),
-	::view-transition-old(*),
-	::view-transition-new(*) {
-		animation-duration: 0.01ms !important;
-	}
-	
-	.animate-on-scroll,
-	.hover-lift {
-		animation: none !important;
-		transition: none !important;
-	}
-	
-	.animate-on-scroll {
-		opacity: 1 !important;
-		transform: none !important;
-	}
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+  }
+
+  .animate-on-scroll,
+  .hover-lift {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .animate-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* Espacio para anclas bajo navbar fija */
-section[id] { scroll-margin-top: 120px; }
+section[id] {
+  scroll-margin-top: 120px;
+}
 
 /* Menu de temas abierto */
-#themes-menu.open { display: block; animation: fadeIn 120ms ease-out; }
+#themes-menu.open {
+  display: block;
+  animation: fadeIn 120ms ease-out;
+}
 
 /* Estilos del menú de temas en modo oscuro */
 .dark #themes-menu {
-	box-shadow: 0 8px 24px -6px rgba(0,0,0,0.6),
-	            0 0 0 1px rgba(255,255,255,0.08);
+  box-shadow:
+    0 8px 24px -6px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 /* Estilos del menú de temas en modo claro */
 :root:not(.dark) #themes-menu {
-	box-shadow: 0 4px 20px -4px rgba(126,63,242,0.15),
-	            0 8px 32px -8px rgba(0,0,0,0.1),
-	            0 0 0 1px rgba(126,63,242,0.12);
+  box-shadow:
+    0 4px 20px -4px rgba(126, 63, 242, 0.15),
+    0 8px 32px -8px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(126, 63, 242, 0.12);
 }
 
 #themes-menu .themes-menu-option.active {
-	background: var(--color-surface-alt);
-	position: relative;
-	font-weight: 600;
-	color: var(--color-accent);
+  background: var(--color-surface-alt);
+  position: relative;
+  font-weight: 600;
+  color: var(--color-accent);
 }
 
 /* Indicador de opción activa en modo claro */
 :root:not(.dark) #themes-menu .themes-menu-option.active {
-	background: rgba(126,63,242,0.1);
-	color: var(--color-accent);
+  background: rgba(126, 63, 242, 0.1);
+  color: var(--color-accent);
 }
 
 #themes-menu .themes-menu-option.active::after {
-	content: '✓';
-	position: absolute;
-	right: 10px;
-	top: 50%;
-	transform: translateY(-50%);
-	font-size: 0.75rem;
-	font-weight: 700;
-	color: var(--color-accent);
+  content: '✓';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent);
 }
 
-@keyframes fadeIn { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
 /* Animación para el borde del chip de disponibilidad */
 @keyframes spin {
-	from { transform: rotate(0deg); }
-	to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Borde giratorio del chip de disponibilidad */
 .spinning-border {
-	background: conic-gradient(
-		from 90deg at 50% 50%, 
-		#a855f7 0%, 
-		#7c3aed 15%, 
-		#4c1d95 30%, 
-		transparent 45%,
-		transparent 55%,
-		#4c1d95 70%,
-		#7c3aed 85%,
-		#a855f7 100%
-	);
-	animation: spin 2s linear infinite;
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    #a855f7 0%,
+    #7c3aed 15%,
+    #4c1d95 30%,
+    transparent 45%,
+    transparent 55%,
+    #4c1d95 70%,
+    #7c3aed 85%,
+    #a855f7 100%
+  );
+  animation: spin 2s linear infinite;
 }
 
 /* === ANIMACIONES DE ENTRADA === */
 @keyframes fadeInUp {
-	from {
-		opacity: 0;
-		transform: translateY(30px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeInLeft {
-	from {
-		opacity: 0;
-		transform: translateX(-30px);
-	}
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes fadeInRight {
-	from {
-		opacity: 0;
-		transform: translateX(30px);
-	}
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes scaleIn {
-	from {
-		opacity: 0;
-		transform: scale(0.9);
-	}
-	to {
-		opacity: 1;
-		transform: scale(1);
-	}
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Clases para animaciones */
 .animate-on-scroll {
-	opacity: 0;
+  opacity: 0;
 }
 
 .animate-on-scroll.animated {
-	animation-duration: 0.6s;
-	animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-	animation-fill-mode: both;
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: both;
 }
 
 .fade-in-up {
-	animation-name: fadeInUp;
+  animation-name: fadeInUp;
 }
 
 .fade-in-left {
-	animation-name: fadeInLeft;
+  animation-name: fadeInLeft;
 }
 
 .fade-in-right {
-	animation-name: fadeInRight;
+  animation-name: fadeInRight;
 }
 
 .scale-in {
-	animation-name: scaleIn;
+  animation-name: scaleIn;
 }
 
 /* Delays para efectos escalonados */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
 
 /* Micro-interacciones suaves */
 .hover-lift {
-	transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-	            box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition:
+    transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .hover-lift:hover {
-	transform: translateY(-4px);
+  transform: translateY(-4px);
 }
 
 /* Animaciones para iconos en hover */
 .icon-bounce {
-	transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .icon-bounce:hover {
-	transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .icon-wiggle {
-	transition: transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .icon-wiggle:hover {
-	animation: wiggle 0.5s ease-in-out;
+  animation: wiggle 0.5s ease-in-out;
 }
 
 @keyframes wiggle {
-	0%, 100% { transform: rotate(0deg); }
-	25% { transform: rotate(-5deg); }
-	75% { transform: rotate(5deg); }
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
 }
 
 .icon-pulse {
-	transition: transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .icon-pulse:hover {
-	animation: pulse 0.6s ease-in-out;
+  animation: pulse 0.6s ease-in-out;
 }
 
 @keyframes pulse {
-	0%, 100% { transform: scale(1); }
-	50% { transform: scale(1.1); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .icon-rotate {
-	transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .icon-rotate:hover {
-	transform: rotate(15deg) scale(1.05);
+  transform: rotate(15deg) scale(1.05);
 }
 
 /* Animación para chips de tecnología */
 @keyframes pulse-border {
-	0%, 100% {
-		border-color: var(--color-border);
-	}
-	50% {
-		border-color: rgba(192, 132, 252, 0.4);
-	}
+  0%,
+  100% {
+    border-color: var(--color-border);
+  }
+  50% {
+    border-color: rgba(192, 132, 252, 0.4);
+  }
 }
 
 /* Efecto glow para botones principales */
 .btn-glow {
-	position: relative;
-	overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-glow::before {
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 0;
-	height: 0;
-	border-radius: 50%;
-	background: rgba(192, 132, 252, 0.3);
-	transform: translate(-50%, -50%);
-	transition: width 0.6s, height 0.6s;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(192, 132, 252, 0.3);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.6s,
+    height 0.6s;
 }
 
 .btn-glow:hover::before {
-	width: 300px;
-	height: 300px;
+  width: 300px;
+  height: 300px;
 }
 
 /* Efecto shimmer para elementos destacados */
 @keyframes shimmer {
-	0% {
-		background-position: -1000px 0;
-	}
-	100% {
-		background-position: 1000px 0;
-	}
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
 }
 
 .shimmer {
-	background: linear-gradient(
-		90deg,
-		transparent,
-		rgba(192, 132, 252, 0.1),
-		transparent
-	);
-	background-size: 1000px 100%;
-	animation: shimmer 3s infinite;
+  background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.1), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
 }
 
 /* Animación de flotación suave */
 @keyframes float {
-	0%, 100% {
-		transform: translateY(0px);
-	}
-	50% {
-		transform: translateY(-6px);
-	}
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 .float-animation {
-	animation: float 3s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite;
 }
 
 /* Respeto a prefers-reduced-motion para animaciones continuas */
 @media (prefers-reduced-motion: reduce) {
-	.float-animation,
-	.badge-availability {
-		animation: none !important;
-	}
+  .float-animation,
+  .badge-availability {
+    animation: none !important;
+  }
 }
 
 /* Estado activo de link en modo oscuro */
 .dark header nav a.nav-active {
-	color: var(--color-text);
-	background: rgba(255,255,255,0.09);
-	font-weight: 600;
-	box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 
-	            0 2px 8px -2px rgba(192,132,252,0.3),
-	            0 0 12px -4px rgba(192,132,252,0.2) inset;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.09);
+  font-weight: 600;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 2px 8px -2px rgba(192, 132, 252, 0.3),
+    0 0 12px -4px rgba(192, 132, 252, 0.2) inset;
 }
 
 /* Estado activo de link en modo claro */
 :root:not(.dark) header nav a.nav-active {
-	color: var(--color-accent);
-	background: rgba(126,63,242,0.08);
-	font-weight: 600;
-	box-shadow: 0 0 0 1px rgba(126,63,242,0.15), 
-	            0 2px 6px -2px rgba(126,63,242,0.15),
-	            0 0 8px -2px rgba(126,63,242,0.1) inset;
+  color: var(--color-accent);
+  background: rgba(126, 63, 242, 0.08);
+  font-weight: 600;
+  box-shadow:
+    0 0 0 1px rgba(126, 63, 242, 0.15),
+    0 2px 6px -2px rgba(126, 63, 242, 0.15),
+    0 0 8px -2px rgba(126, 63, 242, 0.1) inset;
 }
 
 /* Hover mejorado para links en modo claro */
 :root:not(.dark) header nav a.nav-link:hover:not(.nav-active) {
-	color: var(--color-accent);
-	background: rgba(126,63,242,0.05);
+  color: var(--color-accent);
+  background: rgba(126, 63, 242, 0.05);
 }
 
 /* Ocultar scrollbar en navegación móvil */
 .scrollbar-hide {
-	-ms-overflow-style: none;
-	scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .scrollbar-hide::-webkit-scrollbar {
-	display: none;
+  display: none;
 }
 
 /* Ajustes móviles para navbar */
 @media (max-width: 640px) {
-	header nav {
-		max-width: calc(100vw - 1rem);
-	}
-	
-	header nav a.nav-link {
-		min-width: fit-content;
-	}
+  header nav {
+    max-width: calc(100vw - 1rem);
+  }
+
+  header nav a.nav-link {
+    min-width: fit-content;
+  }
 }
 
 /* Títulos con color adaptable */
-h1, h2, h3, h4, h5, h6 {
-	color: var(--color-heading);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-heading);
 }
 
 /* Override para títulos explícitamente blancos en modo oscuro */
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-	color: #ffffff;
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: #ffffff;
 }
 
 /* Pero en modo claro usamos el color de heading */
-:root:not(.dark) h1, 
-:root:not(.dark) h2, 
-:root:not(.dark) h3, 
-:root:not(.dark) h4, 
-:root:not(.dark) h5, 
+:root:not(.dark) h1,
+:root:not(.dark) h2,
+:root:not(.dark) h3,
+:root:not(.dark) h4,
+:root:not(.dark) h5,
 :root:not(.dark) h6 {
-	color: var(--color-heading);
+  color: var(--color-heading);
 }
 
 /* Navbar simplificada: transparente sobre hero, sólida fuera */
 header .nav-surface {
-	background: var(--nav-surface-bg);
-	border: 1px solid var(--nav-surface-border);
-	box-shadow: 0 6px 22px -8px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
-	backdrop-filter: blur(18px) saturate(160%);
-	transition: background .35s ease, border-color .35s ease, box-shadow .35s ease;
+  background: var(--nav-surface-bg);
+  border: 1px solid var(--nav-surface-border);
+  box-shadow:
+    0 6px 22px -8px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px) saturate(160%);
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 /* Navbar en modo claro - más definición y mejor contraste (después del hero) */
 :root:not(.dark) header .nav-surface {
-	background: var(--nav-surface-bg);
-	border: 1px solid var(--nav-surface-border);
-	box-shadow: 0 2px 8px -2px rgba(126,63,242,0.12), 
-	            0 4px 16px -4px rgba(0,0,0,0.06),
-	            0 0 0 1px rgba(126,63,242,0.08);
-	backdrop-filter: blur(20px) saturate(180%);
+  background: var(--nav-surface-bg);
+  border: 1px solid var(--nav-surface-border);
+  box-shadow:
+    0 2px 8px -2px rgba(126, 63, 242, 0.12),
+    0 4px 16px -4px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(126, 63, 242, 0.08);
+  backdrop-filter: blur(20px) saturate(180%);
 }
 
 /* Navbar sobre hero en modo claro - sin bordes ni sombras, solo fondo y blur */
 :root:not(.dark) header.nav-over-hero .nav-surface {
-	background: transparent;
-	border: 1px solid transparent;
-	box-shadow: none;
-	backdrop-filter: blur(20px) saturate(180%);
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  backdrop-filter: blur(20px) saturate(180%);
 }
 
 /* Navbar sobre hero en modo oscuro - transparente */
 header.nav-over-hero .nav-surface {
-	background: transparent;
-	border: none;
-	box-shadow: none;
-	backdrop-filter: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
 }
-header.nav-over-hero { margin-top: .25rem; }
+header.nav-over-hero {
+  margin-top: 0.25rem;
+}
 
 /* Badge disponibilidad (chip accesible con mejor contraste) */
 .badge-availability {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	padding: 0.25rem 0.6rem; /* Reducido para mobile */
-	font-size: 0.7rem; /* text-xs */
-	line-height: 1rem;
-	letter-spacing: .05em; /* tracking-wide */
-	font-weight: 500; /* font-medium */
-	border-radius: 9999px; /* rounded-full */
-	cursor: pointer;
-	white-space: nowrap;
-	user-select: none;
-	backdrop-filter: blur(28px);
-	background: var(--color-accent-chip-bg);
-	color: var(--color-text);
-	border: 1px solid var(--color-accent-chip-ring);
-	/* Glow sutil y definición */
-	box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 4px 10px -4px rgba(0,0,0,0.6), 0 0 0 1px rgba(168,85,247,0.15) inset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.25rem 0.6rem; /* Reducido para mobile */
+  font-size: 0.7rem; /* text-xs */
+  line-height: 1rem;
+  letter-spacing: 0.05em; /* tracking-wide */
+  font-weight: 500; /* font-medium */
+  border-radius: 9999px; /* rounded-full */
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  backdrop-filter: blur(28px);
+  background: var(--color-accent-chip-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-accent-chip-ring);
+  /* Glow sutil y definición */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 4px 10px -4px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(168, 85, 247, 0.15) inset;
 }
 
 @media (min-width: 640px) {
-	.badge-availability {
-		padding: 0.25rem 0.75rem;
-		font-size: 0.75rem;
-	}
+  .badge-availability {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+  }
 }
 
 /* Footer surface adaptativa */
-footer { background: var(--footer-bg); }
+footer {
+  background: var(--footer-bg);
+}
 
 /* Clases utilitarias para superficies (pueden reemplazar inline bg-[] existentes gradualmente) */
-.surface-card { background: var(--card-surface); }
-.surface-pill { background: var(--pill-surface); }
-.surface-pill:hover, .surface-pill-hover:hover { background: var(--pill-surface-hover); }
+.surface-card {
+  background: var(--card-surface);
+}
+.surface-pill {
+  background: var(--pill-surface);
+}
+.surface-pill:hover,
+.surface-pill-hover:hover {
+  background: var(--pill-surface-hover);
+}
 
 /* Marco neutro para imágenes sin ningún tinte */
 .image-frame {
-	background: transparent !important;
-	box-shadow: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 /* Optimización de imágenes para view transitions */
 img[transition\:name] {
-	will-change: transform;
-	content-visibility: auto;
+  will-change: transform;
+  content-visibility: auto;
 }
 
 /* Eliminamos estilos de hover y active para mantener el badge estático */
