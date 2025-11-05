@@ -16,7 +16,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'viadca',
-    title: 'Viadca',
+    title: 'Viadca - Aplicación web de viajes',
     description: 'Landing y dashboard para crear y gestionar paquetes de viaje, optimizando planificación y operación en una plataforma moderna y escalable.',
     year: 2025,
     client: 'Viadca',
@@ -57,7 +57,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'yola',
-    title: 'Yola',
+    title: 'Yola - Aplicación web de comida',
     description: 'Plataforma de comercio electrónico para restaurante con gestión de platillos, usuarios, eventos y sistema de pagos.',
     year: 2024,
     client: 'Yola',
