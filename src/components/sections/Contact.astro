@@ -268,10 +268,11 @@ const contact = {
       <!-- Toast de notificación -->
       <div
         id="toast-notification"
-        class="fixed top-4 right-4 z-[10000] hidden max-w-sm w-full sm:w-auto"
+        class="fixed top-4 right-4 z-[10000] max-w-sm w-full sm:w-auto pointer-events-none"
+        style="transform: translateX(400px); opacity: 0; transition: all 0.5s ease-out;"
       >
         <div
-          class="flex items-start gap-3 p-4 rounded-xl shadow-2xl backdrop-blur-xl border transition-all duration-500 transform"
+          class="flex items-start gap-3 p-4 rounded-xl shadow-2xl backdrop-blur-xl border pointer-events-auto"
           id="toast-content"
         >
           <div class="flex-shrink-0" id="toast-icon"></div>
@@ -366,13 +367,17 @@ const contact = {
 
       if (!toast || !toastContent || !toastIcon || !toastTitle || !toastMessage) {
         console.error('Toast elements not found');
+        // Fallback: usar alert
+        alert(message);
         return;
       }
+
+      console.log('Showing toast:', type, message);
 
       // Configurar según el tipo
       if (type === 'success') {
         toastContent.className =
-          'flex items-start gap-3 p-4 rounded-xl shadow-2xl backdrop-blur-xl border border-green-500/30 bg-green-500/10 text-green-600 transition-all duration-500 transform';
+          'flex items-start gap-3 p-4 rounded-xl shadow-2xl backdrop-blur-xl border border-green-500/30 bg-green-500/10 text-green-600 pointer-events-auto';
         toastIcon.innerHTML = `
           <div class="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -384,7 +389,7 @@ const contact = {
         toastMessage.textContent = message;
       } else {
         toastContent.className =
-          'flex items-start gap-3 p-4 rounded-xl shadow-2xl backdrop-blur-xl border border-red-500/30 bg-red-500/10 text-red-600 transition-all duration-500 transform';
+          'flex items-start gap-3 p-4 rounded-xl shadow-2xl backdrop-blur-xl border border-red-500/30 bg-red-500/10 text-red-600 pointer-events-auto';
         toastIcon.innerHTML = `
           <div class="w-8 h-8 rounded-lg bg-red-500 flex items-center justify-center flex-shrink-0">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -396,31 +401,27 @@ const contact = {
         toastMessage.textContent = message;
       }
 
-      // Mostrar toast con animación
-      toast.classList.remove('hidden');
-      requestAnimationFrame(() => {
-        toastContent.style.transform = 'translateX(0)';
-        toastContent.style.opacity = '1';
-      });
+      // Mostrar toast con animación usando estilos inline
+      toast.style.transform = 'translateX(0)';
+      toast.style.opacity = '1';
+
+      // Función para cerrar el toast
+      const closeToast = () => {
+        toast.style.transform = 'translateX(400px)';
+        toast.style.opacity = '0';
+      };
 
       // Cerrar automáticamente después de 5 segundos
       const autoCloseTimeout = setTimeout(() => {
         closeToast();
       }, 5000);
 
-      // Función para cerrar el toast
-      const closeToast = () => {
-        toastContent.style.transform = 'translateX(100%)';
-        toastContent.style.opacity = '0';
-        setTimeout(() => {
-          toast.classList.add('hidden');
-        }, 500);
-        clearTimeout(autoCloseTimeout);
-      };
-
       // Botón de cerrar
       if (toastClose) {
-        toastClose.onclick = closeToast;
+        toastClose.onclick = () => {
+          closeToast();
+          clearTimeout(autoCloseTimeout);
+        };
       }
     }
 
@@ -525,34 +526,13 @@ const contact = {
     animation: spin 1s linear infinite;
   }
 
-  /* Animación del toast */
-  #toast-notification {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-
-  #toast-notification:not(.hidden) #toast-content {
-    animation: slideInFromRight 0.5s ease-out forwards;
-  }
-
-  @keyframes slideInFromRight {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
   /* Responsive para el toast */
   @media (max-width: 640px) {
     #toast-notification {
-      left: 1rem;
-      right: 1rem;
-      top: 1rem;
-      max-width: calc(100% - 2rem);
+      left: 1rem !important;
+      right: 1rem !important;
+      top: 1rem !important;
+      max-width: calc(100% - 2rem) !important;
     }
   }
 </style>
