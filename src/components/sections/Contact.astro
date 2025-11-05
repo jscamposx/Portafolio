@@ -301,184 +301,190 @@ const contact = {
 </section>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
-  const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
-  const submitText = submitBtn?.querySelector('.submit-text') as HTMLElement;
-  const loadingSpinner = submitBtn?.querySelector('.loading-spinner') as HTMLElement;
-  const formMessage = document.getElementById('form-message') as HTMLElement;
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const submitText = submitBtn?.querySelector('.submit-text') as HTMLElement;
+    const loadingSpinner = submitBtn?.querySelector('.loading-spinner') as HTMLElement;
 
-  // Validación en tiempo real
-  const inputs = form?.querySelectorAll('input, textarea');
-  inputs?.forEach((input) => {
-    input.addEventListener('blur', () =>
-      validateField(input as HTMLInputElement | HTMLTextAreaElement)
-    );
-    input.addEventListener('input', () => {
-      const errorMsg = input.parentElement?.querySelector('.error-message');
-      if (errorMsg && !errorMsg.classList.contains('hidden')) {
-        validateField(input as HTMLInputElement | HTMLTextAreaElement);
-      }
+    if (!form || !submitBtn) return;
+
+    // Validación en tiempo real
+    const inputs = form.querySelectorAll('input, textarea');
+    inputs.forEach((input) => {
+      input.addEventListener('blur', () =>
+        validateField(input as HTMLInputElement | HTMLTextAreaElement)
+      );
+      input.addEventListener('input', () => {
+        const errorMsg = input.parentElement?.querySelector('.error-message');
+        if (errorMsg && !errorMsg.classList.contains('hidden')) {
+          validateField(input as HTMLInputElement | HTMLTextAreaElement);
+        }
+      });
     });
-  });
 
-  function validateField(field: HTMLInputElement | HTMLTextAreaElement): boolean {
-    const errorMsg = field.parentElement?.querySelector('.error-message') as HTMLElement;
-    let isValid = true;
-    let message = '';
+    function validateField(field: HTMLInputElement | HTMLTextAreaElement): boolean {
+      const errorMsg = field.parentElement?.querySelector('.error-message') as HTMLElement;
+      let isValid = true;
+      let message = '';
 
-    if (field.hasAttribute('required') && !field.value.trim()) {
-      isValid = false;
-      message = 'Este campo es obligatorio';
-    } else if (field.type === 'email' && field.value) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(field.value)) {
+      if (field.hasAttribute('required') && !field.value.trim()) {
         isValid = false;
-        message = 'Por favor, introduce un email válido';
+        message = 'Este campo es obligatorio';
+      } else if (field.type === 'email' && field.value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(field.value)) {
+          isValid = false;
+          message = 'Por favor, introduce un email válido';
+        }
+      } else if (field.id === 'message' && field.value.trim().length < 10) {
+        isValid = false;
+        message = 'El mensaje debe tener al menos 10 caracteres';
       }
-    } else if (field.id === 'message' && field.value.trim().length < 10) {
-      isValid = false;
-      message = 'El mensaje debe tener al menos 10 caracteres';
+
+      if (errorMsg) {
+        if (isValid) {
+          errorMsg.classList.add('hidden');
+          field.classList.remove('!border-red-500');
+        } else {
+          errorMsg.textContent = message;
+          errorMsg.classList.remove('hidden');
+          field.classList.add('!border-red-500');
+        }
+      }
+
+      return isValid;
     }
 
-    if (errorMsg) {
-      if (isValid) {
-        errorMsg.classList.add('hidden');
-        field.classList.remove('!border-red-500');
+    function showMessage(message: string, type: 'success' | 'error') {
+      const toast = document.getElementById('toast-notification');
+      const toastContent = document.getElementById('toast-content');
+      const toastIcon = document.getElementById('toast-icon');
+      const toastTitle = document.getElementById('toast-title');
+      const toastMessage = document.getElementById('toast-message');
+      const toastClose = document.getElementById('toast-close');
+
+      if (!toast || !toastContent || !toastIcon || !toastTitle || !toastMessage) {
+        console.error('Toast elements not found');
+        return;
+      }
+
+      // Configurar según el tipo
+      if (type === 'success') {
+        toastContent.className =
+          'flex items-start gap-3 p-4 rounded-xl shadow-2xl backdrop-blur-xl border border-green-500/30 bg-green-500/10 text-green-600 transition-all duration-500 transform';
+        toastIcon.innerHTML = `
+          <div class="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+        `;
+        toastTitle.textContent = '¡Mensaje enviado!';
+        toastMessage.textContent = message;
       } else {
-        errorMsg.textContent = message;
-        errorMsg.classList.remove('hidden');
-        field.classList.add('!border-red-500');
+        toastContent.className =
+          'flex items-start gap-3 p-4 rounded-xl shadow-2xl backdrop-blur-xl border border-red-500/30 bg-red-500/10 text-red-600 transition-all duration-500 transform';
+        toastIcon.innerHTML = `
+          <div class="w-8 h-8 rounded-lg bg-red-500 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </div>
+        `;
+        toastTitle.textContent = 'Error al enviar';
+        toastMessage.textContent = message;
       }
-    }
 
-    return isValid;
-  }
-
-  function showMessage(message: string, type: 'success' | 'error') {
-    const toast = document.getElementById('toast-notification');
-    const toastContent = document.getElementById('toast-content');
-    const toastIcon = document.getElementById('toast-icon');
-    const toastTitle = document.getElementById('toast-title');
-    const toastMessage = document.getElementById('toast-message');
-    const toastClose = document.getElementById('toast-close');
-
-    if (!toast || !toastContent || !toastIcon || !toastTitle || !toastMessage) return;
-
-    // Configurar según el tipo
-    if (type === 'success') {
-      toastContent.className =
-        'flex items-start gap-3 p-4 rounded-xl shadow-2xl backdrop-blur-xl border border-green-500/30 bg-green-500/10 text-green-600 transition-all duration-500 transform';
-      toastIcon.innerHTML = `
-        <div class="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-        </div>
-      `;
-      toastTitle.textContent = '¡Mensaje enviado!';
-      toastMessage.textContent = message;
-    } else {
-      toastContent.className =
-        'flex items-start gap-3 p-4 rounded-xl shadow-2xl backdrop-blur-xl border border-red-500/30 bg-red-500/10 text-red-600 transition-all duration-500 transform';
-      toastIcon.innerHTML = `
-        <div class="w-8 h-8 rounded-lg bg-red-500 flex items-center justify-center flex-shrink-0">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </div>
-      `;
-      toastTitle.textContent = 'Error al enviar';
-      toastMessage.textContent = message;
-    }
-
-    // Mostrar toast con animación
-    toast.classList.remove('hidden');
-    setTimeout(() => {
-      toastContent.style.transform = 'translateX(0)';
-      toastContent.style.opacity = '1';
-    }, 10);
-
-    // Cerrar automáticamente después de 5 segundos
-    const autoCloseTimeout = setTimeout(() => {
-      closeToast();
-    }, 5000);
-
-    // Función para cerrar el toast
-    const closeToast = () => {
-      toastContent.style.transform = 'translateX(100%)';
-      toastContent.style.opacity = '0';
-      setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 500);
-      clearTimeout(autoCloseTimeout);
-    };
-
-    // Botón de cerrar
-    if (toastClose) {
-      toastClose.onclick = closeToast;
-    }
-  }
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Validar todos los campos
-    let isFormValid = true;
-    inputs?.forEach((input) => {
-      if (!validateField(input as HTMLInputElement | HTMLTextAreaElement)) {
-        isFormValid = false;
-      }
-    });
-
-    if (!isFormValid) {
-      showMessage('Por favor, corrige los errores en el formulario', 'error');
-      return;
-    }
-
-    // Deshabilitar botón y mostrar spinner
-    submitBtn.disabled = true;
-    submitText.classList.add('invisible');
-    loadingSpinner.classList.remove('hidden');
-    loadingSpinner.classList.add('flex');
-
-    // Recoger datos del formulario
-    const formData = new FormData(form);
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      subject: formData.get('subject'),
-      message: formData.get('message')
-    };
-
-    try {
-      // Enviar formulario usando Formspree
-      const response = await fetch('https://formspree.io/f/mzzkkjnb', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+      // Mostrar toast con animación
+      toast.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        toastContent.style.transform = 'translateX(0)';
+        toastContent.style.opacity = '1';
       });
 
-      if (response.ok) {
-        showMessage('¡Mensaje enviado correctamente! Te responderé pronto.', 'success');
-        form.reset();
-      } else {
-        throw new Error('Error al enviar el mensaje');
+      // Cerrar automáticamente después de 5 segundos
+      const autoCloseTimeout = setTimeout(() => {
+        closeToast();
+      }, 5000);
+
+      // Función para cerrar el toast
+      const closeToast = () => {
+        toastContent.style.transform = 'translateX(100%)';
+        toastContent.style.opacity = '0';
+        setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 500);
+        clearTimeout(autoCloseTimeout);
+      };
+
+      // Botón de cerrar
+      if (toastClose) {
+        toastClose.onclick = closeToast;
       }
-    } catch (error) {
-      console.error('Error:', error);
-      showMessage(
-        'Hubo un error al enviar el mensaje. Por favor, intenta contactarme directamente por email.',
-        'error'
-      );
-    } finally {
-      // Rehabilitar botón y ocultar spinner
-      submitBtn.disabled = false;
-      submitText.classList.remove('invisible');
-      loadingSpinner.classList.add('hidden');
-      loadingSpinner.classList.remove('flex');
     }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Validar todos los campos
+      let isFormValid = true;
+      inputs.forEach((input) => {
+        if (!validateField(input as HTMLInputElement | HTMLTextAreaElement)) {
+          isFormValid = false;
+        }
+      });
+
+      if (!isFormValid) {
+        showMessage('Por favor, corrige los errores en el formulario', 'error');
+        return;
+      }
+
+      // Deshabilitar botón y mostrar spinner
+      submitBtn.disabled = true;
+      submitText.classList.add('invisible');
+      loadingSpinner.classList.remove('hidden');
+      loadingSpinner.classList.add('flex');
+
+      // Recoger datos del formulario
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        subject: formData.get('subject'),
+        message: formData.get('message')
+      };
+
+      try {
+        // Enviar formulario usando Formspree
+        const response = await fetch('https://formspree.io/f/mzzkkjnb', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          showMessage('¡Mensaje enviado correctamente! Te responderé pronto.', 'success');
+          form.reset();
+        } else {
+          throw new Error('Error al enviar el mensaje');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showMessage(
+          'Hubo un error al enviar el mensaje. Por favor, intenta contactarme directamente por email.',
+          'error'
+        );
+      } finally {
+        // Rehabilitar botón y ocultar spinner
+        submitBtn.disabled = false;
+        submitText.classList.remove('invisible');
+        loadingSpinner.classList.add('hidden');
+        loadingSpinner.classList.remove('flex');
+      }
+    });
   });
 </script>
 
