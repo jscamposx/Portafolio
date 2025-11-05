@@ -30,3 +30,9 @@
 # Favicon - Cache por 1 semana
 /favicon.svg
   Cache-Control: public, max-age=604800
+
+# PDF - Headers específicos para descarga correcta
+/*.pdf
+  Cache-Control: public, max-age=604800
+  Content-Type: application/pdf
+  Content-Disposition: inline
