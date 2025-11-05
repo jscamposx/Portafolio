@@ -357,28 +357,7 @@ const navLinks = [
       initTheme();
     });
 
-    // Atajo teclado: T para ciclar light -> dark -> system
-    if (!(window as any).__themeKeyboardInit) {
-      (window as any).__themeKeyboardInit = true;
-      window.addEventListener('keydown', (e) => {
-        if (e.key.toLowerCase() === 't' && !e.metaKey && !e.ctrlKey && !e.altKey) {
-          const getThemePreference = (): 'light' | 'dark' | 'system' => {
-            try {
-              return (localStorage.getItem('theme') as any) || 'system';
-            } catch {
-              return 'system';
-            }
-          };
-          const order: ('light' | 'dark' | 'system')[] = ['light', 'dark', 'system'];
-          const cur = getThemePreference();
-          const next = order[(order.indexOf(cur) + 1) % order.length];
-          try {
-            localStorage.setItem('theme', next);
-          } catch {}
-          // Re-inicializar tema para aplicar cambios
-          initTheme();
-        }
-      });
-    }
+    // Nota: El atajo de teclado "T" para cambiar el tema ha sido deshabilitado
+    // Los usuarios pueden cambiar el tema usando el botón en la interfaz
   }
 </script>
