@@ -268,7 +268,7 @@ const contact = {
       <!-- Toast de notificación -->
       <div
         id="toast-notification"
-        class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[10000] max-w-md w-[calc(100%-2rem)] pointer-events-none"
+        class="fixed bottom-20 left-1/2 -translate-x-1/2 z-[10000] max-w-md w-[calc(100%-2rem)] pointer-events-none"
         style="transform: translate(-50%, 200px); opacity: 0; transition: all 0.5s ease-out;"
       >
         <div
@@ -528,13 +528,13 @@ const contact = {
 
   /* Toast notification centrado en bottom */
   #toast-notification {
-    bottom: 2rem;
+    bottom: 5rem;
   }
 
   /* Responsive para el toast */
   @media (max-width: 640px) {
     #toast-notification {
-      bottom: 1rem;
+      bottom: 4rem;
       width: calc(100% - 2rem);
       max-width: calc(100% - 2rem);
     }
