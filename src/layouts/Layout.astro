@@ -138,6 +138,21 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
         } catch (e) {}
       })();
     </script>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const supportsViewTransitions = typeof document.startViewTransition === 'function';
+
+        const syncState = () => {
+          const enabled = supportsViewTransitions && !media.matches;
+          root.dataset.viewTransitions = enabled ? 'enabled' : 'disabled';
+        };
+
+        syncState();
+        media.addEventListener('change', syncState);
+      })();
+    </script>
   </head>
   <body class="min-h-screen bg-transparent text-[var(--color-text)] antialiased">
     <div class="relative">
