@@ -42,14 +42,15 @@ const featuredProjects = projects.slice(0, 3);
           <!-- Glow effect decorativo -->
           <div class="absolute -inset-1 rounded-2xl bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-strong)] opacity-0 blur-xl transition-all duration-500 group-hover/project:opacity-20"></div>
           
-          <div class="relative aspect-video overflow-hidden rounded-[15px] bg-[var(--color-surface)]">
+          <div class="relative aspect-video overflow-hidden rounded-[15px] bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-surface-alt)]">
             <img
               src={project.heroImage}
               alt={`Vista previa del proyecto ${project.title}`}
-              class="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-out md:group-hover/project:scale-105"
+              class="w-full h-full object-cover object-center transition-all duration-700 ease-out md:group-hover/project:scale-105"
               decoding="async"
               loading={isFirst ? "eager" : "lazy"}
               transition:name={`project-image-${project.slug}`}
+              style="object-fit: cover; object-position: center;"
             />
             
             <!-- Overlay gradient en hover -->

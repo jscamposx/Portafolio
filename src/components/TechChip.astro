@@ -9,6 +9,8 @@ import NodeJSIcon from '../../public/icons/NodeJS.astro';
 import PHPIcon from '../../public/icons/PHP.astro';
 import SassIcon from '../../public/icons/Sass.astro';
 import HTMLIcon from '../../public/icons/HTML.astro';
+import VueIcon from '../../public/icons/Vue.astro';
+import MongoDBIcon from '../../public/icons/MongoDB.astro';
 
 interface Props {
   name: string;
@@ -67,11 +69,26 @@ const techConfig: Record<string, { Component: any; color: string; displayName: s
     Component: HTMLIcon,
     color: '#E34F26',
     displayName: 'HTML'
+  },
+  vue: {
+    Component: VueIcon,
+    color: '#42b883',
+    displayName: 'Vue.js'
+  },
+  vuejs: {
+    Component: VueIcon,
+    color: '#42b883',
+    displayName: 'Vue.js'
+  },
+  mongodb: {
+    Component: MongoDBIcon,
+    color: '#4caf50',
+    displayName: 'MongoDB'
   }
 };
 
 // Normalizar el nombre de la tecnología para buscar en el config
-const normalizedName = name.toLowerCase().replace(/\s+/g, '');
+const normalizedName = name.toLowerCase().replace(/\s+/g, '').replace(/\./g, '');
 const tech = techConfig[normalizedName] || techConfig[name.toLowerCase()];
 
 // Si no encontramos la tecnología, usar valores por defecto

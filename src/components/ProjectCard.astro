@@ -65,6 +65,7 @@ const projectUrl = href ?? `/proyectos/${project.slug}/?ref=home`;
         alt={`Vista previa del proyecto ${project.title}`}
         loading="lazy"
         transition:name={`project-image-${project.slug}`}
+        style="object-fit: cover; object-position: center top;"
       />
 
       <!-- Badge decorativo en la imagen -->

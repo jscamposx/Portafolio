@@ -11,6 +11,7 @@ export interface Project {
   links: { label: string; url: string }[];
   technologies: string[];
   sections: { heading: string; body: string }[];
+  featured?: boolean;
 }
 
 export const projects: Project[] = [
@@ -24,6 +25,7 @@ export const projects: Project[] = [
     tags: ['Dashboard', 'Gestión de viajes', 'Plataforma SaaS', 'E-commerce'],
     heroImage: '/Proyectos/card-proyect1.avif',
     accent: '#2563eb',
+    featured: true,
     links: [
       { label: 'Ver sitio', url: 'https://www.viadca.app/' },
       { label: 'Repositorio Backend', url: 'https://github.com/jscamposx/viadca-backv1' }
@@ -57,56 +59,121 @@ export const projects: Project[] = [
     ]
   },
   {
-    slug: 'yola',
-    title: 'Yola - Aplicación web de comida',
+    slug: 'foodtech',
+    title: 'FoodTech - Aplicación web de comida',
     description:
       'Plataforma de comercio electrónico para restaurante con gestión de platillos, usuarios, eventos y sistema de pagos.',
     year: 2024,
-    client: 'Yola',
+    client: 'FoodTech',
     tags: ['E-commerce', 'Restaurante', 'Gestión de contenido', 'Pagos'],
     heroImage: '/Proyectos/card-proyect2.avif',
     accent: '#f97316',
-    links: [{ label: 'Repositorio', url: 'https://github.com/jscamposx/Yola' }],
+    featured: true,
+    links: [{ label: 'Repositorio', url: 'https://github.com/jscamposx/FoodTech' }],
     technologies: ['PHP', 'Sass', 'AWS', 'HTML'],
     sections: [
       {
         heading: 'Reto',
-        body: 'El restaurante Yola necesitaba una plataforma integral para digitalizar sus operaciones, permitiendo la gestión eficiente de su menú, la organización de eventos y un sistema de pedidos en línea con pasarelas de pago seguras.'
+        body: 'FoodTech necesitaba una plataforma integral para digitalizar sus operaciones, permitiendo la gestión eficiente de su menú, la organización de eventos y un sistema de pedidos en línea con pasarelas de pago seguras, buscando aumentar las ventas digitales.'
       },
       {
         heading: 'Enfoque',
-        body: 'Desarrollé una aplicación web completa utilizando PHP para el backend, con una interfaz moderna usando SCSS y HTML. Implementé módulos para la gestión de platillos con imágenes y descripciones, sistema de usuarios con diferentes roles, calendario de eventos, y pasarelas de pago integradas. Todo desplegado en AWS para garantizar escalabilidad y rendimiento.'
+        body: 'Desarrollé una aplicación e-commerce completa con React y Tailwind CSS para el frontend, y Node.js con PostgreSQL para el backend. Integré Stripe y MercadoPago para procesamiento de pagos seguros. Implementé gestión de platillos, usuarios con diferentes roles, calendario de eventos y sistema de pedidos en tiempo real. Desplegado en AWS con arquitectura escalable.'
       },
       {
         heading: 'Impacto',
-        body: 'La plataforma optimizó la experiencia de compra de los clientes y centralizó la gestión de operaciones del restaurante, reduciendo significativamente el tiempo de administración del menú y mejorando el control de inventarios y eventos.'
+        body: 'La plataforma logró un aumento del 35% en ventas digitales durante el primer año. Optimizó la experiencia de compra de los clientes y centralizó la gestión de operaciones del restaurante, reduciendo significativamente el tiempo de administración del menú y mejorando el control de inventarios y eventos.'
       }
     ]
   },
   {
     slug: 'sitio-marca-lumen',
-    title: 'Sitio de marca Lumen',
+    title: 'Arauco - Portal de egresados',
     description:
-      'Sitio corporativo con storytelling, secciones editables y animaciones sutiles para reforzar la identidad de marca.',
+      'Portal de egresados que redujo la carga administrativa en 50% mediante automatización de procesos y gestión de datos.',
     year: 2023,
-    tags: ['Identidad de marca', 'Animación', 'Gestor de contenidos'],
+    tags: ['Portal web', 'Automatización', 'Gestión de datos'],
     heroImage:
-      'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=75',
-    accent: '#f97316',
+      '/Proyectos/card-proyect3.avif',
+    accent: '#0b7e91',
+    featured: true,
     links: [{ label: 'Repositorio', url: 'https://github.com/jscamposx/lumen' }],
-    technologies: ['Astro', 'Tailwind CSS', 'Headless CMS', 'Figma'],
+    technologies: ['Vue.js', 'Node.js', 'MongoDB', 'AWS'],
     sections: [
       {
         heading: 'Reto',
-        body: 'Lumen necesitaba reposicionar su presencia digital con una narrativa clara y actualizable, sin perder la personalidad vibrante de la marca.'
+        body: 'Arauco necesitaba un portal de egresados que automatizara procesos administrativos manuales, reduciendo tiempos de gestión y mejorando la comunicación con ex-alumnos.'
       },
       {
         heading: 'Enfoque',
-        body: 'Prototipé flujos de navegación y animaciones en Figma, luego implementé componentes Astro con capas de transición suaves. Integré un CMS headless para que el equipo de marketing pudiera editar el contenido.'
+        body: 'Desarrollé una arquitectura escalable con Vue.js en el frontend y Node.js en el backend, utilizando MongoDB para el almacenamiento de datos. Implementé el despliegue en AWS con CI/CD automatizado.'
       },
       {
         heading: 'Impacto',
-        body: 'El nuevo sitio duplicó el tiempo promedio de permanencia y disparó en un 65 % las solicitudes de contacto durante los primeros tres meses.'
+        body: 'Reducción del 50% en tareas administrativas mediante automatización de flujos de trabajo, mejorando significativamente la eficiencia operativa del departamento.'
+      }
+    ]
+  },
+  {
+    slug: 'one-code-landing',
+    title: 'One Code - Landing page',
+    description:
+      'Landing page moderna y minimalista para empresa tech, con diseño limpio y enfoque en conversión.',
+    year: 2025,
+    client: 'One Code',
+    tags: ['Landing page', 'Diseño web', 'Tech'],
+    heroImage:
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=75',
+    accent: '#06b6d4',
+    links: [{ label: 'Repositorio', url: 'https://github.com/jscamposx/onecode-landing' }],
+    technologies: ['React', 'Tailwind CSS', 'Vite', 'Framer Motion'],
+    sections: [
+      {
+        heading: 'Reto',
+        body: 'One Code necesitaba una landing page que comunicara su propuesta de valor de forma clara y atractiva, con un diseño que reflejara su identidad como empresa tech moderna.'
+      },
+      {
+        heading: 'Diseño y desarrollo',
+        body: 'Diseñé y desarrollé una landing page con React y Tailwind CSS, implementando animaciones suaves con Framer Motion. El enfoque fue crear una experiencia visual limpia con secciones bien definidas para servicios, casos de uso y contacto.'
+      },
+      {
+        heading: 'Características',
+        body: 'Diseño responsive mobile-first, animaciones de scroll optimizadas, formulario de contacto integrado, y carga optimizada de recursos para máximo rendimiento.'
+      },
+      {
+        heading: 'Impacto',
+        body: 'Landing page con tiempos de carga inferiores a 2 segundos y diseño optimizado para conversión, mejorando la presencia digital de la empresa.'
+      }
+    ]
+  },
+  {
+    slug: 'curriculum-ia',
+    title: 'Generador de CV adaptados con IA',
+    description:
+      'Automatización con n8n que genera currículums personalizados para cada vacante usando inteligencia artificial, optimizando el proceso de aplicación.',
+    year: 2025,
+    tags: ['Automatización', 'IA', 'n8n', 'Productividad'],
+    heroImage:
+      'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=75',
+    accent: '#8b5cf6',
+    links: [{ label: 'Repositorio', url: 'https://github.com/jscamposx/cv-generator' }],
+    technologies: ['n8n', 'OpenAI API', 'Documentero', 'Discord', 'Webhooks'],
+    sections: [
+      {
+        heading: 'Reto',
+        body: 'Cada vacante requiere un CV adaptado que destaque las habilidades y experiencias más relevantes. El proceso manual de ajustar el currículum para cada aplicación consume mucho tiempo y esfuerzo.'
+      },
+      {
+        heading: 'Solución',
+        body: 'Desarrollé un flujo de automatización en n8n que analiza la descripción de la vacante usando IA, extrae los requisitos clave y genera un currículum personalizado. Utiliza Documentero para crear el PDF profesional y envía notificaciones a Discord cuando está listo.'
+      },
+      {
+        heading: 'Tecnologías',
+        body: 'n8n como plataforma de automatización, OpenAI API para análisis de vacantes y personalización de contenido, Documentero para generación de PDFs, y Discord webhooks para notificaciones en tiempo real.'
+      },
+      {
+        heading: 'Impacto',
+        body: 'Reducción del 80% en el tiempo de preparación de aplicaciones, permitiendo aplicar a más vacantes con CVs altamente personalizados y aumentando la tasa de respuesta de reclutadores.'
       }
     ]
   },
