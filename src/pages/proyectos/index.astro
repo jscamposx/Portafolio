@@ -2,25 +2,20 @@
 import Layout from '../../layouts/Layout.astro';
 import { projects } from '../../data/projects';
 
-// Ordenar proyectos: destacados primero, luego por fecha
 const sortedProjects = [...projects].sort((a, b) => {
-  // Si uno es featured y el otro no, el featured va primero
   if (a.featured && !b.featured) return -1;
   if (!a.featured && b.featured) return 1;
-  // Si ambos son featured o ambos no lo son, ordenar por año descendente
   return b.year - a.year;
 });
 
-// Datos inline
 const siteName = 'Jesús Campos';
 const pageTitle = `Proyectos | ${siteName}`;
 const pageDescription = `${siteName} comparte casos de estudio y proyectos recientes.`;
 ---
 
 <Layout title={pageTitle} description={pageDescription} showNav={false}>
-  <!-- Botón flotante: Volver a proyectos del inicio -->
-  <a 
-    href="/#proyectos" 
+  <a
+    href="/#proyectos"
     data-astro-prefetch
     transition:name="back-to-home-button"
     class="group fixed bottom-4 right-4 z-50 flex items-center justify-center gap-2.5 rounded-full border border-[var(--color-border)] bg-[var(--nav-surface-bg)] backdrop-blur-xl px-4 py-3 shadow-lg transition-all duration-300 hover:scale-105 hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-white hover:shadow-xl hover:shadow-[var(--color-accent)]/30 active:scale-95 sm:bottom-6 sm:right-6 sm:px-5 sm:py-3.5"
@@ -29,7 +24,6 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
     <svg class="size-5 text-[var(--color-text-muted)] transition-all duration-300 group-hover:text-white group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
       <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
     </svg>
-    
     <span class="text-sm font-semibold text-[var(--color-text)] transition-all duration-300 group-hover:text-white hidden sm:inline">
       Volver
     </span>
@@ -37,16 +31,14 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
 
   <section class="space-y-12 sm:space-y-16 px-4 sm:px-6 lg:px-8">
     <header class="space-y-8 sm:space-y-10">
-      <!-- Breadcrumb mejorado -->
       <div class="flex items-center gap-3">
         <div class="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent"></div>
         <p class="text-xs font-bold uppercase tracking-[0.3em] text-[var(--color-accent)]">Portafolio</p>
         <div class="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent"></div>
       </div>
-      
-      <!-- Título mejorado -->
+
       <div class="space-y-4 sm:space-y-5 text-center max-w-4xl mx-auto">
-        <h1 
+        <h1
           class="text-3xl font-bold sm:text-5xl lg:text-6xl text-[var(--color-heading)] leading-tight"
           transition:name="all-projects-title"
         >
@@ -56,8 +48,7 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
           Experiencias digitales pensadas de forma integral: investigación, diseño de interacción y desarrollo front-end listo para producción.
         </p>
       </div>
-      
-      <!-- Estadísticas decorativas mejoradas -->
+
       <div class="flex justify-center gap-8 sm:gap-16 pt-2">
         <div class="space-y-1.5 flex flex-col items-center">
           <div class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-strong)] bg-clip-text text-transparent">
@@ -75,7 +66,6 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
       </div>
     </header>
 
-    <!-- Grid de proyectos optimizado - Cards compactas -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
       {sortedProjects.map((project, index) => (
         <a
@@ -84,12 +74,10 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
           id={project.slug}
           data-astro-prefetch
         >
-          <!-- Card compacta -->
           <article
             class="h-full flex flex-col overflow-hidden rounded-xl sm:rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] transition-all duration-500 ease-out hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10 hover:-translate-y-2"
             style={`--card-accent: ${project.accent};`}
           >
-            <!-- Imagen -->
             <div class="relative aspect-video overflow-hidden bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-surface-alt)]">
               <img
                 class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover/card:scale-110"
@@ -99,10 +87,8 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
                 transition:name={`project-image-${project.slug}`}
                 style="object-fit: cover; object-position: center top;"
               />
-              <!-- Overlay gradient en hover -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
-              
-              <!-- Badge año -->
+
               <div class="absolute top-2 sm:top-3 left-2 sm:left-3 z-10">
                 <span class="inline-flex items-center gap-1 sm:gap-1.5 rounded-lg border border-white/20 bg-black/40 backdrop-blur-md px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold text-white">
                   <svg class="size-2.5 sm:size-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -112,7 +98,6 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
                 </span>
               </div>
 
-              <!-- Badge favorito -->
               {project.featured && (
                 <div class="absolute top-2 sm:top-3 right-2 sm:right-3 z-10">
                   <div class="inline-flex items-center justify-center size-7 sm:size-8 rounded-full border border-yellow-400/30 bg-gradient-to-br from-yellow-400/90 to-amber-500/90 backdrop-blur-md shadow-lg shadow-yellow-500/20">
@@ -124,22 +109,18 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
               )}
             </div>
 
-            <!-- Contenido -->
             <div class="flex flex-col flex-1 p-3 sm:p-5 space-y-2 sm:space-y-3">
-              <!-- Título -->
-              <h3 
+              <h3
                 class="text-base sm:text-xl font-bold text-[var(--color-heading)] transition-all duration-300 group-hover/card:text-[var(--color-accent)] line-clamp-2"
                 transition:name={`project-title-${project.slug}`}
               >
                 {project.title}
               </h3>
 
-              <!-- Descripción -->
               <p class="text-xs sm:text-sm leading-relaxed text-[var(--color-text-muted)] line-clamp-2 flex-1">
                 {project.description}
               </p>
 
-              <!-- Tags -->
               <div class="flex flex-wrap gap-1 sm:gap-1.5 pt-1 sm:pt-2">
                 {(project.tags || []).slice(0, 3).map((tag) => (
                   <span class="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium text-[var(--color-text-muted)]">
@@ -153,7 +134,6 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
                 )}
               </div>
 
-              <!-- Link de acción -->
               <div class="flex items-center justify-between pt-2 sm:pt-3 border-t border-[var(--color-border)] mt-auto">
                 <span class="text-xs sm:text-sm font-semibold text-[var(--color-accent)] group-hover/card:translate-x-1 transition-transform duration-300">
                   Ver detalles
@@ -168,17 +148,15 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
       ))}
     </div>
 
-    <!-- Footer decorativo mejorado -->
     <div class="pt-12 sm:pt-16 pb-8">
       <div class="flex items-center gap-3 sm:gap-4">
         <div class="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-[var(--color-border)]"></div>
         <span class="text-xs sm:text-sm text-[var(--color-text-muted)] uppercase tracking-wider font-medium">Fin del portafolio</span>
         <div class="h-px flex-1 bg-gradient-to-l from-transparent via-[var(--color-border)] to-[var(--color-border)]"></div>
       </div>
-      
-      <!-- Botón CTA adicional para contacto -->
+
       <div class="flex justify-center pt-8">
-        <a 
+        <a
           href="/#contacto"
           class="group inline-flex items-center justify-center gap-2 sm:gap-2.5 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-xl bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-strong)] text-white font-semibold shadow-lg shadow-[var(--color-accent)]/20 hover:shadow-xl hover:shadow-[var(--color-accent)]/40 hover:scale-105 transition-all duration-300 w-full max-w-xs sm:w-auto"
         >
@@ -193,13 +171,11 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
 </Layout>
 
 <style>
-  /* Cards con carga instantánea */
   .project-card {
     opacity: 1;
     transform: none;
   }
 
-  /* Truncar texto a 2 líneas */
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -207,15 +183,12 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
     overflow: hidden;
   }
 
-  /* View Transitions optimizadas para grid */
   @media (min-width: 769px) {
-    /* Limitar transiciones para mejor performance */
     .project-card:nth-child(n+7) {
       view-transition-name: none !important;
     }
   }
 
-  /* Reducir motion si el usuario lo prefiere */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -223,8 +196,7 @@ const pageDescription = `${siteName} comparte casos de estudio y proyectos recie
       transition-duration: 0.01ms !important;
     }
   }
-  
-  /* Mejorar scroll en mobile */
+
   @media (max-width: 640px) {
     section {
       scroll-padding-top: 2rem;

@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import { projects } from '../../data/projects';
 import TechChip from '../../components/TechChip.astro';
 
-// Datos inline
 const siteName = 'Jesús Campos';
 
 const getProjectBySlug = (slug: string) => projects.find((p) => p.slug === slug);
@@ -40,9 +39,7 @@ const slugify = (value: string) =>
   showNav={false}
   preloadImage={project.heroImage}
 >
-  <!-- Navegación flotante fija -->
   <div class="fixed bottom-4 right-4 z-50 flex flex-col gap-3 sm:bottom-6 sm:right-6">
-    <!-- Botón: Volver a proyectos -->
     <a
       href="/#proyectos"
       class="group relative flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 shadow-lg backdrop-blur-xl transition-all hover:scale-105 hover:border-[var(--project-color)] hover:shadow-[0_0_20px_var(--project-color-alpha)]"
@@ -64,7 +61,6 @@ const slugify = (value: string) =>
       </span>
     </a>
 
-    <!-- Botón: Ver más proyectos -->
     <a
       href="/proyectos/"
       class="group relative flex items-center justify-center gap-3 rounded-full border px-4 py-3 shadow-lg backdrop-blur-xl transition-all hover:scale-105"
@@ -195,7 +191,6 @@ const slugify = (value: string) =>
       </div>
     </header>
 
-    {/* Secciones normales solo para proyectos que NO son Viadca ni FoodTech */}
     {
       project.slug !== 'viadca' && project.slug !== 'foodtech' && (
         <section class="space-y-8">
@@ -209,11 +204,9 @@ const slugify = (value: string) =>
       )
     }
 
-    {/* Contenido especial para Viadca con imágenes */}
     {
       project.slug === 'viadca' && (
         <section class="space-y-8 sm:space-y-12">
-          {/* Header de sección */}
           <div class="text-center space-y-3 sm:space-y-4">
             <h2 class="project-title text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent">
               Dashboard Administrativo
@@ -223,9 +216,7 @@ const slugify = (value: string) =>
             </p>
           </div>
 
-          {/* Grid de módulos - Layout alternado */}
           <div class="space-y-10 sm:space-y-16">
-            {/* Control de Usuarios - Imagen izquierda */}
             <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
               <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
                 <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
@@ -284,7 +275,6 @@ const slugify = (value: string) =>
               </div>
             </div>
 
-            {/* Gestión de Tareas - Imagen derecha */}
             <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
               <div class="space-y-3 sm:space-y-6 md:order-1">
                 <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
@@ -392,7 +382,6 @@ const slugify = (value: string) =>
               </div>
             </div>
 
-            {/* Grid 2x2 para las últimas 3 imágenes */}
             <div class="grid md:grid-cols-2 gap-4 sm:gap-8">
               <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
                 <div class="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
@@ -597,11 +586,9 @@ const slugify = (value: string) =>
       )
     }
 
-    {/* Contenido especial para FoodTech con imágenes */}
     {
       project.slug === 'foodtech' && (
         <section class="space-y-8 sm:space-y-12">
-          {/* Header de sección */}
           <div class="text-center space-y-3 sm:space-y-4">
             <h2 class="project-title text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent">
               Plataforma E-commerce Completa
@@ -612,9 +599,7 @@ const slugify = (value: string) =>
             </p>
           </div>
 
-          {/* Grid de módulos - Layout alternado */}
           <div class="space-y-10 sm:space-y-16">
-            {/* Login - Imagen izquierda */}
             <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
               <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl">
                 <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
@@ -681,7 +666,6 @@ const slugify = (value: string) =>
               </div>
             </div>
 
-            {/* Crear Platillos - Imagen derecha */}
             <div class="grid md:grid-cols-2 gap-4 sm:gap-8 items-center">
               <div class="space-y-3 sm:space-y-6 md:order-1">
                 <div class="project-badge inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border">
@@ -776,7 +760,6 @@ const slugify = (value: string) =>
                   </li>
                 </ul>
               </div>
-
               <div class="project-card relative group overflow-hidden rounded-xl sm:rounded-2xl border p-1 transition-all duration-500 hover:shadow-2xl md:order-2">
                 <div class="relative overflow-hidden rounded-lg sm:rounded-xl bg-[var(--color-surface)]">
                   <img
@@ -790,9 +773,7 @@ const slugify = (value: string) =>
               </div>
             </div>
 
-            {/* Bento Grid - Diseño asimétrico */}
             <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
-              {/* Tarjeta grande - Homepage */}
               <div class="md:row-span-2 project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
                 <div class="relative overflow-hidden rounded-lg sm:rounded-xl mb-4 sm:mb-6 h-64 sm:h-80">
                   <img
@@ -855,7 +836,6 @@ const slugify = (value: string) =>
                 </div>
               </div>
 
-              {/* Tarjetas pequeñas - Páginas Internas */}
               <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
                 <div class="relative overflow-hidden rounded-lg sm:rounded-xl mb-3 sm:mb-4 h-40 sm:h-48">
                   <img
@@ -892,7 +872,6 @@ const slugify = (value: string) =>
                 </div>
               </div>
 
-              {/* Tarjetas pequeñas - Formularios */}
               <div class="project-card group relative overflow-hidden rounded-xl sm:rounded-2xl border p-4 sm:p-6 transition-all duration-500 hover:shadow-2xl">
                 <div class="relative overflow-hidden rounded-lg sm:rounded-xl mb-3 sm:mb-4 h-40 sm:h-48">
                   <img
@@ -937,7 +916,6 @@ const slugify = (value: string) =>
 </Layout>
 
 <style>
-  /* Estilos dinámicos para colores de proyecto */
   .project-tag {
     border-color: var(--project-color) !important;
     background: var(--project-color-bg) !important;
@@ -954,7 +932,6 @@ const slugify = (value: string) =>
     box-shadow: 0 10px 40px var(--project-color-alpha) !important;
   }
 
-  /* Secciones genéricas */
   .project-section {
     border-color: var(--project-color-border) !important;
   }
@@ -963,7 +940,6 @@ const slugify = (value: string) =>
     color: var(--project-color) !important;
   }
 
-  /* Título con gradiente */
   .project-title {
     background-image: linear-gradient(
       to right,
@@ -972,7 +948,6 @@ const slugify = (value: string) =>
     ) !important;
   }
 
-  /* Para Viadca y FoodTech - elementos dinámicos */
   .project-card {
     border-color: var(--color-border);
     background: linear-gradient(to bottom right, var(--project-color-bg), transparent);
@@ -1007,7 +982,6 @@ const slugify = (value: string) =>
     color: var(--project-color) !important;
   }
 
-  /* Modal de imagen en pantalla completa */
   .image-modal {
     position: fixed;
     top: 0;
@@ -1074,7 +1048,6 @@ const slugify = (value: string) =>
     transform: scale(0.95);
   }
 
-  /* Cursor pointer e indicador zoom para imágenes clickeables */
   .project-card {
     position: relative;
   }
@@ -1083,12 +1056,10 @@ const slugify = (value: string) =>
     cursor: zoom-in;
   }
 
-  /* El overlay no debe bloquear los clicks */
   .project-card .absolute.inset-0 {
     pointer-events: none;
   }
 
-  /* Indicador de zoom en hover */
   .project-card .relative:has(img)::after {
     content: '';
     position: absolute;
@@ -1116,7 +1087,6 @@ const slugify = (value: string) =>
   }
 </style>
 
-<!-- Modal para imagen en pantalla completa -->
 <div id="imageModal" class="image-modal">
   <img id="modalImage" src="" alt="Vista ampliada" />
   <button class="image-modal-close" aria-label="Cerrar imagen">
@@ -1128,7 +1098,6 @@ const slugify = (value: string) =>
 </div>
 
 <script>
-  // Funcionalidad del modal de imagen
   function initImageModal() {
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage') as HTMLImageElement;
@@ -1136,7 +1105,6 @@ const slugify = (value: string) =>
 
     if (!modal || !modalImage) return;
 
-    // Limpiar listeners anteriores si existen
     const oldModalClickHandler = (modal as any).__modalClickHandler;
     if (oldModalClickHandler) {
       modal.removeEventListener('click', oldModalClickHandler);
@@ -1152,7 +1120,6 @@ const slugify = (value: string) =>
       document.removeEventListener('keydown', oldKeyHandler);
     }
 
-    // Función para abrir el modal
     function openImageModal(imageSrc: string, imageAlt: string) {
       if (modalImage && modal) {
         modalImage.src = imageSrc;
@@ -1162,7 +1129,6 @@ const slugify = (value: string) =>
       }
     }
 
-    // Función para cerrar el modal
     function closeImageModal() {
       if (modal) {
         modal.classList.remove('active');
@@ -1170,12 +1136,10 @@ const slugify = (value: string) =>
       }
     }
 
-    // Agregar event listeners a todas las imágenes dentro de .project-card
     const projectImages = document.querySelectorAll('.project-card img');
 
     projectImages.forEach((img) => {
       const imageElement = img as HTMLImageElement;
-      // Limpiar listener anterior si existe
       const oldHandler = (imageElement as any).__imageClickHandler;
       if (oldHandler) {
         imageElement.removeEventListener('click', oldHandler);
@@ -1190,12 +1154,10 @@ const slugify = (value: string) =>
       imageElement.addEventListener('click', imageClickHandler);
     });
 
-    // Cerrar modal al hacer clic en el botón de cerrar
     const closeHandler = () => closeImageModal();
     (closeBtn as any).__closeHandler = closeHandler;
     closeBtn?.addEventListener('click', closeHandler);
 
-    // Cerrar modal al hacer clic fuera de la imagen
     const modalClickHandler = (e: Event) => {
       if (e.target === modal) {
         closeImageModal();
@@ -1204,7 +1166,6 @@ const slugify = (value: string) =>
     (modal as any).__modalClickHandler = modalClickHandler;
     modal.addEventListener('click', modalClickHandler);
 
-    // Cerrar modal con la tecla ESC
     const keyHandler = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeImageModal();
@@ -1214,13 +1175,11 @@ const slugify = (value: string) =>
     document.addEventListener('keydown', keyHandler);
   }
 
-  // Inicializar cuando la página carga
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initImageModal);
   } else {
     initImageModal();
   }
 
-  // Reinicializar después de las view transitions de Astro
   document.addEventListener('astro:page-load', initImageModal);
 </script>

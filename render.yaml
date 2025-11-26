@@ -1,18 +1,4 @@
-# Render Build Configuration
-# https://render.com/docs/static-sites
 
-# Build Command
 buildCommand: npm run build
 
-# Publish Directory (donde Astro genera el sitio estático)
 publishPath: dist
-# Headers personalizado (si Render lo soporta)
-# Los headers están en public/_headers
-
-# Variables de entorno (opcional)
-# NODE_VERSION: 18
-
-# Notas:
-# - Render sirve el contenido de 'dist' como archivos estáticos
-# - El archivo public/_headers configura caché HTTP
-# - El Service Worker (sw.js) proporciona caché en el cliente

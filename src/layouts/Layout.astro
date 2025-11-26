@@ -4,9 +4,8 @@ import NavBar from '../components/NavBar.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import { ClientRouter } from 'astro:transitions';
 
-// Meta y datos globales inline (simplificado)
 const siteName = 'Jesús Campos';
-const siteUrl = 'https://jscamposx.dev'; // Actualiza con tu URL real
+const siteUrl = 'https://jscamposx.dev';
 const socialLinks = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jscamposx', icon: 'linkedin' },
   { label: 'GitHub', href: 'https://github.com/jscamposx', icon: 'github' },
@@ -16,7 +15,7 @@ const defaultMeta = {
   title: 'Jesús Campos | Desarrollador Full Stack - Diseño y Desarrollo Web',
   description:
     'Desarrollador Full Stack con +3 años de experiencia en diseño UI/UX, desarrollo frontend y backend. Especializado en crear experiencias web únicas con React, Node.js, NestJS y AWS.',
-  image: '/og-image.jpg', // Asegúrate de tener esta imagen
+  image: '/og-image.jpg',
   keywords:
     'desarrollador full stack, desarrollo web, diseño UI/UX, frontend, backend, React, Node.js, NestJS, AWS, portafolio desarrollador'
 };
@@ -25,11 +24,11 @@ interface Props {
   title?: string;
   description?: string;
   canonical?: string;
-  showNav?: boolean; // permitir ocultar navbar
-  preloadImage?: string; // imagen para precargar
-  image?: string; // imagen para Open Graph
-  keywords?: string; // palabras clave SEO
-  type?: string; // tipo de contenido (website, article, etc.)
+  showNav?: boolean;
+  preloadImage?: string;
+  image?: string;
+  keywords?: string;
+  type?: string;
 }
 
 const {
@@ -56,14 +55,12 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- SEO Básico -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content="Jesús Campos" />
     <link rel="canonical" href={currentUrl} />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content={type} />
     <meta property="og:url" content={currentUrl} />
     <meta property="og:title" content={title} />
@@ -72,18 +69,15 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content="es_MX" />
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={currentUrl} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
 
-    <!-- Verificación y robots -->
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
 
-    <!-- Performance -->
     {
       preloadImage && (
         <link
@@ -97,7 +91,6 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     }
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 
-    <!-- Structured Data - Schema.org -->
     <script
       type="application/ld+json"
       set:html={JSON.stringify({
@@ -136,7 +129,6 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
           const dark = pref === 'dark' || (pref === 'system' && mq.matches);
           const root = document.documentElement;
 
-          // Aplicar clase de tema inmediatamente
           if (dark) {
             root.classList.add('dark');
           } else {
@@ -228,7 +220,6 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     window.addEventListener('astro:after-swap', scrollToHash);
     window.addEventListener('astro:page-load', scrollToHash);
 
-    // Deshabilitar View Transitions en mobile y conexiones lentas
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const isSlowConnection =
       (navigator as any).connection &&
@@ -237,7 +228,6 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
         (navigator as any).connection.effectiveType === '3g');
 
     if (isMobile || isSlowConnection) {
-      // Prevenir que las transiciones se ejecuten
       document.addEventListener(
         'astro:before-preparation',
         (e) => {
@@ -246,13 +236,11 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
         { capture: true }
       );
 
-      // Fallback: si el evento no funciona, forzar navegación estándar
       document.addEventListener('astro:page-load', () => {
         document.documentElement.dataset.astroTransition = 'none';
       });
     }
 
-    // Timeout de emergencia para evitar congelamientos
     let transitionTimeout: ReturnType<typeof setTimeout> | undefined;
     let pendingNavigationUrl: string | null = null;
     let transitionStartTime: number = 0;
@@ -260,10 +248,8 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     document.addEventListener('astro:before-preparation', (e: any) => {
       transitionStartTime = performance.now();
 
-      // Guardar la URL de destino
       pendingNavigationUrl = e.to?.href || e.newDocument?.location?.href;
 
-      // Detectar si vamos HACIA /proyectos/ (desde home o desde un proyecto)
       const currentPath = window.location.pathname;
       const targetPath = new URL(pendingNavigationUrl || '').pathname;
       const goingToProjectsList = targetPath === '/proyectos/' || targetPath === '/proyectos';
@@ -273,91 +259,80 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
         currentPath !== '/proyectos/' &&
         currentPath !== '/proyectos';
 
-      // Si vamos a /proyectos/ desde el home O desde un proyecto individual
       if (goingToProjectsList && !isMobile) {
-        // Inyectar CSS que simplifica las transiciones
         const style = document.createElement('style');
         style.id = 'temp-transition-override';
         style.textContent = `
-					/* Transición de página rápida con fondo consistente */
-					::view-transition-old(root),
-					::view-transition-new(root) {
-						animation-duration: ${comingFromHome ? '0.35s' : '0.15s'} !important;
-						background-color: var(--color-bg-primary, #130b1e) !important;
-					}
-					
-					/* DESHABILITAR transiciones de imágenes para evitar glitches */
-					::view-transition-old(project-image),
-					::view-transition-new(project-image),
-					::view-transition-old(project-image-wrapper),
-					::view-transition-new(project-image-wrapper),
-					::view-transition-group(project-image),
-					::view-transition-group(project-image-wrapper),
-					::view-transition-image-pair(project-image),
-					::view-transition-image-pair(project-image-wrapper) {
-						animation: none !important;
-						mix-blend-mode: normal !important;
-					}
-					
-					/* Solo animar títulos y techs suavemente desde home */
-					${
+          ::view-transition-old(root),
+          ::view-transition-new(root) {
+            animation-duration: ${comingFromHome ? '0.35s' : '0.15s'} !important;
+            background-color: var(--color-bg-primary, #130b1e) !important;
+          }
+          
+          ::view-transition-old(project-image),
+          ::view-transition-new(project-image),
+          ::view-transition-old(project-image-wrapper),
+          ::view-transition-new(project-image-wrapper),
+          ::view-transition-group(project-image),
+          ::view-transition-group(project-image-wrapper),
+          ::view-transition-image-pair(project-image),
+          ::view-transition-image-pair(project-image-wrapper) {
+            animation: none !important;
+            mix-blend-mode: normal !important;
+          }
+          
+          ${
             comingFromHome
               ? `
-						::view-transition-old(project-title),
-						::view-transition-new(project-title) {
-							animation-duration: 0.35s !important;
-						}
-						
-						::view-transition-old(project-techs),
-						::view-transition-new(project-techs) {
-							animation-duration: 0.3s !important;
-						}
-						
-						::view-transition-old(all-projects-title),
-						::view-transition-new(all-projects-title) {
-							animation-duration: 0.4s !important;
-						}
-					`
+            ::view-transition-old(project-title),
+            ::view-transition-new(project-title) {
+              animation-duration: 0.35s !important;
+            }
+            
+            ::view-transition-old(project-techs),
+            ::view-transition-new(project-techs) {
+              animation-duration: 0.3s !important;
+            }
+            
+            ::view-transition-old(all-projects-title),
+            ::view-transition-new(all-projects-title) {
+              animation-duration: 0.4s !important;
+            }
+          `
               : `
-						/* Desde proyecto individual: todo instantáneo excepto botones */
-						::view-transition-old(project-card),
-						::view-transition-new(project-card),
-						::view-transition-old(project-title),
-						::view-transition-new(project-title),
-						::view-transition-old(project-tag),
-						::view-transition-new(project-tag),
-						::view-transition-old(project-techs),
-						::view-transition-new(project-techs) {
-							animation-duration: 0.05s !important;
-						}
-					`
+            ::view-transition-old(project-card),
+            ::view-transition-new(project-card),
+            ::view-transition-old(project-title),
+            ::view-transition-new(project-title),
+            ::view-transition-old(project-tag),
+            ::view-transition-new(project-tag),
+            ::view-transition-old(project-techs),
+            ::view-transition-new(project-techs) {
+              animation-duration: 0.05s !important;
+            }
+          `
           }
-					
-					/* Botón de navegación siempre animado */
-					::view-transition-old(back-to-home-button),
-					::view-transition-new(back-to-home-button),
-					::view-transition-old(all-projects-cta),
-					::view-transition-new(all-projects-cta) {
-						animation-duration: 0.35s !important;
-					}
-				`;
+          
+          ::view-transition-old(back-to-home-button),
+          ::view-transition-new(back-to-home-button),
+          ::view-transition-old(all-projects-cta),
+          ::view-transition-new(all-projects-cta) {
+            animation-duration: 0.35s !important;
+          }
+        `;
         document.head.appendChild(style);
 
-        // Remover el estilo después de la transición
         setTimeout(() => {
           document.getElementById('temp-transition-override')?.remove();
         }, 650);
       }
 
-      // Determinar timeout según el tipo de navegación
       let timeoutDuration = 800;
 
       if (goingToProjectsList) {
-        // Si viene desde un proyecto, ser más agresivo con el timeout
         timeoutDuration = comingFromProjectDetail ? 500 : 600;
       }
 
-      // Si la transición tarda demasiado, navegar directamente
       transitionTimeout = setTimeout(() => {
         const elapsed = performance.now() - transitionStartTime;
         console.warn(
@@ -383,14 +358,12 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
       pendingNavigationUrl = null;
     });
 
-    // Reinicializar tema ANTES de que se vea el swap
     document.addEventListener('astro:before-swap', (e) => {
       try {
         const pref = localStorage.getItem('theme') || 'system';
         const mq = window.matchMedia('(prefers-color-scheme: dark)');
         const dark = pref === 'dark' || (pref === 'system' && mq.matches);
 
-        // Aplicar tema al nuevo documento antes de mostrarlo
         const newDoc = e.newDocument.documentElement;
         if (dark) {
           newDoc.classList.add('dark');
@@ -403,16 +376,13 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
       } catch (err) {}
     });
 
-    // Registrar Service Worker SOLO en producción (no en dev)
     if ('serviceWorker' in navigator && import.meta.env.PROD) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js').catch(() => {
-          // Silenciosamente fallar si no se puede registrar
         });
       });
     }
 
-    // Prefetch inteligente SOLO en producción
     if (import.meta.env.PROD) {
       if (window.requestIdleCallback) {
         window.requestIdleCallback(() => {
@@ -426,23 +396,19 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     }
 
     function prefetchProjectPages() {
-      // Obtener todos los links a proyectos
       const projectLinks = document.querySelectorAll('a[href^="/proyectos/"]');
 
       projectLinks.forEach((link, index) => {
-        // Usar requestIdleCallback para no bloquear el thread principal
         const prefetch = () => {
           const url = link.getAttribute('href');
           if (!url) return;
 
-          // Crear un link prefetch
           const linkEl = document.createElement('link');
           linkEl.rel = 'prefetch';
           linkEl.href = url;
           document.head.appendChild(linkEl);
         };
 
-        // Escalonar los prefetch para no saturar
         if (window.requestIdleCallback) {
           window.requestIdleCallback(prefetch, { timeout: 2000 + index * 100 });
         } else {
@@ -452,7 +418,6 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
     }
   </script>
 
-  <!-- Script de animaciones on scroll -->
   <script>
     function initScrollAnimations() {
       const animatedElements = document.querySelectorAll('.animate-on-scroll');
@@ -476,10 +441,8 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
       animatedElements.forEach((el) => observer.observe(el));
     }
 
-    // Inicializar en carga de página
     document.addEventListener('astro:page-load', initScrollAnimations);
 
-    // También ejecutar inmediatamente si no hay transiciones
     if (document.readyState === 'complete') {
       initScrollAnimations();
     }
