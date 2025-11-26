@@ -14,19 +14,41 @@ const { class: className } = Astro.props;
 </svg>
 
 <style>
-  /* Mostrar solo versión light en tema claro */
-  :global([data-theme="light"]) .aws-dark-icon {
+  /* Ocultar icono oscuro en tema claro */
+  .aws-dark-icon {
     display: none;
   }
 
-  /* Mostrar solo versión dark en tema oscuro */
-  :global([data-theme="dark"]) .aws-light-icon {
+  /* Mostrar solo icono oscuro en tema dark */
+  :global(.dark) .aws-light-icon,
+  :global(html.dark) .aws-light-icon {
     display: none;
   }
 
-  /* Mostrar solo versión dark en tema auto-oscuro */
-  :global([data-theme="auto"]) .aws-light-icon {
+  :global(.dark) .aws-dark-icon,
+  :global(html.dark) .aws-dark-icon {
+    display: block;
+  }
+
+  /* Tema light - solo light icon visible */
+  :global(.light) .aws-dark-icon,
+  :global(html.light) .aws-dark-icon {
     display: none;
+  }
+
+  :global(.light) .aws-light-icon,
+  :global(html.light) .aws-light-icon {
+    display: block;
+  }
+
+  /* Media queries para tema auto */
+  @media (prefers-color-scheme: dark) {
+    :global([data-theme="auto"]) .aws-light-icon {
+      display: none;
+    }
+    :global([data-theme="auto"]) .aws-dark-icon {
+      display: block;
+    }
   }
 
   @media (prefers-color-scheme: light) {
