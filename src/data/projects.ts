@@ -123,7 +123,7 @@ export const projects: Project[] = [
     client: 'One Code',
     tags: ['Landing page', 'Diseño web', 'Tech'],
     heroImage:
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=75',
+      '/Proyectos/card-proyect4.avif',
     accent: '#06b6d4',
     links: [{ label: 'Repositorio', url: 'https://github.com/jscamposx/onecode-landing' }],
     technologies: ['React', 'Tailwind CSS', 'Vite', 'Framer Motion'],
