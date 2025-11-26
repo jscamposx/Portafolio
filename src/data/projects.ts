@@ -87,7 +87,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    slug: 'sitio-marca-lumen',
+    slug: 'arauco',
     title: 'Arauco - Portal de egresados',
     description:
       'Portal de egresados que redujo la carga administrativa en 50% mediante automatización de procesos y gestión de datos.',
