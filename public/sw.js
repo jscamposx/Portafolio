@@ -1,7 +1,9 @@
 // Service Worker para caché agresivo de sitio estático
-const CACHE_NAME = 'portafolio-v1';
-const STATIC_CACHE = 'static-v1';
-const IMAGE_CACHE = 'images-v1';
+const CACHE_VERSION = 'v2';
+const CACHE_NAME = `portafolio-${CACHE_VERSION}`;
+const STATIC_CACHE = `static-${CACHE_VERSION}`;
+const IMAGE_CACHE = `images-${CACHE_VERSION}`;
+const KNOWN_CACHES = [CACHE_NAME, STATIC_CACHE, IMAGE_CACHE];
 
 // Recursos críticos para cachear inmediatamente (solo en producción)
 const CRITICAL_ASSETS = [
@@ -25,15 +27,26 @@ self.addEventListener('install', (event) => {
 // Activar y limpiar cachés antiguos
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
+    (async () => {
+      const cacheNames = await caches.keys();
+      await Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME && cacheName !== STATIC_CACHE && cacheName !== IMAGE_CACHE) {
+          if (!KNOWN_CACHES.includes(cacheName)) {
             return caches.delete(cacheName);
           }
         })
       );
-    })
+
+      // Forzar que los clientes abiertos recarguen y tomen la nueva versión del SW
+      const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+      await Promise.all(
+        clients.map((client) => {
+          if ('navigate' in client) {
+            return client.navigate(client.url);
+          }
+        })
+      );
+    })()
   );
   self.clients.claim();
 });
