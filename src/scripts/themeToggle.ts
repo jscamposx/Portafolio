@@ -2,6 +2,7 @@ export type ThemePreference = 'light' | 'dark' | 'system';
 
 type ThemeToggleState = {
   mediaListener?: (event: MediaQueryListEvent) => void;
+  mediaCleanup?: () => void;
   outsideClickHandler?: (event: MouseEvent) => void;
   afterSwapHandler?: () => void;
 };
@@ -53,8 +54,8 @@ export const initThemeToggleSystem = () => {
 
   const media = window.matchMedia('(prefers-color-scheme: dark)');
 
-  if (state.mediaListener) {
-    media.removeEventListener('change', state.mediaListener);
+  if (state.mediaCleanup) {
+    state.mediaCleanup();
   }
 
   const applyTheme = (pref?: ThemePreference) => {
@@ -62,6 +63,7 @@ export const initThemeToggleSystem = () => {
     const isDark = preference === 'dark' || (preference === 'system' && media.matches);
 
     document.documentElement.classList.toggle('dark', isDark);
+    document.documentElement.classList.toggle('light', !isDark);
     document.documentElement.dataset.theme = preference;
 
     containers.forEach((container) => updateIcons(container, preference));
@@ -69,8 +71,23 @@ export const initThemeToggleSystem = () => {
   };
 
   const mediaListener = () => applyTheme();
-  media.addEventListener('change', mediaListener);
+
+  const removeMediaListener = (() => {
+    if ('addEventListener' in media) {
+      media.addEventListener('change', mediaListener);
+      return () => media.removeEventListener('change', mediaListener);
+    }
+
+    // Fallback para navegadores que usan addListener/removeListener
+    // (evita errores que detienen la ejecución del resto del script)
+    // @ts-expect-error - compatibilidad heredada
+    media.addListener(mediaListener);
+    // @ts-expect-error - compatibilidad heredada
+    return () => media.removeListener(mediaListener);
+  })();
+
   state.mediaListener = mediaListener;
+  state.mediaCleanup = removeMediaListener;
 
   if (state.outsideClickHandler) {
     document.removeEventListener('click', state.outsideClickHandler);
