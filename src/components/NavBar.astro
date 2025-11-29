@@ -27,9 +27,9 @@ const navLinks = [
     </div>
 
     <!-- Theme toggle -->
-    <div class="relative ml-0.5 sm:ml-1">
+    <div class="relative ml-0.5 sm:ml-1" data-theme-toggle>
       <button
-        id="theme-toggle-btn"
+        data-theme-toggle-btn
         class="appearance-none border-none flex items-center justify-center rounded-full p-1.5 sm:p-2 hover:scale-110 transition-all duration-300 text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-alt)] hover:rotate-12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
         aria-label="Elegir tema"
         title="Cambiar tema"
@@ -37,7 +37,7 @@ const navLinks = [
       >
         <span class="sr-only">Cambiar tema</span>
         <svg
-          id="light"
+          data-theme-icon="light"
           class="theme-toggle-icon size-4 transition-all duration-300"
           width="24"
           height="24"
@@ -56,7 +56,7 @@ const navLinks = [
           ></path>
         </svg>
         <svg
-          id="dark"
+          data-theme-icon="dark"
           class="theme-toggle-icon absolute size-4 transition-all"
           width="24"
           height="24"
@@ -73,7 +73,7 @@ const navLinks = [
           ></path>
         </svg>
         <svg
-          id="system"
+          data-theme-icon="system"
           class="theme-toggle-icon absolute size-4 transition-all"
           width="24"
           height="24"
@@ -94,7 +94,7 @@ const navLinks = [
         </svg>
       </button>
       <div
-        id="themes-menu"
+        data-theme-menu
         class="theme-menu hidden absolute top-9 right-0 text-xs p-1 min-w-[8rem] rounded-md border border-[var(--color-border)] bg-[var(--nav-surface-bg)] backdrop-blur-xl shadow-[0_4px_18px_-4px_rgba(0,0,0,0.35)]"
       >
         <ul class="py-1">
@@ -122,18 +122,20 @@ const navLinks = [
   </nav>
 </header>
 
-<script>
+<script type="module">
+  import { initThemeToggleSystem } from '../scripts/themeToggle';
+
   if (typeof window !== 'undefined') {
     // ================== NAVIGATION ACTIVE STATE ==================
     // Evitar múltiples inicializaciones solo para la navegación
-    if (!(window as any).__navInit) {
-      (window as any).__navInit = true;
+    if (!window.__navInit) {
+      window.__navInit = true;
 
       const STATE = {
-        header: null as HTMLElement | null,
-        hero: null as HTMLElement | null,
-        sections: [] as HTMLElement[],
-        links: [] as HTMLAnchorElement[],
+        header: null,
+        hero: null,
+        sections: [],
+        links: [],
         current: '',
         retries: 0
       };
@@ -143,15 +145,11 @@ const navLinks = [
       const grab = () => {
         STATE.header = document.querySelector('header');
         STATE.hero = document.getElementById('hero');
-        STATE.sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
-          (el): el is HTMLElement => !!el
-        );
-        STATE.links = Array.from(
-          document.querySelectorAll('nav a.nav-link')
-        ) as HTMLAnchorElement[];
+        STATE.sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean);
+        STATE.links = Array.from(document.querySelectorAll('nav a.nav-link'));
       };
 
-      const setActive = (id: string) => {
+      const setActive = (id) => {
         if (id === STATE.current) return;
         STATE.current = id;
         STATE.links.forEach((a) => {
@@ -191,7 +189,7 @@ const navLinks = [
           setActive(STATE.sections[STATE.sections.length - 1].id);
           return;
         }
-        let winner: { id: string; weight: number } | null = null;
+        let winner = null;
         for (const sec of STATE.sections) {
           const r = sec.getBoundingClientRect();
           if (r.bottom < y) continue;
@@ -248,116 +246,6 @@ const navLinks = [
       scheduleRetries();
     }
 
-    // ================== THEME TOGGLE ==================
-    // El tema debe reinicializarse en cada carga de página para funcionar con View Transitions
-    const initTheme = () => {
-      const themesMenu = document.getElementById('themes-menu');
-      const toggleBtn = document.getElementById('theme-toggle-btn');
-      const mm = window.matchMedia('(prefers-color-scheme: dark)');
-      let removeMedia: (() => void) | null = null;
-
-      const getThemePreference = (): 'light' | 'dark' | 'system' => {
-        try {
-          return (localStorage.getItem('theme') as any) || 'system';
-        } catch {
-          return 'system';
-        }
-      };
-      const updateIcon = (pref: string) => {
-        document.querySelectorAll('.theme-toggle-icon').forEach((el) => {
-          (el as HTMLElement).style.scale = el.id === pref ? '1' : '0';
-        });
-        document.querySelectorAll('#themes-menu .themes-menu-option').forEach((opt) => {
-          opt.classList.toggle('active', (opt as HTMLElement).dataset.themeOption === pref);
-        });
-      };
-      const applyTheme = () => {
-        if (removeMedia) removeMedia();
-        mm.addEventListener('change', applyTheme, { once: true });
-        removeMedia = () => mm.removeEventListener('change', applyTheme);
-        const pref = getThemePreference();
-        const isDark = pref === 'dark' || (pref === 'system' && mm.matches);
-        document.documentElement.classList.toggle('dark', isDark);
-        document.documentElement.dataset.theme = pref;
-        updateIcon(pref);
-      };
-      applyTheme();
-
-      // Limpiar listeners anteriores si existen
-      const oldClickHandler = (window as any).__themeClickHandler;
-      if (oldClickHandler) {
-        document.removeEventListener('click', oldClickHandler);
-      }
-
-      // Nuevo handler de click global
-      const clickHandler = (e: MouseEvent) => {
-        if (!themesMenu || !toggleBtn) return;
-        if (themesMenu.contains(e.target as Node) || toggleBtn.contains(e.target as Node)) return;
-        themesMenu.classList.add('hidden');
-        themesMenu.classList.remove('open');
-      };
-      (window as any).__themeClickHandler = clickHandler;
-      document.addEventListener('click', clickHandler);
-
-      // Limpiar listeners del botón anteriores
-      const oldToggleBtnHandler = (window as any).__themeToggleBtnHandler;
-      if (oldToggleBtnHandler && toggleBtn) {
-        toggleBtn.removeEventListener('click', oldToggleBtnHandler);
-      }
-
-      // Nuevo handler del botón
-      const toggleBtnHandler = (e: MouseEvent) => {
-        e.stopPropagation();
-        if (!themesMenu) return;
-        const opening = themesMenu.classList.contains('hidden');
-        themesMenu.classList.toggle('hidden');
-        if (opening) {
-          themesMenu.classList.add('open');
-        } else {
-          themesMenu.classList.remove('open');
-        }
-      };
-      (window as any).__themeToggleBtnHandler = toggleBtnHandler;
-      toggleBtn?.addEventListener('click', toggleBtnHandler);
-
-      // Limpiar listeners de opciones de menú anteriores
-      themesMenu?.querySelectorAll('.themes-menu-option').forEach((opt) => {
-        const oldHandler = (opt as any).__themeOptionHandler;
-        if (oldHandler) {
-          opt.removeEventListener('click', oldHandler);
-        }
-
-        const optionHandler = () => {
-          const pref = (opt as HTMLElement).dataset.themeOption as 'light' | 'dark' | 'system';
-          try {
-            localStorage.setItem('theme', pref);
-          } catch {}
-          applyTheme();
-          themesMenu?.classList.add('hidden');
-          themesMenu?.classList.remove('open');
-        };
-        (opt as any).__themeOptionHandler = optionHandler;
-        opt.addEventListener('click', optionHandler);
-      });
-
-      // Activar transiciones de tema tras primer frame para evitar flash
-      requestAnimationFrame(() => {
-        document.documentElement.classList.remove('pre-theme');
-        document.documentElement.classList.add('theme-transition');
-        // quitar la clase después de un tiempo para no forzar todas las transiciones siempre
-        setTimeout(() => document.documentElement.classList.remove('theme-transition'), 1000);
-      });
-    };
-
-    // Inicializar tema
-    initTheme();
-
-    // Reinicializar tema después de navegaciones
-    document.addEventListener('astro:after-swap', () => {
-      initTheme();
-    });
-
-    // Nota: El atajo de teclado "T" para cambiar el tema ha sido deshabilitado
-    // Los usuarios pueden cambiar el tema usando el botón en la interfaz
+    initThemeToggleSystem();
   }
 </script>
