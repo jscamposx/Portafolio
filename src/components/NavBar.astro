@@ -128,14 +128,14 @@ const navLinks = [
   if (typeof window !== 'undefined') {
     // ================== NAVIGATION ACTIVE STATE ==================
     // Evitar múltiples inicializaciones solo para la navegación
-    if (!(window as any).__navInit) {
-      (window as any).__navInit = true;
+    if (!window.__navInit) {
+      window.__navInit = true;
 
       const STATE = {
-        header: null as HTMLElement | null,
-        hero: null as HTMLElement | null,
-        sections: [] as HTMLElement[],
-        links: [] as HTMLAnchorElement[],
+        header: null,
+        hero: null,
+        sections: [],
+        links: [],
         current: '',
         retries: 0
       };
@@ -145,15 +145,11 @@ const navLinks = [
       const grab = () => {
         STATE.header = document.querySelector('header');
         STATE.hero = document.getElementById('hero');
-        STATE.sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
-          (el): el is HTMLElement => !!el
-        );
-        STATE.links = Array.from(
-          document.querySelectorAll('nav a.nav-link')
-        ) as HTMLAnchorElement[];
+        STATE.sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean);
+        STATE.links = Array.from(document.querySelectorAll('nav a.nav-link'));
       };
 
-      const setActive = (id: string) => {
+      const setActive = (id) => {
         if (id === STATE.current) return;
         STATE.current = id;
         STATE.links.forEach((a) => {
@@ -193,7 +189,7 @@ const navLinks = [
           setActive(STATE.sections[STATE.sections.length - 1].id);
           return;
         }
-        let winner: { id: string; weight: number } | null = null;
+        let winner = null;
         for (const sec of STATE.sections) {
           const r = sec.getBoundingClientRect();
           if (r.bottom < y) continue;
