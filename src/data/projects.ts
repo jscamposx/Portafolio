@@ -30,7 +30,7 @@ export const projects: Project[] = [
       { label: 'Ver sitio', url: 'https://www.viadca.app/' },
       { label: 'Repositorio Backend', url: 'https://github.com/jscamposx/viadca-backv1' }
     ],
-    technologies: ['React', 'NestJS', 'AWS', 'Tailwind CSS'],
+    technologies: ['React', 'NestJS', 'AWS', 'MySQL'],
     sections: [
       {
         heading: 'Reto',
@@ -70,7 +70,7 @@ export const projects: Project[] = [
     accent: '#f97316',
     featured: true,
     links: [{ label: 'Repositorio', url: 'https://github.com/jscamposx/FoodTech' }],
-    technologies: ['PHP', 'Sass', 'AWS', 'HTML'],
+    technologies: ['PHP', 'Sass', 'AWS', 'Laravel', 'MySQL'],
     sections: [
       {
         heading: 'Reto',
@@ -87,8 +87,8 @@ export const projects: Project[] = [
     ]
   },
   {
-    slug: 'sitio-marca-lumen',
-    title: 'Arauco - Portal de egresados',
+    slug: 'dual-point',
+    title: 'Dual Point - Portal de egresados',
     description:
       'Portal de egresados que redujo la carga administrativa en 50% mediante automatización de procesos y gestión de datos.',
     year: 2023,
@@ -102,7 +102,7 @@ export const projects: Project[] = [
     sections: [
       {
         heading: 'Reto',
-        body: 'Arauco necesitaba un portal de egresados que automatizara procesos administrativos manuales, reduciendo tiempos de gestión y mejorando la comunicación con ex-alumnos.'
+        body: 'Dual Point necesitaba un portal de egresados que automatizara procesos administrativos manuales, reduciendo tiempos de gestión y mejorando la comunicación con ex-alumnos.'
       },
       {
         heading: 'Enfoque',
