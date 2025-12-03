@@ -11,6 +11,8 @@ import SassIcon from '../../public/icons/Sass.astro';
 import HTMLIcon from '../../public/icons/HTML.astro';
 import VueIcon from '../../public/icons/Vue.astro';
 import MongoDBIcon from '../../public/icons/MongoDB.astro';
+import MySQLIcon from '../../public/icons/MySQL.astro';
+import LaravelIcon from '../../public/icons/Laravel.astro';
 
 interface Props {
   name: string;
@@ -84,6 +86,16 @@ const techConfig: Record<string, { Component: any; color: string; displayName: s
     Component: MongoDBIcon,
     color: '#4caf50',
     displayName: 'MongoDB'
+  },
+  mysql: {
+    Component: MySQLIcon,
+    color: '#00618A',
+    displayName: 'MySQL'
+  },
+  laravel: {
+    Component: LaravelIcon,
+    color: '#F05340',
+    displayName: 'Laravel'
   }
 };
 
